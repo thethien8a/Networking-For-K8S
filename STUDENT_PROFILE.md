@@ -15,21 +15,19 @@
 
 | Nội dung | Hiện trạng |
 |---|---|
-| Kinh nghiệm Linux CLI và quyền sudo trong lab riêng | Chưa xác nhận |
-| Kinh nghiệm kubectl/Pod/Deployment/Service | Chưa xác nhận |
-| OrbStack/kind đã cài và đang chạy hay chỉ là kế hoạch | Chưa xác nhận |
-| Có Ubuntu lab riêng cho netns/firewall không | Chưa xác nhận |
+| Kinh nghiệm Linux CLI và quyền sudo trong lab riêng | Thành thục mức cơ bản (học viên xác nhận 2026-10-24) |
+| Kinh nghiệm kubectl/Pod/Deployment/Service | Thành thục mức cơ bản (học viên xác nhận 2026-10-24) |
+| Môi trường lab được chọn | Windows 11 + WSL2 (học viên xác nhận 2026-10-24) |
+| Có Ubuntu lab riêng cho netns/firewall không | Đang kiểm tra hiện trạng WSL2 (mới có docker-desktop, chưa có distro Ubuntu) |
 | Thời gian thực tế mỗi phiên và nhịp học mong muốn | Chưa xác nhận |
 | Kiểu giải thích hữu ích nhất: sơ đồ, ví dụ, thực hành | Chưa xác nhận |
 | Hạn chế bảo mật khi lưu/chia sẻ output | Chưa xác nhận |
 
 ## Kiến thức đã được kiểm chứng
 
-Chưa có đánh giá đầu vào hoặc phiên học nào được ghi nhận. Không coi các mục tiêu của khóa học là kỹ năng đã có.
-
 | Năng lực | Bằng chứng / ghi chú | Ngày xác nhận |
 |---|---|---|
-| — | — | — |
+| Khái niệm cơ bản IP/Port, container localhost, DNS resolution | Trả lời chính xác 3 câu hỏi đầu vào bài 00 | 2026-10-24 |
 
 ## Điều chỉnh cách dạy
 

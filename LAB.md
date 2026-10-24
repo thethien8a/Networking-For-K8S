@@ -4,8 +4,8 @@
 
 | Môi trường | Mục đích | Giới hạn |
 |---|---|---|
-| macOS Apple Silicon + OrbStack + kind | Client và Kubernetes lab cá nhân; hướng tới 1 control-plane + 2 worker | Node kind là container, không tương đương 4 VM thật; khả năng truy cập Node IP từ Mac phải đo |
-| Ubuntu Linux lab riêng | `ip netns`, veth, bridge, route, forwarding, firewall | Cần Linux kernel, công cụ và quyền phù hợp; không dùng runtime VM chia sẻ làm lab phá lỗi |
+| Windows 11 + WSL2 + kind | Client và Kubernetes lab cá nhân; hướng tới 1 control-plane + 2 worker | Node kind là container trong Docker/WSL2; kiểm tra khả năng port mapping/reachability từ Windows |
+| Ubuntu Linux lab riêng (WSL2 Ubuntu) | `ip netns`, veth, bridge, route, forwarding, firewall | Cần Linux kernel, công cụ và quyền phù hợp; không dùng runtime VM chia sẻ làm lab phá lỗi |
 | 4 Ubuntu 22.04 VM công ty trên VMware | Khảo sát có phép, thiết kế 1 control-plane + 3 worker, readiness report | Chỉ có quyền trong guest theo đề cương; không có quyền vSwitch/VLAN/vSphere; không fault injection |
 
 ## 2. Inventory thực tế
@@ -14,17 +14,17 @@
 
 | Thuộc tính | Giá trị đã xác minh | Bằng chứng / ngày |
 |---|---|---|
-| Máy thực thi, OS/architecture, hostname | Chưa xác minh | — |
-| Linux lab riêng và đường truy cập/console | Chưa xác minh | — |
-| Runtime và phiên bản | Chưa xác minh | — |
-| kind / kubectl client / Kubernetes server version | Chưa xác minh | — |
-| Tên cluster, current-context, namespace học | Chưa xác minh | — |
+| Máy thực thi, OS/architecture, hostname | Windows 11 (WSL2 enabled) | `wsl -l -v` / 2026-10-24 |
+| Linux lab riêng và đường truy cập/console | Hiện có `docker-desktop` distro trong WSL2; cần cài thêm Ubuntu distro cho bài 09+ | `wsl -l -v` / 2026-10-24 |
+| Runtime và phiên bản | Docker Desktop (WSL2 backend) | `docker.exe` trên PATH / 2026-10-24 |
+| kind / kubectl client / Kubernetes server version | `kubectl.exe` đã có; `kind` chưa cài | CLI check / 2026-10-24 |
+| Tên cluster, current-context, namespace học | Chưa xác minh (chưa tạo cluster) | — |
 | Nodes, vai trò, IP, Pod CIDR | Chưa xác minh | — |
 | CNI, phiên bản, khả năng NetworkPolicy | Chưa xác minh | — |
 | Service proxy/data plane thực dùng | Chưa xác minh | — |
 | Service CIDR, cluster DNS suffix, DNS Service IP | Chưa xác minh | — |
 | Ingress/LoadBalancer controller nếu có | Chưa xác minh | — |
-| Công cụ Linux và quyền quan sát/capture | Chưa xác minh | — |
+| Công cụ Linux và quyền quan sát/capture | Windows host có sẵn `python.exe`, `curl`, `kubectl.exe` | CLI check / 2026-10-24 |
 | Client nào truy cập được node/cluster, port mapping | Chưa xác minh | — |
 | Spark version/deploy mode/image khi đến bài 27 | Chưa xác minh | — |
 
@@ -56,7 +56,7 @@ Bộ công cụ tham chiếu, chỉ chuẩn bị khi đến bài cần dùng:
 - **Thay route/interface/firewall khi đang SSH:** chỉ làm trên lab riêng, có console dự phòng, quyền được chấp thuận và rollback đã chuẩn bị. Nếu thiếu một điều kiện, dừng; không sửa mạng để “thử xem”.
 - **VM công ty/cluster chia sẻ:** không tạo lỗi, không đổi CNI, không chặn port, không flush firewall. Thay đổi guest cũng phải được phê duyệt riêng; việc học không cấp quyền đó.
 - **Hạ tầng ngoài guest:** không nhận quyền admin Ubuntu là quyền thay vSwitch/VLAN/address pool. Đưa yêu cầu qua nhóm VMware/network.
-- Không dùng `iptables -F`, xóa toàn bộ nft ruleset, xóa route mặc định hoặc xóa hàng loạt namespace/cluster làm cách reset bài.
+- **Không dùng `iptables -F`**, xóa toàn bộ nft ruleset, xóa route mặc định hoặc xóa hàng loạt namespace/cluster làm cách reset bài.
 - Cài CNI hỗ trợ policy, Ingress Controller hoặc MetalLB phải là quyết định riêng trên cluster lab phù hợp. Không thay CNI tại chỗ chỉ để vượt một bài học.
 
 ## 5. Rollback và dọn dẹp
