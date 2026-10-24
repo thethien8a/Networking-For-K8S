@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 2/56, không tính bài 00.
+- **Bài chính đã đạt:** 3/56, không tính bài 00.
 - **Checkpoint đã đạt:** 0/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [02a — IPv4 và CIDR](lesson/02a-ipv4-va-cidr.md).
-- **Bước đang dừng:** Hoàn thành bài 01b; chuẩn bị vào bài 02a.
-- **Bước tiếp theo:** [02a — IPv4 và CIDR](lesson/02a-ipv4-va-cidr.md), tính network ID, broadcast, số host khả dụng và prefix length.
-- **Bằng chứng/notes gần nhất:** [notes/01b.md](notes/01b.md).
-- **Blocker đã xác nhận:** Không có blocker cho 02a.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn (đã dừng HTTP server).
+- **Bài đang học:** [02b — IP plan 4 VM và prefix](lesson/02b-ip-plan-va-prefix.md).
+- **Bước đang dừng:** Đã lập IP plan minh họa cho 4 VM và gateway; dự đoán đúng hai chiều của case A `10.20.30.50/27`, B `10.20.30.35/29` sau hướng dẫn tính subnet. Chưa quan sát route/ARP thực tế.
+- **Bước tiếp theo:** Tiếp tục [02b](lesson/02b-ip-plan-va-prefix.md): giải thích tối thiểu MAC/ARP, dự đoán mỗi phía cần tìm MAC của IP nào, rồi preflight lab cô lập để đối chứng prefix nhất quán/không nhất quán.
+- **Bằng chứng/notes gần nhất:** [notes/02b.md](notes/02b.md).
+- **Blocker đã xác nhận:** Chưa có; môi trường thực nghiệm route/ARP cho 02b chưa được preflight.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-24
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -40,8 +40,8 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 |---|---|---|---|---|
 | 01a | [HTTP request và endpoint](lesson/01a-http-request-va-endpoint.md) | dat | 2026-10-24 | [notes/01a.md](notes/01a.md) |
 | 01b | [Loopback và listen address](lesson/01b-loopback-va-listen-address.md) | dat | 2026-10-24 | [notes/01b.md](notes/01b.md) |
-| 02a | [IPv4 và CIDR](lesson/02a-ipv4-va-cidr.md) | chua-hoc | — | — |
-| 02b | [IP plan 4 VM và prefix](lesson/02b-ip-plan-va-prefix.md) | chua-hoc | — | — |
+| 02a | [IPv4 và CIDR](lesson/02a-ipv4-va-cidr.md) | dat | 2026-10-24 | [notes/02a.md](notes/02a.md) |
+| 02b | [IP plan 4 VM và prefix](lesson/02b-ip-plan-va-prefix.md) | dang-hoc | 2026-10-24 | [notes/02b.md](notes/02b.md); có IP plan và dự đoán trên giấy, còn quan sát route/ARP, đối chứng và review độc lập |
 | 03a | [Ethernet, MAC, ARP](lesson/03a-ethernet-mac-arp.md) | chua-hoc | — | — |
 | 03b | [Neighbor cache và gateway](lesson/03b-neighbor-cache-va-gateway.md) | chua-hoc | — | — |
 | 04a | [Routing table](lesson/04a-routing-table.md) | chua-hoc | — | — |
@@ -132,3 +132,5 @@ Chưa có blocker được xác nhận. Chỉ thêm sau preflight hoặc khi h�
 | 2026-10-24 13:05 | 00 / 15 phút | Đạt bài 00: đánh giá đầu vào, xác nhận WSL2 lab, inventory công cụ [notes/00.md](notes/00.md) | Tự làm / không gợi ý | Bắt đầu bài 01a |
 | 2026-10-24 13:20 | 01a / 25 phút | Đạt bài 01a: endpoint (IP:port), ephemeral port, demultiplexing, đối chứng connection refused [notes/01a.md](notes/01a.md) | Giải thích demultiplexing | Bắt đầu bài 01b |
 | 2026-10-24 15:15 | 01b / 25 phút | Đạt bài 01b: loopback vs IP interface vs wildcard 0.0.0.0, giải quyết case container k8s bind localhost [notes/01b.md](notes/01b.md) | Đối chứng bind loopback vs wildcard | Bắt đầu bài 02a |
+| 2026-10-24 17:20 | 02a / 30 phút | Đạt bài 02a: CIDR /27, network/broadcast/usable range, subnet mask, RFC 1918 [notes/02a.md](notes/02a.md) | Giải thích mô hình con đường / con ngõ | Bắt đầu bài 02b |
+| 2026-10-24 21:29 | 02b / đang học, chưa chốt thời lượng | Lưu mốc: có IP plan, dự đoán đúng A gửi trực tiếp và B chọn gateway; chưa có thực nghiệm [notes/02b.md](notes/02b.md) | Hướng dẫn tính `/29` từng bước và xét riêng từng chiều; chưa xem trọn lời giải trước khi trả lời | Dự đoán ARP, preflight và quan sát lab cô lập |
