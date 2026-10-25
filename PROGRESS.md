@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 6/56, không tính bài 00.
-- **Checkpoint đã đạt:** 0/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [04a — Đọc routing table](lesson/04a-routing-table.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 03b (`dat`): học viên tự dự đoán và đo kiểm tra luồng cùng subnet vs ngoài subnet (Gateway), phân biệt End-to-End L3 IP và Hop-by-Hop L2 MAC, tự xóa đơn lẻ 1 neighbor entry (`ip neigh del`), tự bắt gói ARP/ICMP qua tcpdump và phân tích lỗi L2 `FAILED` trong Break & Fix. LLM đã tự động dọn dẹp sạch toàn bộ tài nguyên lab 03b.
-- **Bước tiếp theo:** Bắt đầu bài [04a — Đọc routing table](lesson/04a-routing-table.md).
-- **Bằng chứng/notes gần nhất:** [notes/03b.md](notes/03b.md); bài trước: [notes/03a.md](notes/03a.md).
+- **Bài chính đã đạt:** 8/56, không tính bài 00.
+- **Checkpoint đã đạt:** 1/7, gồm CP1–CP6 và Final.
+- **Bài đang học:** [05a — Port, socket, TCP/UDP](lesson/05a-port-socket-tcp-udp.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành xuất sắc bài 04b và Cổng đánh giá CP1 (`dat`): học viên tự chẩn đoán và khắc phục sự cố Route Shadowing trong lab, dùng `ip route get` (L3) và `ip neigh` (L2 FAILED) để bắt bệnh, tính chuẩn subnet /26, nắm chắc L3 IP end-to-end vs L2 MAC hop-by-hop, nêu đúng 3 lý do mất liên lạc giữa các IP hợp lệ. LLM đã tự động dọn sạch lab.
+- **Bước tiếp theo:** Bắt đầu bài [05a — Port, socket, TCP/UDP](lesson/05a-port-socket-tcp-udp.md).
+- **Bằng chứng/notes gần nhất:** [notes/04b.md](notes/04b.md); bài trước: [notes/04a.md](notes/04a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa 2 container `nfk-03b-a/b`, xóa network `nfk-03b`, xóa image `nfk-03b-tools:local` và đã xác minh sạch sẽ qua CLI.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa container `nfk-04b-troubleshoot`, xóa network `nfk-04b` và đã xác minh sạch sẽ qua CLI.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-25
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -44,8 +44,8 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 02b | [IP plan 4 VM và prefix](lesson/02b-ip-plan-va-prefix.md) | dat | 2026-10-25 | [notes/02b.md](notes/02b.md); đủ IP plan, giải thích và route/ARP thực tế; review đã sửa đúng, hoàn nguyên và cleanup xong; bỏ 3/2/1 theo yêu cầu kết thúc |
 | 03a | [Ethernet, MAC, ARP](lesson/03a-ethernet-mac-arp.md) | dat | 2026-10-25 | [notes/03a.md](notes/03a.md); học viên tự thao tác: xác nhận context, đọc IP/MAC/cache, tự capture/ping thực tế, đối chứng cache tái dùng và NUD probe, review đúng switch L2 và gateway next hop |
 | 03b | [Neighbor cache và gateway](lesson/03b-neighbor-cache-va-gateway.md) | dat | 2026-10-25 | [notes/03b.md](notes/03b.md); đối chứng IP đích cuối vs MAC gateway, tự xóa 1 entry lab không flush cả bảng, tự capture tcpdump thấy ARP broadcast trước ICMP, phân tích FAILED L2; LLM đã cleanup toàn bộ |
-| 04a | [Routing table](lesson/04a-routing-table.md) | chua-hoc | — | — |
-| 04b | [Lỗi routing và CP1](lesson/04b-route-fault-va-cp1.md) | chua-hoc | — | — |
+| 04a | [Routing table](lesson/04a-routing-table.md) | dat | 2026-10-25 | [notes/04a.md](notes/04a.md); học viên tự đọc connected/default route, dự đoán và đo khớp 5/5 đích qua ip route get (lo cho chính mình, direct on-link, via gateway), giải đúng 5/5 LPM prefix chồng lấn; LLM đã dọn dẹp lab |
+| 04b | [Lỗi routing và CP1](lesson/04b-route-fault-va-cp1.md) | dat | 2026-10-25 | [notes/04b.md](notes/04b.md); học viên tự dùng ip route get và ip neigh phát hiện route shadowing và ARP FAILED, xóa route lỗi tối thiểu và đối chứng phục hồi; hoàn thành 4/4 tiêu chí CP1 (subnet /26, L2 MAC vs L3 IP, 3 nguyên nhân mất kết nối); lab đã dọn dẹp sạch |
 | 05a | [Port, socket, TCP/UDP](lesson/05a-port-socket-tcp-udp.md) | chua-hoc | — | — |
 | 05b | [TCP handshake](lesson/05b-tcp-handshake.md) | chua-hoc | — | — |
 | 06a | [Refused, timeout, reset](lesson/06a-refused-timeout-reset.md) | chua-hoc | — | — |
@@ -101,7 +101,7 @@ Không tự đánh dấu cổng đạt chỉ vì bài cuối giai đoạn đã `
 
 | Cổng | Sau bài | Tiêu chí | Trạng thái | Ngày đánh giá | Bằng chứng / phần cần làm lại |
 |---|---|---|---|---|---|
-| CP1 | 04b | [IP, ARP, routing](CHECKPOINTS.md#cp1--sau-04b) | chua-hoc | — | — |
+| CP1 | 04b | [IP, ARP, routing](CHECKPOINTS.md#cp1--sau-04b) | dat | 2026-10-25 | Đạt toàn bộ tiêu chí CP1: tính đúng subnet /26, phân loại 4 host; giải thích đúng L3 IP end-to-end vs L2 MAC hop-by-hop; bắt bệnh thực tế trong lab với ip route get và ip neigh FAILED; nêu đúng 3 lý do mất kết nối giữa IP hợp lệ [notes/04b.md](notes/04b.md) |
 | CP2 | 08b | [DNS/TCP/HTTP/TLS, NAT](CHECKPOINTS.md#cp2--sau-08b) | chua-hoc | — | — |
 | CP3 | 12b | [Linux router/firewall, capture, rollback](CHECKPOINTS.md#cp3--sau-12b) | chua-hoc | — | — |
 | CP4 | 16b | [Cross-node theo CNI thật](CHECKPOINTS.md#cp4--sau-16b) | chua-hoc | — | — |
@@ -148,3 +148,5 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-10-25 13:40 | 03a / điều chỉnh cách thực hành theo phản hồi | Học viên yêu cầu được hướng dẫn tự làm, không để LLM chạy hết lab. Phân loại output trước là demo do LLM thực hiện, giữ dự đoán/chọn interface đúng [notes/03a.md](notes/03a.md) | LLM nhận đã làm thay; dừng tự chạy lệnh lab, lưu sở thích đã xác nhận trong hồ sơ | Học viên tự xác nhận hostname/context rồi thực hành từng bước; LLM chờ output |
 | 2026-10-25 15:00 | 03a / hoàn thành thực hành tự chủ (45 phút) | Đạt bài 03a: học viên tự chạy preflight, đọc L2/L3 A và B, tự bật tcpdump và ping đối chứng neighbor cache, NUD probe; giải thích switch L2 và gateway next hop [notes/03a.md](notes/03a.md) | Gợi ý NUD probe và chuyển tiếp L2 switch | Bắt đầu bài 03b |
 | 2026-10-25 15:35 | 03b / 25 phút | Đạt bài 03b: học viên tự dự đoán và đo kiểm IP đích cuối vs MAC gateway, xóa 1 neighbor entry lab không flush bảng, tự capture ARP request/reply trước ICMP, phân tích lỗi L2 FAILED [notes/03b.md](notes/03b.md) | Hint 1 (học viên tự trả lời đúng và thực hiện độc lập) | Bắt đầu bài 04a |
+| 2026-10-25 16:50 | 04a / 30 phút | Đạt bài 04a: đọc routing table, dự đoán & đối chứng khớp 5/5 đích với ip route get, giải đúng 5/5 LPM prefix chồng lấn Kubernetes, phân biệt có route vs reachability [notes/04a.md](notes/04a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 04b |
+| 2026-10-25 19:25 | 04b + CP1 / 40 phút | Đạt bài 04b và hoàn thành Cổng đánh giá CP1: học viên tự chạy chẩn đoán, phát hiện lỗi route shadowing và L2 ARP FAILED, sửa tối thiểu và đối chứng; vượt qua toàn bộ câu hỏi CP1 [notes/04b.md](notes/04b.md) | Gợi ý mô hình bưu cục / thư bưu điện cho L2 MAC vs L3 IP | Bắt đầu bài 05a |
