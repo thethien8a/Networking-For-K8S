@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 10/56, không tính bài 00.
+- **Bài chính đã đạt:** 11/56, không tính bài 00.
 - **Checkpoint đã đạt:** 1/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [06a — Refused, timeout và reset](lesson/06a-refused-timeout-reset.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành xuất sắc bài 05b (`dat`): học viên tự bắt gói và đọc chuẩn 3 cờ SYN, SYN-ACK, ACK của TCP 3-way handshake, đối chứng với port đóng nhận cờ RST-ACK sau 13 micro-giây dẫn tới Connection refused; giải thích chính xác tư duy triage Kubernetes (gói tin đã tới đích, lỗi do process trong Pod đích chứ không phải hạ tầng mạng). LLM đã tự động dọn sạch lab 05b.
-- **Bước tiếp theo:** Bắt đầu bài [06a — Refused, timeout và reset](lesson/06a-refused-timeout-reset.md).
-- **Bằng chứng/notes gần nhất:** [notes/05b.md](notes/05b.md); bài trước: [notes/05a.md](notes/05a.md).
+- **Bài đang học:** [06b — Timeout, retry và điều tra](lesson/06b-timeout-retry-va-dieu-tra.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành xuất sắc bài 06a (`dat`): học viên tự phân biệt 3 triệu chứng mạng Refused, Timeout, Reset qua lăng kính timing, socket `ss`, và firewall `iptables DROP`; thực hiện control test gỡ DROP chuyển thành Refused tức thì; giải thích chính xác 100% case triage Kubernetes Spark Driver ↔ PostgreSQL (NetworkPolicy DROP, Postgres chưa listen, OOMKilled crash). LLM đã tự động dọn sạch lab 06a.
+- **Bước tiếp theo:** Bắt đầu bài [06b — Timeout, retry và điều tra](lesson/06b-timeout-retry-va-dieu-tra.md).
+- **Bằng chứng/notes gần nhất:** [notes/06a.md](notes/06a.md); bài trước: [notes/05b.md](notes/05b.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa 2 container `nfk-05b-server`, `nfk-05b-client`, xóa network `nfk-05b` và đã xác minh sạch sẽ qua CLI.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-25
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa 2 container `nfk-06a-server`, `nfk-06a-client`, xóa network `nfk-06a` và đã xác minh sạch sẽ qua CLI.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-26
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -48,7 +48,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 04b | [Lỗi routing và CP1](lesson/04b-route-fault-va-cp1.md) | dat | 2026-10-25 | [notes/04b.md](notes/04b.md); học viên tự dùng ip route get và ip neigh phát hiện route shadowing và ARP FAILED, xóa route lỗi tối thiểu và đối chứng phục hồi; hoàn thành 4/4 tiêu chí CP1 (subnet /26, L2 MAC vs L3 IP, 3 nguyên nhân mất kết nối); lab đã dọn dẹp sạch |
 | 05a | [Port, socket, TCP/UDP](lesson/05a-port-socket-tcp-udp.md) | dat | 2026-10-25 | [notes/05a.md](notes/05a.md); học viên tự mở listener và nối 2 client, quan sát 4-tuple và ephemeral port, đối chứng TCP vs UDP cùng port 9000, kiểm chứng UNCONN và nhận dữ liệu; trả lời đúng case Spark; LLM đã cleanup toàn bộ |
 | 05b | [TCP handshake](lesson/05b-tcp-handshake.md) | dat | 2026-10-25 | [notes/05b.md](notes/05b.md); học viên tự bắt capture SYN/SYN-ACK/ACK khi port mở, đối chứng RST-ACK tức thì khi port đóng gây connection refused; phân tích đúng root cause triage Kubernetes; LLM đã cleanup toàn bộ |
-| 06a | [Refused, timeout, reset](lesson/06a-refused-timeout-reset.md) | chua-hoc | — | — |
+| 06a | [Refused, timeout, reset](lesson/06a-refused-timeout-reset.md) | dat | 2026-10-26 | [notes/06a.md](notes/06a.md); học viên phân biệt rõ 3 triệu chứng Timeout (DROP), Refused (port đóng), Reset (xé kết nối); phân biệt FIN vs RST vs Im lặng; control test gỡ DROP thành công; trả lời đúng 3/3 case K8s triage; LLM đã dọn dẹp sạch lab |
 | 06b | [Timeout, retry và điều tra](lesson/06b-timeout-retry-va-dieu-tra.md) | chua-hoc | — | — |
 | 07a | [Resolver và DNS records](lesson/07a-resolver-va-dns-records.md) | chua-hoc | — | — |
 | 07b | [IP được, hostname lỗi](lesson/07b-ip-duoc-hostname-loi.md) | chua-hoc | — | — |
@@ -152,3 +152,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-10-25 19:25 | 04b + CP1 / 40 phút | Đạt bài 04b và hoàn thành Cổng đánh giá CP1: học viên tự chạy chẩn đoán, phát hiện lỗi route shadowing và L2 ARP FAILED, sửa tối thiểu và đối chứng; vượt qua toàn bộ câu hỏi CP1 [notes/04b.md](notes/04b.md) | Gợi ý mô hình bưu cục / thư bưu điện cho L2 MAC vs L3 IP | Bắt đầu bài 05a |
 | 2026-10-25 22:58 | 05a / 40 phút | Đạt bài 05a: học viên tự thao tác đo 4-tuple TCP, phân biệt Listen vs Connected socket, đối chứng UDP UNCONN và không gian port độc lập cùng port 9000; giải đúng 100% case Spark Master/Executor [notes/05a.md](notes/05a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 05b |
 | 2026-10-25 23:26 | 05b / 20 phút | Đạt bài 05b: bắt gói và phân tích TCP 3-way handshake (SYN, SYN-ACK, ACK), đối chứng cờ RST khi port đóng; phân biệt rạch ròi network reachability vs process listening [notes/05b.md](notes/05b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 06a |
+| 2026-10-26 00:20 | 06a / 40 phút | Đạt bài 06a: phân biệt Refused, Timeout, Reset qua timing, ss và iptables DROP; đối chứng control test gỡ DROP thành Refused; trả lời đúng 100% case K8s triage Spark/Postgres [notes/06a.md](notes/06a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 06b |
