@@ -31,4 +31,9 @@
 
 ## Điều chỉnh cách dạy
 
-Chưa có điều chỉnh ngoài phương pháp trong giáo trình. Ghi ở đây các sở thích đã xác nhận, khó khăn lặp lại và cách giải thích hiệu quả; trạng thái bài học vẫn chỉ lưu trong [PROGRESS.md](PROGRESS.md).
+- **Học viên tự thao tác lab, LLM hướng dẫn thay vì làm hộ** — xác nhận ngày 2026-10-25 qua phản hồi: “nhẽ ra làm lab bạn phải hướng dẫn tôi làm chứ không phải bạn làm hết cho tôi thế”.
+- Đưa từng bước ngắn, giải thích mục tiêu/lệnh cần thiết, chờ học viên chạy và gửi output rồi mới tiếp tục. Không tự chạy thay các bước thực hành của bài học (ping, capture, route, fault injection...).
+- **LLM tự chịu trách nhiệm dọn dẹp lab (cleanup / rollback)** — xác nhận ngày 2026-10-25 qua phản hồi: “công việc dọn dẹp lab bạn phải tự làm chứ, ghi nhớ nhé”. Cuối mỗi bài học hoặc khi hoàn nguyên bài lab, LLM tự động thực thi các lệnh dọn dẹp tài nguyên bài lab tạo ra (container, network, image tạm...) và xác minh đã dọn sạch, không bắt học viên phải chạy lệnh cleanup.
+- Tách riêng bằng chứng trình diễn do LLM tạo với bằng chứng học viên tự thao tác. Giữ kết quả dự đoán/giải thích đúng của học viên, nhưng không dùng output LLM chạy thay để khẳng định học viên đã tự thực hành.
+
+Trạng thái bài học vẫn chỉ lưu trong [PROGRESS.md](PROGRESS.md).

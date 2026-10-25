@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 3/56, không tính bài 00.
+- **Bài chính đã đạt:** 6/56, không tính bài 00.
 - **Checkpoint đã đạt:** 0/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [02b — IP plan 4 VM và prefix](lesson/02b-ip-plan-va-prefix.md).
-- **Bước đang dừng:** Đã lập IP plan minh họa cho 4 VM và gateway; dự đoán đúng hai chiều của case A `10.20.30.50/27`, B `10.20.30.35/29` sau hướng dẫn tính subnet. Chưa quan sát route/ARP thực tế.
-- **Bước tiếp theo:** Tiếp tục [02b](lesson/02b-ip-plan-va-prefix.md): giải thích tối thiểu MAC/ARP, dự đoán mỗi phía cần tìm MAC của IP nào, rồi preflight lab cô lập để đối chứng prefix nhất quán/không nhất quán.
-- **Bằng chứng/notes gần nhất:** [notes/02b.md](notes/02b.md).
-- **Blocker đã xác nhận:** Chưa có; môi trường thực nghiệm route/ARP cho 02b chưa được preflight.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-24
+- **Bài đang học:** [04a — Đọc routing table](lesson/04a-routing-table.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 03b (`dat`): học viên tự dự đoán và đo kiểm tra luồng cùng subnet vs ngoài subnet (Gateway), phân biệt End-to-End L3 IP và Hop-by-Hop L2 MAC, tự xóa đơn lẻ 1 neighbor entry (`ip neigh del`), tự bắt gói ARP/ICMP qua tcpdump và phân tích lỗi L2 `FAILED` trong Break & Fix. LLM đã tự động dọn dẹp sạch toàn bộ tài nguyên lab 03b.
+- **Bước tiếp theo:** Bắt đầu bài [04a — Đọc routing table](lesson/04a-routing-table.md).
+- **Bằng chứng/notes gần nhất:** [notes/03b.md](notes/03b.md); bài trước: [notes/03a.md](notes/03a.md).
+- **Blocker đã xác nhận:** Không có blocker.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa 2 container `nfk-03b-a/b`, xóa network `nfk-03b`, xóa image `nfk-03b-tools:local` và đã xác minh sạch sẽ qua CLI.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-25
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -41,9 +41,9 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 01a | [HTTP request và endpoint](lesson/01a-http-request-va-endpoint.md) | dat | 2026-10-24 | [notes/01a.md](notes/01a.md) |
 | 01b | [Loopback và listen address](lesson/01b-loopback-va-listen-address.md) | dat | 2026-10-24 | [notes/01b.md](notes/01b.md) |
 | 02a | [IPv4 và CIDR](lesson/02a-ipv4-va-cidr.md) | dat | 2026-10-24 | [notes/02a.md](notes/02a.md) |
-| 02b | [IP plan 4 VM và prefix](lesson/02b-ip-plan-va-prefix.md) | dang-hoc | 2026-10-24 | [notes/02b.md](notes/02b.md); có IP plan và dự đoán trên giấy, còn quan sát route/ARP, đối chứng và review độc lập |
-| 03a | [Ethernet, MAC, ARP](lesson/03a-ethernet-mac-arp.md) | chua-hoc | — | — |
-| 03b | [Neighbor cache và gateway](lesson/03b-neighbor-cache-va-gateway.md) | chua-hoc | — | — |
+| 02b | [IP plan 4 VM và prefix](lesson/02b-ip-plan-va-prefix.md) | dat | 2026-10-25 | [notes/02b.md](notes/02b.md); đủ IP plan, giải thích và route/ARP thực tế; review đã sửa đúng, hoàn nguyên và cleanup xong; bỏ 3/2/1 theo yêu cầu kết thúc |
+| 03a | [Ethernet, MAC, ARP](lesson/03a-ethernet-mac-arp.md) | dat | 2026-10-25 | [notes/03a.md](notes/03a.md); học viên tự thao tác: xác nhận context, đọc IP/MAC/cache, tự capture/ping thực tế, đối chứng cache tái dùng và NUD probe, review đúng switch L2 và gateway next hop |
+| 03b | [Neighbor cache và gateway](lesson/03b-neighbor-cache-va-gateway.md) | dat | 2026-10-25 | [notes/03b.md](notes/03b.md); đối chứng IP đích cuối vs MAC gateway, tự xóa 1 entry lab không flush cả bảng, tự capture tcpdump thấy ARP broadcast trước ICMP, phân tích FAILED L2; LLM đã cleanup toàn bộ |
 | 04a | [Routing table](lesson/04a-routing-table.md) | chua-hoc | — | — |
 | 04b | [Lỗi routing và CP1](lesson/04b-route-fault-va-cp1.md) | chua-hoc | — | — |
 | 05a | [Port, socket, TCP/UDP](lesson/05a-port-socket-tcp-udp.md) | chua-hoc | — | — |
@@ -111,15 +111,15 @@ Không tự đánh dấu cổng đạt chỉ vì bài cuối giai đoạn đã `
 
 ## Hàng đợi ôn tập
 
-Chưa có nội dung được đánh giá cần ôn. Khi có, ghi một câu hỏi/phép thử cụ thể; ngày ôn là gợi ý được học viên đồng ý, không phải lịch tự động.
+Điểm chọn gateway trong review 02b đã được làm lại đúng sau phản hồi; giữ kết quả bên dưới, chưa hẹn ngày ôn. Ngày ôn là gợi ý được học viên đồng ý, không phải lịch tự động.
 
 | Bài/năng lực | Điểm cần ôn | Phép thử lại / bằng chứng cần có | Ngày ôn dự kiến | Kết quả / link notes |
 |---|---|---|---|---|
-| — | — | — | — | — |
+| 02b — gateway trực tiếp | C `.70/27`: tính đúng `.64–.95` nhưng chấp nhận gateway `.62` ngoài subnet trong mô hình không có route đặc biệt | Đề xuất một IP gateway phù hợp, khác IP C, và giải thích bằng dải subnet | — | Đã tự chọn đúng `.77` sau phản hồi, lý do cùng subnet; 2026-10-25 00:33 [notes/02b.md](notes/02b.md) |
 
 ## Blocker và việc cần chuẩn bị
 
-Chưa có blocker được xác nhận. Chỉ thêm sau preflight hoặc khi học thực tế, kèm môi trường cụ thể, điều kiện gỡ và bước hành động tiếp theo; không ghi thiếu quyền công ty thành lý do bắt buộc xin thêm quyền để học.
+Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ bằng việc học viên mở Docker Desktop và kiểm tra lại; giữ bằng chứng thất bại/thành công trong [notes 03a](notes/03a.md).
 
 | Bài | Blocker thực tế | Điều kiện gỡ | Bước tiếp / người xử lý |
 |---|---|---|---|
@@ -133,4 +133,18 @@ Chưa có blocker được xác nhận. Chỉ thêm sau preflight hoặc khi h�
 | 2026-10-24 13:20 | 01a / 25 phút | Đạt bài 01a: endpoint (IP:port), ephemeral port, demultiplexing, đối chứng connection refused [notes/01a.md](notes/01a.md) | Giải thích demultiplexing | Bắt đầu bài 01b |
 | 2026-10-24 15:15 | 01b / 25 phút | Đạt bài 01b: loopback vs IP interface vs wildcard 0.0.0.0, giải quyết case container k8s bind localhost [notes/01b.md](notes/01b.md) | Đối chứng bind loopback vs wildcard | Bắt đầu bài 02a |
 | 2026-10-24 17:20 | 02a / 30 phút | Đạt bài 02a: CIDR /27, network/broadcast/usable range, subnet mask, RFC 1918 [notes/02a.md](notes/02a.md) | Giải thích mô hình con đường / con ngõ | Bắt đầu bài 02b |
-| 2026-10-24 21:29 | 02b / đang học, chưa chốt thời lượng | Lưu mốc: có IP plan, dự đoán đúng A gửi trực tiếp và B chọn gateway; chưa có thực nghiệm [notes/02b.md](notes/02b.md) | Hướng dẫn tính `/29` từng bước và xét riêng từng chiều; chưa xem trọn lời giải trước khi trả lời | Dự đoán ARP, preflight và quan sát lab cô lập |
+| 2026-10-24 23:39 | 02b / đang học, chưa chốt thời lượng | Cập nhật mốc 21:29: có IP plan, dự đoán baseline đúng và được route/ARP xác nhận; ping A ↔ B mỗi chiều 2/2 khi cùng `/27`; chưa đổi B [notes/02b.md](notes/02b.md) | Hướng dẫn tính `/29`, xét riêng từng chiều, sơ đồ giao bước đầu cho gateway; dự đoán baseline không cần gợi ý thêm | Dự đoán rồi đo case B `/29`; giữ lab có ownership và lệnh cleanup |
+| 2026-10-24 23:53 | 02b / tiếp tục, chưa chốt thời lượng | Học viên tự nhắc lại đúng B `/29` ARP `.38`, subnet `.32–.39`; đã đổi riêng B và đo route/ARP hai chiều đúng dự đoán, ping mỗi chiều 0/2; A/gateway không đổi [notes/02b.md](notes/02b.md) | Không cần gợi ý thêm cho dự đoán này; LLM hỗ trợ lệnh đo, chưa sửa | Học viên chọn nơi bắt gói để phân biệt nhận/chuyển tiếp trước khi sửa; giữ B `/29`, rollback đã ghi |
+| 2026-10-25 00:04 | 02b / tiếp tục | Học viên nói “nào cũng được” về nơi bắt gói; LLM giải thích và chọn gateway, chưa phát traffic/capture mới hoặc sửa [notes/02b.md](notes/02b.md) | Giải thích vì sao chọn điểm đo; chưa xác nhận học viên tự chọn được | Chờ dự đoán chiều gói tại gateway trước phép thử; sau đó preflight và đo |
+| 2026-10-25 00:12 | 02b / tiếp tục | Dự đoán “chỉ đi vào” khớp capture gateway: 2 request B → A vào, 0 ra; ping chính gateway 2/2; global/interface forwarding 0, cấu hình cả ba container không đổi [notes/02b.md](notes/02b.md) | LLM chọn điểm đo và giải thích nhận/chuyển tiếp; học viên dự đoán trước traffic | Học viên đề xuất prefix B để trở về IP plan đồng nhất, rồi hoàn nguyên/đo lại; chưa sửa hoặc cleanup |
+| 2026-10-25 00:20 | 02b / tiếp tục | Học viên đề xuất `/27`, giải thích dải `.32–.63`; đã hoàn nguyên B, route/ARP trực tiếp, ping A ↔ B mỗi chiều 2/2, đối chứng B → gateway vẫn 2/2; A/gateway và forwarding không đổi [notes/02b.md](notes/02b.md) | Không cần gợi ý thêm cho đề xuất prefix; LLM thực hiện lệnh và đo kiểm | Review case C `.70/27` với gateway đề xuất `.62`, tổng kết 3/2/1 rồi dọn lab; chưa đánh dấu đạt |
+| 2026-10-25 00:27 | 02b / review case giấy | C `.70/27`: học viên tính đúng `.64–.95` nhưng chấp nhận gateway trực tiếp `.62` ngoài subnet; chưa đạt phần review này, không thay đổi lab [notes/02b.md](notes/02b.md) | Đối chiếu IP gateway với dải subnet học viên đã tính; chưa đưa IP gateway thay thế | Học viên tự chọn IP gateway phù hợp và giải thích; sau review còn tổng kết 3/2/1 và cleanup |
+| 2026-10-25 00:33 | 02b / review case giấy, làm lại | Học viên tự đề xuất gateway `192.168.10.77` vì thuộc `.64–.95`, đúng với C `.70/27`; đã sửa được phần chọn IP sau phản hồi, không đổi lab [notes/02b.md](notes/02b.md) | Phản hồi về gateway ngoài subnet; không cho sẵn IP thay thế | Tổng kết 3/2/1, trước hết 3 điều học được; còn cleanup trước khi chốt bài |
+| 2026-10-25 01:04 | 02b / kết thúc | Học viên yêu cầu kết thúc vì phiên kéo dài, bỏ 3/2/1; chốt `dat` theo IP plan, giải thích/route/ARP và review đã có; đã xác minh dọn đúng container/network/image của bài, giữ nguyên image nền [notes/02b.md](notes/02b.md) | Hướng dẫn tính `/29` và sơ đồ next hop như các lượt trước; không hỏi thêm | Lần học tiếp: 03a, chưa bắt đầu; không còn nợ rollback/cleanup |
+| 2026-10-25 11:51 | 03a / nối lại và preflight, chưa chốt thời lượng | Tự chọn đúng MAC B trong câu ôn, xác nhận Windows + Docker; host/context đúng nhưng không truy cập được Linux engine; chưa setup/traffic/capture [notes/03a.md](notes/03a.md) | Nhắc lại cùng subnet nên gửi trực tiếp; chưa đưa lời giải challenge | Học viên mở/kiểm tra Docker Desktop, kiểm tra lại server rồi xin chấp thuận setup lab; không có nợ rollback mới |
+| 2026-10-25 12:01 | 03a / tiếp tục preflight và setup | Học viên mở Docker Desktop, kiểm tra server thành công và chọn tạo lab riêng; đã build image/tạo network/hai container, xác minh IP/MAC/route/cache trống; chưa ping/capture [notes/03a.md](notes/03a.md) | Không gợi ý thêm cho câu ôn; LLM làm setup, chưa làm challenge | Nền tảng ARP ngắn và dự đoán cache trước phép thử; giữ lab có nhãn ownership, cleanup chưa chạy |
+| 2026-10-25 13:00 | 03a / dự đoán trước thực nghiệm | Học viên giải thích không bắt buộc ARP mới ở lần ping thứ hai nếu cache còn dùng được vì đã có mapping MAC B; đúng trên lý thuyết, chưa traffic/capture [notes/03a.md](notes/03a.md) | Đã giải thích nền tảng ARP/cache; không gợi ý thêm cho câu trả lời này | Học viên chọn interface bắt ARP trên A và giải thích; kiểm tra lại lab/cache trước đo, tiếp tục giữ tài nguyên bài |
+| 2026-10-25 13:16 | 03a / capture và đối chứng cache | Học viên chọn `eth0` có lý do; đã preflight/capture 4 giây, hai ping độc lập mỗi lần 1/1, A học MAC B REACHABLE, không ARP mới lượt hai; 7 gói, 0 dropped, capture đã dừng, cấu hình không đổi. Có 2 request đầu cùng nội dung chưa rõ nguyên nhân [notes/03a.md](notes/03a.md) | LLM cung cấp/thực thi lệnh theo interface học viên chọn; chưa giải thích hộ Ethernet header | Học viên đọc MAC đích ARP request; tiếp tục L2/L3/phạm vi broadcast, review và cleanup, giữ lab có ownership |
+| 2026-10-25 13:40 | 03a / điều chỉnh cách thực hành theo phản hồi | Học viên yêu cầu được hướng dẫn tự làm, không để LLM chạy hết lab. Phân loại output trước là demo do LLM thực hiện, giữ dự đoán/chọn interface đúng [notes/03a.md](notes/03a.md) | LLM nhận đã làm thay; dừng tự chạy lệnh lab, lưu sở thích đã xác nhận trong hồ sơ | Học viên tự xác nhận hostname/context rồi thực hành từng bước; LLM chờ output |
+| 2026-10-25 15:00 | 03a / hoàn thành thực hành tự chủ (45 phút) | Đạt bài 03a: học viên tự chạy preflight, đọc L2/L3 A và B, tự bật tcpdump và ping đối chứng neighbor cache, NUD probe; giải thích switch L2 và gateway next hop [notes/03a.md](notes/03a.md) | Gợi ý NUD probe và chuyển tiếp L2 switch | Bắt đầu bài 03b |
+| 2026-10-25 15:35 | 03b / 25 phút | Đạt bài 03b: học viên tự dự đoán và đo kiểm IP đích cuối vs MAC gateway, xóa 1 neighbor entry lab không flush bảng, tự capture ARP request/reply trước ICMP, phân tích lỗi L2 FAILED [notes/03b.md](notes/03b.md) | Hint 1 (học viên tự trả lời đúng và thực hiện độc lập) | Bắt đầu bài 04a |

@@ -14,9 +14,9 @@
 
 | Thuộc tính | Giá trị đã xác minh | Bằng chứng / ngày |
 |---|---|---|
-| Máy thực thi, OS/architecture, hostname | Windows 11 (WSL2 enabled) | `wsl -l -v` / 2026-10-24 |
-| Linux lab riêng và đường truy cập/console | Hiện có `docker-desktop` distro trong WSL2; cần cài thêm Ubuntu distro cho bài 09+ | `wsl -l -v` / 2026-10-24 |
-| Runtime và phiên bản | Docker Desktop (WSL2 backend) | `docker.exe` trên PATH / 2026-10-24 |
+| Máy thực thi, OS/architecture, hostname | Windows 11, `LAPTOP-G35HS1Q6`; Docker client `windows/amd64`, Linux engine `linux/amd64` | `hostname`, `docker.exe version`; học viên xác nhận Windows + Docker Desktop / 2026-10-24 |
+| Linux lab riêng và đường truy cập/console | Theo kiểm tra WSL2 ngày 2026-10-24, chỉ có distro `docker-desktop`, chưa có Ubuntu WSL riêng. Lab 02b đã dọn. Lab Docker 03a được chấp thuận và tạo mới: `nfk-03a-a` `.50/27`, `nfk-03a-b` `.35/27`, cùng network `nfk-03a` internal bridge `10.20.30.32/27`; truy cập qua `docker.exe --context desktop-linux exec <tên> ...`, không qua shell VM runtime | `wsl.exe --list --verbose` ngày 2026-10-24; cleanup trong [notes 02b](notes/02b.md); kiểm tra hostname/container/network và cấu hình thật trong [notes 03a](notes/03a.md) / 2026-10-25 12:01 |
+| Runtime và phiên bản | Docker Desktop 4.88.1, client/Engine 29.7.2, API 1.55; context `desktop-linux`, endpoint cục bộ `npipe:////./pipe/dockerDesktopLinuxEngine`. Lần 11:51 không tìm thấy pipe; sau khi học viên mở Docker Desktop, đã đọc được server và kiểm kê thành công, không còn lỗi kết nối tại mốc kiểm tra lại | `context ls/inspect`, `--context desktop-linux version`, `image ls`, `ps -a`, `network ls` / 2026-10-25 11:55–12:01, [notes 03a](notes/03a.md) |
 | kind / kubectl client / Kubernetes server version | `kubectl.exe` đã có; `kind` chưa cài | CLI check / 2026-10-24 |
 | Tên cluster, current-context, namespace học | Chưa xác minh (chưa tạo cluster) | — |
 | Nodes, vai trò, IP, Pod CIDR | Chưa xác minh | — |
@@ -24,7 +24,7 @@
 | Service proxy/data plane thực dùng | Chưa xác minh | — |
 | Service CIDR, cluster DNS suffix, DNS Service IP | Chưa xác minh | — |
 | Ingress/LoadBalancer controller nếu có | Chưa xác minh | — |
-| Công cụ Linux và quyền quan sát/capture | Windows host có sẵn `python.exe`, `curl`, `kubectl.exe` | CLI check / 2026-10-24 |
+| Công cụ Linux và quyền quan sát/capture | Windows có `python.exe`, `curl`, `kubectl.exe` theo kiểm tra trước. Image mới `nfk-03a-tools:local`: Ubuntu 24.04.4 LTS, iproute2 6.1.0, iputils 20240117, tcpdump 4.99.4, libpcap 1.10.4. A/B dùng quyền Docker mặc định, có `cap_net_raw`, không có `cap_net_admin`; `Privileged=false`, không mount/publish port. Đã capture ARP/ICMP thực tế trên `eth0` của A với `-p`, giới hạn 4 giây; 7 gói, 0 dropped by kernel, process đã dừng. Image nền giữ nguyên ID sau build | Kiểm tra OS/package/capability lúc 12:01; kiểm tra ownership/cấu hình và capture trong [notes 03a](notes/03a.md) / 2026-10-25 13:13–13:16 |
 | Client nào truy cập được node/cluster, port mapping | Chưa xác minh | — |
 | Spark version/deploy mode/image khi đến bài 27 | Chưa xác minh | — |
 
