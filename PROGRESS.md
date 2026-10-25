@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 9/56, không tính bài 00.
+- **Bài chính đã đạt:** 10/56, không tính bài 00.
 - **Checkpoint đã đạt:** 1/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [05b — TCP handshake](lesson/05b-tcp-handshake.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành xuất sắc bài 05a (`dat`): học viên tự chạy lab kiểm chứng 4-tuple TCP, phân biệt Listen socket vs Connected socket, chứng minh không gian port TCP và UDP độc lập trên cùng port 9000, quan sát trạng thái `UNCONN` của UDP và dữ liệu nhận được; giải thích chuẩn xác câu hỏi áp dụng Spark Master/Executor 4-tuple và TCP/UDP isolation. LLM đã tự động dọn sạch lab 05a.
-- **Bước tiếp theo:** Bắt đầu bài [05b — TCP handshake](lesson/05b-tcp-handshake.md).
-- **Bằng chứng/notes gần nhất:** [notes/05a.md](notes/05a.md); bài trước: [notes/04b.md](notes/04b.md).
+- **Bài đang học:** [06a — Refused, timeout và reset](lesson/06a-refused-timeout-reset.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành xuất sắc bài 05b (`dat`): học viên tự bắt gói và đọc chuẩn 3 cờ SYN, SYN-ACK, ACK của TCP 3-way handshake, đối chứng với port đóng nhận cờ RST-ACK sau 13 micro-giây dẫn tới Connection refused; giải thích chính xác tư duy triage Kubernetes (gói tin đã tới đích, lỗi do process trong Pod đích chứ không phải hạ tầng mạng). LLM đã tự động dọn sạch lab 05b.
+- **Bước tiếp theo:** Bắt đầu bài [06a — Refused, timeout và reset](lesson/06a-refused-timeout-reset.md).
+- **Bằng chứng/notes gần nhất:** [notes/05b.md](notes/05b.md); bài trước: [notes/05a.md](notes/05a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa 3 container `nfk-05a-server`, `nfk-05a-client1`, `nfk-05a-client2`, xóa network `nfk-05a` và đã xác minh sạch sẽ qua CLI.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa 2 container `nfk-05b-server`, `nfk-05b-client`, xóa network `nfk-05b` và đã xác minh sạch sẽ qua CLI.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-25
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -47,7 +47,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 04a | [Routing table](lesson/04a-routing-table.md) | dat | 2026-10-25 | [notes/04a.md](notes/04a.md); học viên tự đọc connected/default route, dự đoán và đo khớp 5/5 đích qua ip route get (lo cho chính mình, direct on-link, via gateway), giải đúng 5/5 LPM prefix chồng lấn; LLM đã dọn dẹp lab |
 | 04b | [Lỗi routing và CP1](lesson/04b-route-fault-va-cp1.md) | dat | 2026-10-25 | [notes/04b.md](notes/04b.md); học viên tự dùng ip route get và ip neigh phát hiện route shadowing và ARP FAILED, xóa route lỗi tối thiểu và đối chứng phục hồi; hoàn thành 4/4 tiêu chí CP1 (subnet /26, L2 MAC vs L3 IP, 3 nguyên nhân mất kết nối); lab đã dọn dẹp sạch |
 | 05a | [Port, socket, TCP/UDP](lesson/05a-port-socket-tcp-udp.md) | dat | 2026-10-25 | [notes/05a.md](notes/05a.md); học viên tự mở listener và nối 2 client, quan sát 4-tuple và ephemeral port, đối chứng TCP vs UDP cùng port 9000, kiểm chứng UNCONN và nhận dữ liệu; trả lời đúng case Spark; LLM đã cleanup toàn bộ |
-| 05b | [TCP handshake](lesson/05b-tcp-handshake.md) | chua-hoc | — | — |
+| 05b | [TCP handshake](lesson/05b-tcp-handshake.md) | dat | 2026-10-25 | [notes/05b.md](notes/05b.md); học viên tự bắt capture SYN/SYN-ACK/ACK khi port mở, đối chứng RST-ACK tức thì khi port đóng gây connection refused; phân tích đúng root cause triage Kubernetes; LLM đã cleanup toàn bộ |
 | 06a | [Refused, timeout, reset](lesson/06a-refused-timeout-reset.md) | chua-hoc | — | — |
 | 06b | [Timeout, retry và điều tra](lesson/06b-timeout-retry-va-dieu-tra.md) | chua-hoc | — | — |
 | 07a | [Resolver và DNS records](lesson/07a-resolver-va-dns-records.md) | chua-hoc | — | — |
@@ -151,3 +151,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-10-25 16:50 | 04a / 30 phút | Đạt bài 04a: đọc routing table, dự đoán & đối chứng khớp 5/5 đích với ip route get, giải đúng 5/5 LPM prefix chồng lấn Kubernetes, phân biệt có route vs reachability [notes/04a.md](notes/04a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 04b |
 | 2026-10-25 19:25 | 04b + CP1 / 40 phút | Đạt bài 04b và hoàn thành Cổng đánh giá CP1: học viên tự chạy chẩn đoán, phát hiện lỗi route shadowing và L2 ARP FAILED, sửa tối thiểu và đối chứng; vượt qua toàn bộ câu hỏi CP1 [notes/04b.md](notes/04b.md) | Gợi ý mô hình bưu cục / thư bưu điện cho L2 MAC vs L3 IP | Bắt đầu bài 05a |
 | 2026-10-25 22:58 | 05a / 40 phút | Đạt bài 05a: học viên tự thao tác đo 4-tuple TCP, phân biệt Listen vs Connected socket, đối chứng UDP UNCONN và không gian port độc lập cùng port 9000; giải đúng 100% case Spark Master/Executor [notes/05a.md](notes/05a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 05b |
+| 2026-10-25 23:26 | 05b / 20 phút | Đạt bài 05b: bắt gói và phân tích TCP 3-way handshake (SYN, SYN-ACK, ACK), đối chứng cờ RST khi port đóng; phân biệt rạch ròi network reachability vs process listening [notes/05b.md](notes/05b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 06a |
