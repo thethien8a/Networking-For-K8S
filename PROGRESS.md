@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 12/56, không tính bài 00.
+- **Bài chính đã đạt:** 13/56, không tính bài 00.
 - **Checkpoint đã đạt:** 1/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [07a — Resolver và DNS records](lesson/07a-resolver-va-dns-records.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành xuất sắc bài 06b (`dat`): học viên tự phân biệt Connect Timeout vs Operation Timeout qua `curl -v` và timing; thực chứng cơ chế Retry (mở TCP mới ở lỗi 503, vô dụng ở lỗi DROP); triage thành công case ẩn danh port 8003 và kiểm chứng sửa lỗi bằng tăng timeout. LLM đã tự động dọn sạch lab 06b.
-- **Bước tiếp theo:** Bắt đầu bài [07a — Resolver và DNS records](lesson/07a-resolver-va-dns-records.md).
-- **Bằng chứng/notes gần nhất:** [notes/06b.md](notes/06b.md); bài trước: [notes/06a.md](notes/06a.md).
+- **Bài đang học:** [07b — IP được, hostname lỗi](lesson/07b-ip-duoc-hostname-loi.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành xuất sắc bài 07a (`dat`): học viên tự phân tích cấu trúc bản ghi DNS A/CNAME/TTL/status qua `dig`, đối chứng thực nghiệm OS Resolver (`/etc/hosts` & `getent`) vs `dig`, hiểu sâu cơ chế search domain và `ndots:5` trong Kubernetes, điều tra root cause case Dangling CNAME port 8080 và giải thích chuẩn xác case Spark Master. LLM đã dọn dẹp sạch toàn bộ lab 07a.
+- **Bước tiếp theo:** Bắt đầu bài [07b — IP được, hostname lỗi](lesson/07b-ip-duoc-hostname-loi.md).
+- **Bằng chứng/notes gần nhất:** [notes/07a.md](notes/07a.md); bài trước: [notes/06b.md](notes/06b.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa 2 container `nfk-06b-server`, `nfk-06b-client`, xóa network `nfk-06b` và đã xác minh sạch sẽ qua CLI.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa các container `nfk-07a-*`, xóa network `nfk-07a` và xóa thư mục cấu hình tạm.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-26
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -50,7 +50,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 05b | [TCP handshake](lesson/05b-tcp-handshake.md) | dat | 2026-10-25 | [notes/05b.md](notes/05b.md); học viên tự bắt capture SYN/SYN-ACK/ACK khi port mở, đối chứng RST-ACK tức thì khi port đóng gây connection refused; phân tích đúng root cause triage Kubernetes; LLM đã cleanup toàn bộ |
 | 06a | [Refused, timeout, reset](lesson/06a-refused-timeout-reset.md) | dat | 2026-10-26 | [notes/06a.md](notes/06a.md); học viên phân biệt rõ 3 triệu chứng Timeout (DROP), Refused (port đóng), Reset (xé kết nối); phân biệt FIN vs RST vs Im lặng; control test gỡ DROP thành công; trả lời đúng 3/3 case K8s triage; LLM đã dọn dẹp sạch lab |
 | 06b | [Timeout, retry và điều tra](lesson/06b-timeout-retry-va-dieu-tra.md) | dat | 2026-10-26 | [notes/06b.md](notes/06b.md); học viên tự đo kiểm timing và curl -v, phân biệt Connect timeout (DROP) vs Operation timeout (/slow), thực chứng retry mở TCP mới ở 503 và vô dụng ở DROP, triage đúng case 8003; LLM đã dọn sạch lab |
-| 07a | [Resolver và DNS records](lesson/07a-resolver-va-dns-records.md) | chua-hoc | — | — |
+| 07a | [Resolver và DNS records](lesson/07a-resolver-va-dns-records.md) | dat | 2026-10-26 | [notes/07a.md](notes/07a.md); học viên phân biệt rõ OS Resolver (/etc/hosts, getent) vs DNS CLI (dig, nslookup); đọc bản ghi A, CNAME, TTL; hiểu search domain và ndots:5; triage đúng sự cố Dangling CNAME; LLM đã dọn sạch lab |
 | 07b | [IP được, hostname lỗi](lesson/07b-ip-duoc-hostname-loi.md) | chua-hoc | — | — |
 | 08a | [HTTP Host và TLS](lesson/08a-http-host-va-tls.md) | chua-hoc | — | — |
 | 08b | [NAT, port mapping và CP2](lesson/08b-nat-port-mapping-va-cp2.md) | chua-hoc | — | — |
@@ -154,3 +154,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-10-25 23:26 | 05b / 20 phút | Đạt bài 05b: bắt gói và phân tích TCP 3-way handshake (SYN, SYN-ACK, ACK), đối chứng cờ RST khi port đóng; phân biệt rạch ròi network reachability vs process listening [notes/05b.md](notes/05b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 06a |
 | 2026-10-26 00:20 | 06a / 40 phút | Đạt bài 06a: phân biệt Refused, Timeout, Reset qua timing, ss và iptables DROP; đối chứng control test gỡ DROP thành Refused; trả lời đúng 100% case K8s triage Spark/Postgres [notes/06a.md](notes/06a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 06b |
 | 2026-10-26 16:05 | 06b / 40 phút | Đạt bài 06b: phân biệt Connect Timeout vs Operation Timeout qua timing và curl -v; thực chứng retry mở socket mới ở transient 503 và vô dụng ở DROP; triage đúng case ẩn danh port 8003 và kiểm chứng fix [notes/06b.md](notes/06b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 07a |
+| 2026-10-26 23:50 | 07a / 40 phút | Đạt bài 07a: phân biệt OS Resolver vs dig, đọc A/CNAME/TTL/status; đối chứng hosts file vs DNS server; hiểu search domain và ndots:5; triage đúng Dangling CNAME; giải đúng 100% case Spark [notes/07a.md](notes/07a.md) | Gợi ý dùng dig soi bản ghi DNS | Bắt đầu bài 07b |
