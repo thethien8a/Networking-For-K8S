@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 15/56, không tính bài 00.
-- **Checkpoint đã đạt:** 1/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [08b — NAT, port mapping và CP2](lesson/08b-nat-port-mapping-va-cp2.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 08a (`dat`): học viên phân biệt rõ 4 mốc kết nối HTTPS (DNS -> TCP -> TLS -> HTTP); hiểu bản chất bẫy Host header trong HTTPS; sử dụng thuần thục `curl --resolve`; phân biệt rạch ròi CA Trust failure (`unable to get local issuer certificate`) vs Hostname mismatch (`no alternative certificate subject name matches`); hoàn thành kiểm chứng và fix chuẩn qua OS trust store. LLM đã dọn dẹp sạch toàn bộ lab 08a.
-- **Bước tiếp theo:** Bắt đầu bài [08b — NAT, port mapping và CP2](lesson/08b-nat-port-mapping-va-cp2.md) và đánh giá Cổng Checkpoint 2 (CP2).
-- **Bằng chứng/notes gần nhất:** [notes/08a.md](notes/08a.md); bài trước: [notes/07b.md](notes/07b.md).
+- **Bài chính đã đạt:** 16/56, không tính bài 00.
+- **Checkpoint đã đạt:** 2/7, gồm CP1, CP2.
+- **Bài đang học:** [09a — Linux network inventory](lesson/09a-linux-network-inventory.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 08b (`dat`) và Cổng đánh giá Checkpoint 2 (CP2 `dat`): học viên phân tích đúng bảng 4-tuple, hiểu rõ DNAT đổi đích và SNAT đổi nguồn, bẫy loopback container; hoàn thành xuất sắc toàn diện 4/4 tình huống CP2 (TCP RST vs Firewall DROP, Connect vs Operation timeout, vai trò Hostname qua DNS/TLS/HTTP, và bản chất NAT không phải Firewall). LLM đã dọn dẹp sạch toàn bộ lab 08b (`nfk-08b-web`).
+- **Bước tiếp theo:** Bắt đầu Giai đoạn 3 với bài [09a — Linux network inventory](lesson/09a-linux-network-inventory.md).
+- **Bằng chứng/notes gần nhất:** [notes/08b.md](notes/08b.md); bài trước: [notes/08a.md](notes/08a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa các container `nfk-08a-*`, xóa network `nfk-08a` và xóa thư mục scratch `scratch/08a`.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ container `nfk-08b-web`.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-27
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -53,7 +53,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 07a | [Resolver và DNS records](lesson/07a-resolver-va-dns-records.md) | dat | 2026-10-26 | [notes/07a.md](notes/07a.md); học viên phân biệt rõ OS Resolver (/etc/hosts, getent) vs DNS CLI (dig, nslookup); đọc bản ghi A, CNAME, TTL; hiểu search domain và ndots:5; triage đúng sự cố Dangling CNAME; LLM đã dọn sạch lab |
 | 07b | [IP được, hostname lỗi](lesson/07b-ip-duoc-hostname-loi.md) | dat | 2026-10-27 | [notes/07b.md](notes/07b.md); học viên phân biệt NXDOMAIN (1ms) vs DNS Timeout (3-5s), bóc tách Stale IP 10.250.75.99 vs IP sống 10.250.75.10, nhận diện bẫy L7 Host header 403 Forbidden và bẫy IPv6 AAAA; fix chuẩn tại CoreDNS và đối chứng HTTP 200; LLM đã dọn dẹp sạch lab |
 | 08a | [HTTP Host và TLS](lesson/08a-http-host-va-tls.md) | dat | 2026-10-27 | [notes/08a.md](notes/08a.md); học viên phân biệt 4 mốc kết nối HTTPS, bẫy Host header vs TLS, đo kiểm với curl --resolve, phân biệt lỗi Trust vs Hostname mismatch; dọn lab sạch sẽ |
-| 08b | [NAT, port mapping và CP2](lesson/08b-nat-port-mapping-va-cp2.md) | chua-hoc | — | — |
+| 08b | [NAT, port mapping và CP2](lesson/08b-nat-port-mapping-va-cp2.md) | dat | 2026-10-27 | [notes/08b.md](notes/08b.md); học viên phân tích đúng bảng 4-tuple, hiểu rõ DNAT đổi đích và SNAT đổi nguồn, bẫy loopback container; hoàn thành xuất sắc toàn diện 4/4 tình huống CP2; LLM đã dọn dẹp sạch lab |
 | 09a | [Linux network inventory](lesson/09a-linux-network-inventory.md) | chua-hoc | — | — |
 | 09b | [Sockets và connectivity matrix](lesson/09b-sockets-va-connectivity-matrix.md) | chua-hoc | — | — |
 | 10a | [Network namespace và veth](lesson/10a-network-namespace-va-veth.md) | chua-hoc | — | — |
@@ -102,7 +102,7 @@ Không tự đánh dấu cổng đạt chỉ vì bài cuối giai đoạn đã `
 | Cổng | Sau bài | Tiêu chí | Trạng thái | Ngày đánh giá | Bằng chứng / phần cần làm lại |
 |---|---|---|---|---|---|
 | CP1 | 04b | [IP, ARP, routing](CHECKPOINTS.md#cp1--sau-04b) | dat | 2026-10-25 | Đạt toàn bộ tiêu chí CP1: tính đúng subnet /26, phân loại 4 host; giải thích đúng L3 IP end-to-end vs L2 MAC hop-by-hop; bắt bệnh thực tế trong lab với ip route get và ip neigh FAILED; nêu đúng 3 lý do mất kết nối giữa IP hợp lệ [notes/04b.md](notes/04b.md) |
-| CP2 | 08b | [DNS/TCP/HTTP/TLS, NAT](CHECKPOINTS.md#cp2--sau-08b) | chua-hoc | — | — |
+| CP2 | 08b | [DNS/TCP/HTTP/TLS, NAT](CHECKPOINTS.md#cp2--sau-08b) | dat | 2026-10-27 | Đạt toàn bộ 4/4 tiêu chí CP2: bắt bệnh TCP RST (refused) vs DROP (timed out); phân biệt Connect timeout vs Operation timeout; bóc tách hostname qua DNS, TLS SNI, SAN và HTTP Host Virtual Hosting; phân biệt NXDOMAIN vs DNS timeout; hiểu bản chất SNAT/DNAT và phản biện chuẩn xác NAT không phải Firewall [notes/08b.md](notes/08b.md) |
 | CP3 | 12b | [Linux router/firewall, capture, rollback](CHECKPOINTS.md#cp3--sau-12b) | chua-hoc | — | — |
 | CP4 | 16b | [Cross-node theo CNI thật](CHECKPOINTS.md#cp4--sau-16b) | chua-hoc | — | — |
 | CP5 | 20b | [Ba Service/DNS incidents](CHECKPOINTS.md#cp5--sau-20b) | chua-hoc | — | — |
@@ -157,3 +157,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-10-26 23:50 | 07a / 40 phút | Đạt bài 07a: phân biệt OS Resolver vs dig, đọc A/CNAME/TTL/status; đối chứng hosts file vs DNS server; hiểu search domain và ndots:5; triage đúng Dangling CNAME; giải đúng 100% case Spark [notes/07a.md](notes/07a.md) | Gợi ý dùng dig soi bản ghi DNS | Bắt đầu bài 07b |
 | 2026-10-27 10:15 | 07b / 45 phút | Đạt bài 07b: phân biệt NXDOMAIN vs Timeout, bóc tách Stale IP vs IP sống, nhận diện bẫy L7 Host header và IPv6 AAAA, fix chuẩn tại CoreDNS [notes/07b.md](notes/07b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 08a |
 | 2026-10-27 14:30 | 08a / 40 phút | Đạt bài 08a: phân biệt 4 mốc HTTPS (DNS/TCP/TLS/HTTP), bẫy Host header vs SNI, dùng curl --resolve, bóc tách lỗi Trust vs Hostname mismatch, fix chuẩn qua OS trust store [notes/08a.md](notes/08a.md) | Hint 1 (quan sát log TLS handshake) | Bắt đầu bài 08b và Cổng đánh giá CP2 |
+| 2026-10-27 23:05 | 08b + CP2 / 55 phút | Đạt bài 08b và Cổng đánh giá CP2: phân biệt SNAT/DNAT, bẫy loopback container, hoàn thành 4/4 câu hỏi CP2 [notes/08b.md](notes/08b.md) | Gợi ý mô hình lễ tân/bút xóa cho NAT | Bắt đầu bài 09a |
