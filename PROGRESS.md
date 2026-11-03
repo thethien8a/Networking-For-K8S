@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 15/56, không tính bài 00.
-- **Checkpoint đã đạt:** 1/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [08b — NAT, port mapping và CP2](lesson/08b-nat-port-mapping-va-cp2.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 08a (`dat`): học viên phân biệt rõ 4 mốc kết nối HTTPS (DNS -> TCP -> TLS -> HTTP); hiểu bản chất bẫy Host header trong HTTPS; sử dụng thuần thục `curl --resolve`; phân biệt rạch ròi CA Trust failure (`unable to get local issuer certificate`) vs Hostname mismatch (`no alternative certificate subject name matches`); hoàn thành kiểm chứng và fix chuẩn qua OS trust store. LLM đã dọn dẹp sạch toàn bộ lab 08a.
-- **Bước tiếp theo:** Bắt đầu bài [08b — NAT, port mapping và CP2](lesson/08b-nat-port-mapping-va-cp2.md) và đánh giá Cổng Checkpoint 2 (CP2).
-- **Bằng chứng/notes gần nhất:** [notes/08a.md](notes/08a.md); bài trước: [notes/07b.md](notes/07b.md).
+- **Bài chính đã đạt:** 19/56, không tính bài 00.
+- **Checkpoint đã đạt:** 2/7, gồm CP1–CP6 và Final.
+- **Bài đang học:** [10b — Linux bridge](lesson/10b-linux-bridge.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 10a (`dat`): học viên tự tạo 2 network namespaces (`ns-a`, `ns-b`) và nối trực tiếp bằng 1 `veth pair`, chuyển đúng đầu interface vào từng namespace; kiểm chứng dự đoán gán IP khi link DOWN báo `Network unreachable`; bật UP link và loopback, đo kiểm ping L3 (<0.15ms) và HTTP L7 (200 OK); kiểm chứng thực tế sự cô lập hoàn toàn của loopback và bảng socket; điều tra và khắc phục lỗi `veth-b` bị DOWN dẫn tới `veth-a` báo `NO-CARRIER`, phục hồi kết nối thành công; trả lời chính xác câu hỏi áp dụng Kubernetes Pod CrashLoop/OOM; LLM đã dọn dẹp sạch toàn bộ lab container `nfk-10a-lab`.
+- **Bước tiếp theo:** Bắt đầu bài [10b — Linux bridge](lesson/10b-linux-bridge.md).
+- **Bằng chứng/notes gần nhất:** [notes/10a.md](notes/10a.md); bài trước: [notes/09b.md](notes/09b.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ: xóa các container `nfk-08a-*`, xóa network `nfk-08a` và xóa thư mục scratch `scratch/08a`.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-10-27
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ container `nfk-10a-lab`.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-03
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -53,10 +53,10 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 07a | [Resolver và DNS records](lesson/07a-resolver-va-dns-records.md) | dat | 2026-10-26 | [notes/07a.md](notes/07a.md); học viên phân biệt rõ OS Resolver (/etc/hosts, getent) vs DNS CLI (dig, nslookup); đọc bản ghi A, CNAME, TTL; hiểu search domain và ndots:5; triage đúng sự cố Dangling CNAME; LLM đã dọn sạch lab |
 | 07b | [IP được, hostname lỗi](lesson/07b-ip-duoc-hostname-loi.md) | dat | 2026-10-27 | [notes/07b.md](notes/07b.md); học viên phân biệt NXDOMAIN (1ms) vs DNS Timeout (3-5s), bóc tách Stale IP 10.250.75.99 vs IP sống 10.250.75.10, nhận diện bẫy L7 Host header 403 Forbidden và bẫy IPv6 AAAA; fix chuẩn tại CoreDNS và đối chứng HTTP 200; LLM đã dọn dẹp sạch lab |
 | 08a | [HTTP Host và TLS](lesson/08a-http-host-va-tls.md) | dat | 2026-10-27 | [notes/08a.md](notes/08a.md); học viên phân biệt 4 mốc kết nối HTTPS, bẫy Host header vs TLS, đo kiểm với curl --resolve, phân biệt lỗi Trust vs Hostname mismatch; dọn lab sạch sẽ |
-| 08b | [NAT, port mapping và CP2](lesson/08b-nat-port-mapping-va-cp2.md) | chua-hoc | — | — |
-| 09a | [Linux network inventory](lesson/09a-linux-network-inventory.md) | chua-hoc | — | — |
-| 09b | [Sockets và connectivity matrix](lesson/09b-sockets-va-connectivity-matrix.md) | chua-hoc | — | — |
-| 10a | [Network namespace và veth](lesson/10a-network-namespace-va-veth.md) | chua-hoc | — | — |
+| 08b | [NAT, port mapping và CP2](lesson/08b-nat-port-mapping-va-cp2.md) | dat | 2026-11-02 | [notes/08b.md](notes/08b.md); học viên phân biệt rõ 4-tuple qua Port Mapping (DNAT sang backend container IP:80, SNAT sang bridge gateway 10.250.85.1) vs giao tiếp cùng bridge bảo toàn Source IP gốc 10.250.85.20; phân tích đúng lỗi port chưa map vs backend crash vs L7 Host mismatch; hoàn thành 4/4 tiêu chí CP2; LLM đã cleanup toàn bộ lab |
+| 09a | [Linux network inventory](lesson/09a-linux-network-inventory.md) | dat | 2026-11-02 | [notes/09a.md](notes/09a.md); đủ inventory 4 thành phần iproute2, nhận diện veth pair @if30, kiểm chứng route get on-link vs via gateway, giải thích đúng case L2 down vs L3 IP; LLM đã dọn dẹp lab |
+| 09b | [Sockets và connectivity matrix](lesson/09b-sockets-va-connectivity-matrix.md) | dat | 2026-11-02 | [notes/09b.md](notes/09b.md); đo kiểm matrix 4 phép thử, bóc tách listener loopback vs wildcard qua ss -lntup, loại trừ giả thuyết firewall, đối chứng phục hồi 200 OK; LLM đã dọn dẹp lab |
+| 10a | [Network namespace và veth](lesson/10a-network-namespace-va-veth.md) | dat | 2026-11-03 | [notes/10a.md](notes/10a.md); tự tạo 2 netns và veth pair, gán IP và đối chứng ping khi DOWN vs UP, đo HTTP 200 OK, kiểm chứng loopback/socket isolation, khắc phục lỗi veth DOWN/NO-CARRIER, trả lời đúng case Pod K8s; LLM đã dọn dẹp sạch lab |
 | 10b | [Linux bridge](lesson/10b-linux-bridge.md) | chua-hoc | — | — |
 | 11a | [Router namespace hai subnet](lesson/11a-router-namespace-hai-subnet.md) | chua-hoc | — | — |
 | 11b | [Return path và forwarding](lesson/11b-return-path-va-forwarding.md) | chua-hoc | — | — |
@@ -102,7 +102,7 @@ Không tự đánh dấu cổng đạt chỉ vì bài cuối giai đoạn đã `
 | Cổng | Sau bài | Tiêu chí | Trạng thái | Ngày đánh giá | Bằng chứng / phần cần làm lại |
 |---|---|---|---|---|---|
 | CP1 | 04b | [IP, ARP, routing](CHECKPOINTS.md#cp1--sau-04b) | dat | 2026-10-25 | Đạt toàn bộ tiêu chí CP1: tính đúng subnet /26, phân loại 4 host; giải thích đúng L3 IP end-to-end vs L2 MAC hop-by-hop; bắt bệnh thực tế trong lab với ip route get và ip neigh FAILED; nêu đúng 3 lý do mất kết nối giữa IP hợp lệ [notes/04b.md](notes/04b.md) |
-| CP2 | 08b | [DNS/TCP/HTTP/TLS, NAT](CHECKPOINTS.md#cp2--sau-08b) | chua-hoc | — | — |
+| CP2 | 08b | [DNS/TCP/HTTP/TLS, NAT](CHECKPOINTS.md#cp2--sau-08b) | dat | 2026-11-02 | Đạt toàn bộ 4 tiêu chí CP2: phân loại đúng 4 tầng lỗi (DNS, TCP, TLS, HTTP); phân biệt Connect timeout vs Application timeout, Refused (RST chứng minh tới host) vs Timed out (DROP dọc đường); bóc tách 3 mốc dùng hostname (DNS, TLS SNI, HTTP Host); theo dõi 4-tuple trước/sau DNAT và SNAT, phân biệt NAT với Firewall [notes/08b.md](notes/08b.md) |
 | CP3 | 12b | [Linux router/firewall, capture, rollback](CHECKPOINTS.md#cp3--sau-12b) | chua-hoc | — | — |
 | CP4 | 16b | [Cross-node theo CNI thật](CHECKPOINTS.md#cp4--sau-16b) | chua-hoc | — | — |
 | CP5 | 20b | [Ba Service/DNS incidents](CHECKPOINTS.md#cp5--sau-20b) | chua-hoc | — | — |
@@ -157,3 +157,7 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-10-26 23:50 | 07a / 40 phút | Đạt bài 07a: phân biệt OS Resolver vs dig, đọc A/CNAME/TTL/status; đối chứng hosts file vs DNS server; hiểu search domain và ndots:5; triage đúng Dangling CNAME; giải đúng 100% case Spark [notes/07a.md](notes/07a.md) | Gợi ý dùng dig soi bản ghi DNS | Bắt đầu bài 07b |
 | 2026-10-27 10:15 | 07b / 45 phút | Đạt bài 07b: phân biệt NXDOMAIN vs Timeout, bóc tách Stale IP vs IP sống, nhận diện bẫy L7 Host header và IPv6 AAAA, fix chuẩn tại CoreDNS [notes/07b.md](notes/07b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 08a |
 | 2026-10-27 14:30 | 08a / 40 phút | Đạt bài 08a: phân biệt 4 mốc HTTPS (DNS/TCP/TLS/HTTP), bẫy Host header vs SNI, dùng curl --resolve, bóc tách lỗi Trust vs Hostname mismatch, fix chuẩn qua OS trust store [notes/08a.md](notes/08a.md) | Hint 1 (quan sát log TLS handshake) | Bắt đầu bài 08b và Cổng đánh giá CP2 |
+| 2026-11-02 10:25 | 08b + CP2 / 45 phút | Đạt bài 08b và hoàn thành Cổng đánh giá CP2: học viên tự chạy đo kiểm 4-tuple, phân biệt DNAT vs SNAT vs giao tiếp bảo toàn IP; đối chứng chẩn đoán 3 kịch bản lỗi; trả lời xuất sắc 4/4 câu hỏi CP2 [notes/08b.md](notes/08b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 09a |
+| 2026-11-02 14:30 | 09a / 45 phút | Đạt bài 09a: học viên tự thu thập inventory bằng bộ tứ iproute2, nhận diện veth pair @if30, kiểm chứng bảng ARP neigh động, đối chứng ip route get on-link vs via gateway, phân tích chính xác case L2 down vs L3 IP [notes/09a.md](notes/09a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 09b |
+| 2026-11-02 16:10 | 09b / 40 phút | Đạt bài 09b: học viên đo kiểm connectivity matrix 4 phép thử, bóc tách lỗi listener 127.0.0.1 qua ss -lntup, sửa về 0.0.0.0 và đối chứng phục hồi 200 OK [notes/09b.md](notes/09b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 10a |
+| 2026-11-03 09:00 | 10a / 40 phút | Đạt bài 10a: học viên tự tạo 2 network namespaces và nối veth pair, đối chứng ping khi link DOWN vs UP, đo HTTP 200 OK, kiểm chứng loopback và socket isolation, bóc tách cơ chế carrier khi veth DOWN dẫn tới NO-CARRIER và đối chứng phục hồi [notes/10a.md](notes/10a.md) | Hint 2 (cung cấp lệnh đo khi học viên yêu cầu) | Bắt đầu bài 10b |

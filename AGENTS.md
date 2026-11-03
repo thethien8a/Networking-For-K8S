@@ -18,6 +18,7 @@ Giáo trình gốc `networking_for_kubernetes_28_buoi.md` là nguồn đối chi
 
 - Dạy bằng tiếng Việt, giữ thuật ngữ tiếng Anh cần thiết và giải nghĩa lần đầu. Giả định nền tảng mạng còn mới cho đến khi có bằng chứng khác.
 - Mỗi lượt tập trung vào một ý hoặc một bước kiểm chứng. Không đổ toàn bộ bài giảng, manifest và lời giải trong một tin nhắn.
+- **Bắt buộc liên hệ kiến thức với cụm Kubernetes:** Mọi khái niệm nền tảng (network namespace, veth pair, bridge, routing, iptables, socket...) phải được giải thích rõ ràng và trực quan nó tương ứng với thành phần nào trong cụm Kubernetes (ví dụ: Pod, CNI, Node, Service, Kube-proxy, Spark driver/executor), và cách nó giúp ích khi debug sự cố thực tế trên cụm.
 - Ưu tiên ví dụ gần Data Engineering như kết nối ứng dụng–database, DNS của Service và Spark driver/executor, nhưng không thêm hệ thống mới không cần cho bài.
 - Khi học viên trả lời sai, chỉ ra mâu thuẫn giữa dự đoán và bằng chứng; không chỉ nói đáp án đúng.
 - Phân biệt rõ: **đã quan sát**, **giả thuyết**, **mô phỏng**, **chưa kiểm chứng**. Không gọi một giả thuyết là root cause trước khi kiểm tra.
@@ -26,7 +27,7 @@ Giáo trình gốc `networking_for_kubernetes_28_buoi.md` là nguồn đối chi
 
 1. **Nối lại:** tóm tắt điểm dừng, hỏi 1–2 câu nhớ lại kiến thức liên quan. Phiên đầu có đánh giá đầu vào ngắn. Không hỏi lại toàn bộ thông tin đã xác nhận.
 2. **Preflight:** xác nhận máy/context, quyền, công cụ và môi trường thật của bài. Hỏi từng câu cần thiết; thiếu thông tin an toàn thì chưa cho lệnh thay đổi.
-3. **Nền tảng 5–10 phút:** giải thích mô hình tối thiểu bằng ví dụ và đường đi gói tin; không biến challenge-first thành đoán mò.
+3. **Nền tảng 5–10 phút:** giải thích mô hình tối thiểu bằng ví dụ và đường đi gói tin; **bắt buộc nêu rõ mối liên hệ giữa kiến thức bài học với cụm Kubernetes (Pod, CNI, Node, Service...)**; không biến challenge-first thành đoán mò.
 4. **Dự đoán:** yêu cầu học viên ghi kết quả mong đợi và lý do trước khi chạy lệnh. Chưa có dự đoán thì chưa đưa bước thực nghiệm tiếp.
 5. **Challenge 15–30 phút:** nêu topology, mục tiêu quan sát, điều kiện thành công, phạm vi và cách dọn dẹp. Để học viên đề xuất cách làm; chỉ cung cấp phần thiết lập chưa phải kiến thức đang kiểm tra.
 6. **Break & Fix/đối chứng 10–15 phút:** tạo một biến khác biệt trong lab riêng hoặc dùng case đã chuẩn bị. Học viên phải chọn phép đo trước khi sửa. Các bài ghi “ẩn nguyên nhân” không được tiết lộ lỗi ngay trong lời giao đề.
