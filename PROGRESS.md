@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 21/56, không tính bài 00.
+- **Bài chính đã đạt:** 22/56, không tính bài 00.
 - **Checkpoint đã đạt:** 2/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [11b — Return path và forwarding](lesson/11b-return-path-va-forwarding.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 11a (`dat`): học viên tự tạo 3 namespaces (`ns-a`, `ns-b`, `ns-router`), nối 2 veth pairs và gán địa chỉ cho 2 subnet riêng biệt (`10.100.1.0/24` và `10.100.2.0/24`); kiểm chứng sự thay đổi từ lỗi `Network unreachable` (chưa có route) sang `100% packet loss` (có route nhưng thiếu return path); thiết lập route 2 chiều và bật `net.ipv4.ip_forward=1`, quan sát ping thành công với `ttl=63` (chứng minh qua hop L3); thực chứng bóc tách Local Delivery (ping router thành công kể cả khi `ip_forward=0`) vs Transit Forwarding (ping xuyên router bị chặn); kiểm tra dịch vụ HTTP thành công đạt `HTTP/1.0 200 OK`.
-- **Bước tiếp theo:** Bắt đầu bài [11b — Return path và forwarding](lesson/11b-return-path-va-forwarding.md).
-- **Bằng chứng/notes gần nhất:** [notes/11a.md](notes/11a.md); bài trước: [notes/10b.md](notes/10b.md).
+- **Bài đang học:** [12a — Firewall và conntrack](lesson/12a-firewall-va-conntrack.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 11b (`dat`): học viên áp dụng phương pháp luận Mental Model bóc tách 2 sự cố ẩn có cùng triệu chứng Client timeout; đo kiểm bằng `ip route get` và `sysctl net.ipv4.ip_forward`, xác định chính xác Case 1 do thiếu return route tại Server B (`Network unreachable`) và Case 2 do Router đóng van forwarding (`ip_forward=0`); tự sửa tối thiểu và đối chứng phục hồi HTTP 200 OK; LLM đã chủ động dọn dẹp sạch sẽ lab container `nfk-11a-lab`.
+- **Bước tiếp theo:** Bắt đầu Module 12 với bài [12a — Firewall và conntrack](lesson/12a-firewall-va-conntrack.md).
+- **Bằng chứng/notes gần nhất:** [notes/11b.md](notes/11b.md); bài trước: [notes/11a.md](notes/11a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Giữ container `nfk-11a-lab` với baseline topology A–R–B để tiếp tục bài 11b theo đúng yêu cầu giáo trình.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ container `nfk-11a-lab`.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-03
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -59,7 +59,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 10a | [Network namespace và veth](lesson/10a-network-namespace-va-veth.md) | dat | 2026-11-03 | [notes/10a.md](notes/10a.md); tự tạo 2 netns và veth pair, gán IP và đối chứng ping khi DOWN vs UP, đo HTTP 200 OK, kiểm chứng loopback/socket isolation, khắc phục lỗi veth DOWN/NO-CARRIER, trả lời đúng case Pod K8s; LLM đã dọn dẹp sạch lab |
 | 10b | [Linux bridge](lesson/10b-linux-bridge.md) | dat | 2026-11-03 | [notes/10b.md](notes/10b.md); tự tạo bridge br0 và 2 netns, cắm 2 veth pair qua master br0, kiểm chứng bridge không IP vẫn ping/HTTP 200 OK cùng subnet, đọc bảng FDB/ARP, sửa lỗi tuột cổng bridge qua bridge link, phân tích giới hạn L2 vs router L3; LLM đã dọn sạch lab |
 | 11a | [Router namespace hai subnet](lesson/11a-router-namespace-hai-subnet.md) | dat | 2026-11-03 | [notes/11a.md](notes/11a.md); học viên tự cấu hình 3 namespaces, 2 veth pairs, gán IP 2 subnet, cấu hình default route 2 chiều; đối chứng ping Network unreachable vs 100% loss vs thành công (ttl=63); thực chứng tách bạch Local Delivery vs Transit Forwarding khi ip_forward=0; nghiệm thu HTTP 200 OK |
-| 11b | [Return path và forwarding](lesson/11b-return-path-va-forwarding.md) | chua-hoc | — | — |
+| 11b | [Return path và forwarding](lesson/11b-return-path-va-forwarding.md) | dat | 2026-11-03 | [notes/11b.md](notes/11b.md); học viên áp dụng mental model bóc tách 2 sự cố ẩn: Case 1 router forward=1 nhưng B thiếu return route (Network unreachable), Case 2 B có route nhưng router ip_forward=0; sửa tối thiểu và đối chứng phục hồi HTTP 200 OK; LLM đã dọn sạch lab container |
 | 12a | [Firewall và conntrack](lesson/12a-firewall-va-conntrack.md) | chua-hoc | — | — |
 | 12b | [DROP/REJECT và CP3](lesson/12b-drop-reject-va-cp3.md) | chua-hoc | — | — |
 | 13a | [Pod shared network namespace](lesson/13a-pod-shared-network-namespace.md) | chua-hoc | — | — |
@@ -163,3 +163,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-03 09:00 | 10a / 40 phút | Đạt bài 10a: học viên tự tạo 2 network namespaces và nối veth pair, đối chứng ping khi link DOWN vs UP, đo HTTP 200 OK, kiểm chứng loopback và socket isolation, bóc tách cơ chế carrier khi veth DOWN dẫn tới NO-CARRIER và đối chứng phục hồi [notes/10a.md](notes/10a.md) | Hint 2 (cung cấp lệnh đo khi học viên yêu cầu) | Bắt đầu bài 10b |
 | 2026-11-03 14:00 | 10b / 40 phút | Đạt bài 10b: học viên tự tạo bridge br0 và 2 network namespaces, cắm veth pair qua master br0, kiểm chứng bridge không IP vẫn chuyển tiếp ping và HTTP 200 OK cùng subnet, đọc bảng ARP và FDB, sửa lỗi tuột cổng bridge qua bridge link và đối chứng phục hồi [notes/10b.md](notes/10b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 11a |
 | 2026-11-03 16:55 | 11a / 40 phút | Đạt bài 11a: học viên tự cấu hình router namespace nối 2 subnet, kiểm chứng Network unreachable vs 100% loss thiếu return path; thực chứng qua Router TTL giảm còn 63, bóc tách Local Delivery vs Transit Forwarding khi ip_forward=0; nghiệm thu HTTP 200 OK [notes/11a.md](notes/11a.md) | Tự làm / không gợi ý (LLM hỗ trợ remount proc) | Bắt đầu bài 11b |
+| 2026-11-03 23:25 | 11b / 40 phút | Đạt bài 11b: học viên áp dụng mental model bóc tách 2 sự cố ẩn, dùng ip route get và sysctl net.ipv4.ip_forward phân biệt chính xác thiếu return route tại Server B vs đóng van forward tại Router; tự sửa và đối chứng phục hồi HTTP 200 OK; LLM đã dọn dẹp sạch sẽ lab [notes/11b.md](notes/11b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 12a |
