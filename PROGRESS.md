@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 20/56, không tính bài 00.
+- **Bài chính đã đạt:** 21/56, không tính bài 00.
 - **Checkpoint đã đạt:** 2/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [11a — Router namespace hai subnet](lesson/11a-router-namespace-hai-subnet.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 10b (`dat`): học viên tự tạo Linux Bridge `br0` và 2 network namespaces (`ns-a`, `ns-b`), nối 2 veth pairs và cắm vào bridge qua `master br0`; kiểm chứng thực tế Bridge hoàn toàn không cần địa chỉ IP nhưng vẫn chuyển tiếp ping L3 (0% loss, ~0.14ms) và HTTP L7 (200 OK) thành công giữa 2 namespace cùng subnet; phân tích bảng ARP và FDB; bóc tách sự cố interface trong Pod vẫn UP nhưng bị mất kết nối do đầu dây phía Node tuột khỏi bridge (`nomaster`), dùng `bridge link` phát hiện và sửa bằng `ip link set master br0`, đối chứng phục hồi HTTP 200 OK; LLM đã dọn dẹp sạch lab container `nfk-10b-lab`.
-- **Bước tiếp theo:** Bắt đầu bài [11a — Router namespace hai subnet](lesson/11a-router-namespace-hai-subnet.md).
-- **Bằng chứng/notes gần nhất:** [notes/10b.md](notes/10b.md); bài trước: [notes/10a.md](notes/10a.md).
+- **Bài đang học:** [11b — Return path và forwarding](lesson/11b-return-path-va-forwarding.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 11a (`dat`): học viên tự tạo 3 namespaces (`ns-a`, `ns-b`, `ns-router`), nối 2 veth pairs và gán địa chỉ cho 2 subnet riêng biệt (`10.100.1.0/24` và `10.100.2.0/24`); kiểm chứng sự thay đổi từ lỗi `Network unreachable` (chưa có route) sang `100% packet loss` (có route nhưng thiếu return path); thiết lập route 2 chiều và bật `net.ipv4.ip_forward=1`, quan sát ping thành công với `ttl=63` (chứng minh qua hop L3); thực chứng bóc tách Local Delivery (ping router thành công kể cả khi `ip_forward=0`) vs Transit Forwarding (ping xuyên router bị chặn); kiểm tra dịch vụ HTTP thành công đạt `HTTP/1.0 200 OK`.
+- **Bước tiếp theo:** Bắt đầu bài [11b — Return path và forwarding](lesson/11b-return-path-va-forwarding.md).
+- **Bằng chứng/notes gần nhất:** [notes/11a.md](notes/11a.md); bài trước: [notes/10b.md](notes/10b.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ container `nfk-10b-lab`.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Giữ container `nfk-11a-lab` với baseline topology A–R–B để tiếp tục bài 11b theo đúng yêu cầu giáo trình.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-03
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -58,7 +58,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 09b | [Sockets và connectivity matrix](lesson/09b-sockets-va-connectivity-matrix.md) | dat | 2026-11-02 | [notes/09b.md](notes/09b.md); đo kiểm matrix 4 phép thử, bóc tách listener loopback vs wildcard qua ss -lntup, loại trừ giả thuyết firewall, đối chứng phục hồi 200 OK; LLM đã dọn dẹp lab |
 | 10a | [Network namespace và veth](lesson/10a-network-namespace-va-veth.md) | dat | 2026-11-03 | [notes/10a.md](notes/10a.md); tự tạo 2 netns và veth pair, gán IP và đối chứng ping khi DOWN vs UP, đo HTTP 200 OK, kiểm chứng loopback/socket isolation, khắc phục lỗi veth DOWN/NO-CARRIER, trả lời đúng case Pod K8s; LLM đã dọn dẹp sạch lab |
 | 10b | [Linux bridge](lesson/10b-linux-bridge.md) | dat | 2026-11-03 | [notes/10b.md](notes/10b.md); tự tạo bridge br0 và 2 netns, cắm 2 veth pair qua master br0, kiểm chứng bridge không IP vẫn ping/HTTP 200 OK cùng subnet, đọc bảng FDB/ARP, sửa lỗi tuột cổng bridge qua bridge link, phân tích giới hạn L2 vs router L3; LLM đã dọn sạch lab |
-| 11a | [Router namespace hai subnet](lesson/11a-router-namespace-hai-subnet.md) | chua-hoc | — | — |
+| 11a | [Router namespace hai subnet](lesson/11a-router-namespace-hai-subnet.md) | dat | 2026-11-03 | [notes/11a.md](notes/11a.md); học viên tự cấu hình 3 namespaces, 2 veth pairs, gán IP 2 subnet, cấu hình default route 2 chiều; đối chứng ping Network unreachable vs 100% loss vs thành công (ttl=63); thực chứng tách bạch Local Delivery vs Transit Forwarding khi ip_forward=0; nghiệm thu HTTP 200 OK |
 | 11b | [Return path và forwarding](lesson/11b-return-path-va-forwarding.md) | chua-hoc | — | — |
 | 12a | [Firewall và conntrack](lesson/12a-firewall-va-conntrack.md) | chua-hoc | — | — |
 | 12b | [DROP/REJECT và CP3](lesson/12b-drop-reject-va-cp3.md) | chua-hoc | — | — |
@@ -162,3 +162,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-02 16:10 | 09b / 40 phút | Đạt bài 09b: học viên đo kiểm connectivity matrix 4 phép thử, bóc tách lỗi listener 127.0.0.1 qua ss -lntup, sửa về 0.0.0.0 và đối chứng phục hồi 200 OK [notes/09b.md](notes/09b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 10a |
 | 2026-11-03 09:00 | 10a / 40 phút | Đạt bài 10a: học viên tự tạo 2 network namespaces và nối veth pair, đối chứng ping khi link DOWN vs UP, đo HTTP 200 OK, kiểm chứng loopback và socket isolation, bóc tách cơ chế carrier khi veth DOWN dẫn tới NO-CARRIER và đối chứng phục hồi [notes/10a.md](notes/10a.md) | Hint 2 (cung cấp lệnh đo khi học viên yêu cầu) | Bắt đầu bài 10b |
 | 2026-11-03 14:00 | 10b / 40 phút | Đạt bài 10b: học viên tự tạo bridge br0 và 2 network namespaces, cắm veth pair qua master br0, kiểm chứng bridge không IP vẫn chuyển tiếp ping và HTTP 200 OK cùng subnet, đọc bảng ARP và FDB, sửa lỗi tuột cổng bridge qua bridge link và đối chứng phục hồi [notes/10b.md](notes/10b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 11a |
+| 2026-11-03 16:55 | 11a / 40 phút | Đạt bài 11a: học viên tự cấu hình router namespace nối 2 subnet, kiểm chứng Network unreachable vs 100% loss thiếu return path; thực chứng qua Router TTL giảm còn 63, bóc tách Local Delivery vs Transit Forwarding khi ip_forward=0; nghiệm thu HTTP 200 OK [notes/11a.md](notes/11a.md) | Tự làm / không gợi ý (LLM hỗ trợ remount proc) | Bắt đầu bài 11b |
