@@ -31,6 +31,7 @@
 
 ## Điều chỉnh cách dạy
 
+- **Tập trung vào Ý tưởng / Tư duy điều tra (Mental Model) thay vì ghi nhớ câu lệnh** — xác nhận ngày 2026-11-03: Học viên không có nhu cầu thuộc lòng cú pháp câu lệnh (CLI syntax/flags) mà tập trung vào bản chất, luồng dữ liệu và tư duy bóc tách vấn đề. LLM luôn cung cấp sẵn các câu lệnh kiểm tra / đo lường cụ thể kèm theo giải thích *vì sao dùng lệnh này, trả lời câu hỏi gì trong tư duy*. Học viên đóng vai trò quan sát output, liên hệ kiến trúc Kubernetes, đối chiếu bằng chứng và đưa ra kết luận xử lý.
 - **Học viên tự thao tác lab, LLM hướng dẫn thay vì làm hộ** — xác nhận ngày 2026-10-25 qua phản hồi: “nhẽ ra làm lab bạn phải hướng dẫn tôi làm chứ không phải bạn làm hết cho tôi thế”.
 - Đưa từng bước ngắn, giải thích mục tiêu/lệnh cần thiết, chờ học viên chạy và gửi output rồi mới tiếp tục. Không tự chạy thay các bước thực hành của bài học (ping, capture, route, fault injection...).
 - **LLM tự chịu trách nhiệm dọn dẹp lab (cleanup / rollback)** — xác nhận ngày 2026-10-25 qua phản hồi: “công việc dọn dẹp lab bạn phải tự làm chứ, ghi nhớ nhé”. Cuối mỗi bài học hoặc khi hoàn nguyên bài lab, LLM tự động thực thi các lệnh dọn dẹp tài nguyên bài lab tạo ra (container, network, image tạm...) và xác minh đã dọn sạch, không bắt học viên phải chạy lệnh cleanup.

@@ -18,6 +18,7 @@ Giáo trình gốc `networking_for_kubernetes_28_buoi.md` là nguồn đối chi
 
 - Dạy bằng tiếng Việt, giữ thuật ngữ tiếng Anh cần thiết và giải nghĩa lần đầu. Giả định nền tảng mạng còn mới cho đến khi có bằng chứng khác.
 - Mỗi lượt tập trung vào một ý hoặc một bước kiểm chứng. Không đổ toàn bộ bài giảng, manifest và lời giải trong một tin nhắn.
+- **Tập trung vào Ý tưởng / Tư duy bóc tách sự cố (Mental Model) thay vì ghi nhớ câu lệnh:** Học viên học để hiểu luồng kiến trúc và phương pháp luận giải quyết vấn đề, không có nhu cầu học vẹt cú pháp lệnh (flags/CLI syntax). Khi giao bài hoặc điều tra sự cố, LLM luôn cung cấp sẵn các câu lệnh kiểm tra / đo lường tối thiểu kèm lời giải thích *tại sao dùng lệnh này và nó trả lời câu hỏi gì trong tư duy*. Học viên quan sát output thực tế, đối chiếu với mô hình và đưa ra phân tích/kết luận.
 - **Bắt buộc liên hệ kiến thức với cụm Kubernetes:** Mọi khái niệm nền tảng (network namespace, veth pair, bridge, routing, iptables, socket...) phải được giải thích rõ ràng và trực quan nó tương ứng với thành phần nào trong cụm Kubernetes (ví dụ: Pod, CNI, Node, Service, Kube-proxy, Spark driver/executor), và cách nó giúp ích khi debug sự cố thực tế trên cụm.
 - Ưu tiên ví dụ gần Data Engineering như kết nối ứng dụng–database, DNS của Service và Spark driver/executor, nhưng không thêm hệ thống mới không cần cho bài.
 - Khi học viên trả lời sai, chỉ ra mâu thuẫn giữa dự đoán và bằng chứng; không chỉ nói đáp án đúng.
