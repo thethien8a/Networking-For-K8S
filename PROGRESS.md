@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 24/56, không tính bài 00.
+- **Bài chính đã đạt:** 25/56, không tính bài 00.
 - **Checkpoint đã đạt:** 3/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [13a — Pod shared network namespace](lesson/13a-pod-shared-network-namespace.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 12b (`dat`) và Cổng đánh giá Checkpoint 3 (CP3 `dat`): thực chứng đối chứng rực rỡ DROP (2.002s, timeout exit 28, 2 pkts) vs REJECT (0.000145s, refused exit 7, TCP RST); điều tra rule lỗi ẩn bằng packet counters (`pkts=4`) trên chain FORWARD và rollback tối thiểu bằng `iptables -D FORWARD 1`; capture tcpdump chứng minh luồng chuyển tiếp đối xứng qua Router; nghiệm thu toàn diện 5/5 tiêu chí CP3; dọn dẹp sạch sẽ toàn bộ lab container.
-- **Bước tiếp theo:** Bắt đầu Giai đoạn 4 với bài [13a — Pod shared network namespace](lesson/13a-pod-shared-network-namespace.md).
-- **Bằng chứng/notes gần nhất:** [notes/12b.md](notes/12b.md); bài trước: [notes/12a.md](notes/12a.md).
+- **Bài đang học:** [13b — Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 13a (`dat`): học viên phân tích chính xác 3/3 dự đoán; đo kiểm interface `eth0@if9` (veth pair nối vào Node); chứng minh 2 container cùng Pod dùng chung loopback `127.0.0.1` và không gian port (thấy socket 8080 LISTEN dù khác PID namespace); thực chứng `containerPort` chỉ là metadata vì không khai báo vẫn gọi 200 OK; đối chứng Pod độc lập curl localhost bị `Connection refused` (exit 7) vs gọi Pod IP thành công 200 OK; thực chứng xung đột port gây `OSError: [Errno 98] Address in use` và `CrashLoopBackOff`; đã dọn sạch lab namespace `nfk-13a`.
+- **Bước tiếp theo:** Bắt đầu bài [13b — Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md).
+- **Bằng chứng/notes gần nhất:** [notes/13a.md](notes/13a.md); bài trước: [notes/12b.md](notes/12b.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, lab đã dọn dẹp sạch sẽ.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-04
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, lab namespace `nfk-13a` đã dọn dẹp sạch sẽ.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-05
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -62,7 +62,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 11b | [Return path và forwarding](lesson/11b-return-path-va-forwarding.md) | dat | 2026-11-03 | [notes/11b.md](notes/11b.md); học viên áp dụng mental model bóc tách 2 sự cố ẩn: Case 1 router forward=1 nhưng B thiếu return route (Network unreachable), Case 2 B có route nhưng router ip_forward=0; sửa tối thiểu và đối chứng phục hồi HTTP 200 OK; LLM đã dọn sạch lab container |
 | 12a | [Firewall và conntrack](lesson/12a-firewall-va-conntrack.md) | dat | 2026-11-04 | [notes/12a.md](notes/12a.md); học viên phân biệt 3 ngã rẽ Netfilter, kiểm chứng chặn INPUT không ảnh hưởng FORWARD (ping Router 100% loss vs ping Server 0% loss ttl=63); đối chứng ss -t rỗng vs conntrack -L có flow ASSURED; đo kiểm Stateful Firewall chặn ctstate NEW |
 | 12b | [DROP/REJECT và CP3](lesson/12b-drop-reject-va-cp3.md) | dat | 2026-11-04 | [notes/12b.md](notes/12b.md); đối chứng DROP (2.002s, timeout, 2 pkts) vs REJECT (0.000145s, refused, TCP RST); bắt quả tang rule lỗi ẩn qua packet counters (pkts=4), rollback tối thiểu iptables -D FORWARD 1; capture tcpdump luồng chuyển tiếp đối xứng qua Router; hoàn thành 5/5 tiêu chí CP3; lab đã dọn sạch |
-| 13a | [Pod shared network namespace](lesson/13a-pod-shared-network-namespace.md) | chua-hoc | — | — |
+| 13a | [Pod shared network namespace](lesson/13a-pod-shared-network-namespace.md) | dat | 2026-11-05 | [notes/13a.md](notes/13a.md); học viên phân tích chính xác 3/3 dự đoán; đo kiểm ip addr (eth0@if9 veth pair), netstat thấy socket 8080 LISTEN cột PID -; đối chứng curl 127.0.0.1 và Pod IP 200 OK không cần containerPort; đối chứng Pod độc lập curl 127.0.0.1 Connection refused vs Pod IP 200 OK; thực chứng xung đột port OSError Errno 98 Address in use dẫn tới CrashLoopBackOff; đã dọn sạch lab |
 | 13b | [Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md) | chua-hoc | — | — |
 | 14a | [CNI và same-node placement](lesson/14a-cni-va-same-node-placement.md) | chua-hoc | — | — |
 | 14b | [Same-node data path](lesson/14b-same-node-data-path.md) | chua-hoc | — | — |
@@ -166,3 +166,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-03 23:25 | 11b / 40 phút | Đạt bài 11b: học viên áp dụng mental model bóc tách 2 sự cố ẩn, dùng ip route get và sysctl net.ipv4.ip_forward phân biệt chính xác thiếu return route tại Server B vs đóng van forward tại Router; tự sửa và đối chứng phục hồi HTTP 200 OK; LLM đã dọn dẹp sạch sẽ lab [notes/11b.md](notes/11b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 12a |
 | 2026-11-04 10:10 | 12a / 40 phút | Đạt bài 12a: học viên phân loại 3 ngã rẽ Netfilter hooks, thực chứng chặn INPUT không chặn FORWARD, đối chứng ss -t rỗng vs conntrack -L có flow ASSURED 2 chiều, kiểm chứng stateful firewall chặn ctstate NEW [notes/12a.md](notes/12a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 12b + CP3 |
 | 2026-11-04 22:45 | 12b + CP3 / 45 phút | Đạt bài 12b và hoàn thành Cổng đánh giá CP3: học viên đối chứng rực rỡ DROP (2.002s) vs REJECT (0.000145s, TCP RST), điều tra rule lỗi ẩn bằng packet counters (pkts=4) trên FORWARD, rollback tối thiểu; capture tcpdump luồng chuyển tiếp đối xứng; hoàn thành 5/5 tiêu chí CP3 [notes/12b.md](notes/12b.md) | Tự làm / không cần gợi ý | Bắt đầu Giai đoạn 4 với bài 13a |
+| 2026-11-05 00:10 | 13a / 35 phút | Đạt bài 13a: học viên dự đoán chính xác 3/3 kịch bản, chứng minh Pod chia sẻ chung Network Namespace, chung loopback và port space; đối chứng curl 127.0.0.1 và Pod IP 200 OK không cần containerPort; chứng minh cô lập loopback giữa các Pod độc lập (Connection refused); thực chứng lỗi Errno 98 Address in use và CrashLoopBackOff khi xung đột port [notes/13a.md](notes/13a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 13b |
