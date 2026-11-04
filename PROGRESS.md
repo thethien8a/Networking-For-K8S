@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 22/56, không tính bài 00.
+- **Bài chính đã đạt:** 23/56, không tính bài 00.
 - **Checkpoint đã đạt:** 2/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [12a — Firewall và conntrack](lesson/12a-firewall-va-conntrack.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 11b (`dat`): học viên áp dụng phương pháp luận Mental Model bóc tách 2 sự cố ẩn có cùng triệu chứng Client timeout; đo kiểm bằng `ip route get` và `sysctl net.ipv4.ip_forward`, xác định chính xác Case 1 do thiếu return route tại Server B (`Network unreachable`) và Case 2 do Router đóng van forwarding (`ip_forward=0`); tự sửa tối thiểu và đối chứng phục hồi HTTP 200 OK; LLM đã chủ động dọn dẹp sạch sẽ lab container `nfk-11a-lab`.
-- **Bước tiếp theo:** Bắt đầu Module 12 với bài [12a — Firewall và conntrack](lesson/12a-firewall-va-conntrack.md).
-- **Bằng chứng/notes gần nhất:** [notes/11b.md](notes/11b.md); bài trước: [notes/11a.md](notes/11a.md).
+- **Bài đang học:** [12b — DROP/REJECT và CP3](lesson/12b-drop-reject-va-cp3.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 12a (`dat`): học viên phân biệt rõ 3 ngã rẽ Netfilter hooks (`INPUT`, `FORWARD`, `OUTPUT`), thực chứng bằng thực nghiệm: chặn ICMP ở `INPUT` trên Router làm ping Router 100% loss nhưng ping transit sang Server B vẫn 0% loss (`ttl=63`); đối chứng rạch ròi giữa Process Socket (`ss -t` trên Router hoàn toàn trống) và Kernel Connection Tracking (`conntrack -L` ghi nhận flow 2 chiều đầy đủ với nhãn `[ASSURED]`); kiểm chứng Stateful Firewall: rule `ctstate NEW -j DROP` bắt chính xác 2 packet SYN làm curl mới bị timeout trong khi kết nối cũ đã thiết lập được bảo toàn; hoàn nguyên toàn bộ rule thử nghiệm và nghiệm thu HTTP baseline 200 OK.
+- **Bước tiếp theo:** Bắt đầu bài [12b — DROP/REJECT và CP3](lesson/12b-drop-reject-va-cp3.md) và chinh phục Cổng đánh giá Checkpoint 3 (CP3).
+- **Bằng chứng/notes gần nhất:** [notes/12a.md](notes/12a.md); bài trước: [notes/11b.md](notes/11b.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không còn nợ rollback. LLM đã dọn dẹp sạch toàn bộ container `nfk-11a-lab`.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-03
+- **Thay đổi lab còn tồn tại / nợ rollback:** Giữ container `nfk-12a-lab` với HTTP baseline sạch để tiếp tục bài 12b + CP3 theo đúng yêu cầu giáo trình.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-04
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -60,7 +60,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 10b | [Linux bridge](lesson/10b-linux-bridge.md) | dat | 2026-11-03 | [notes/10b.md](notes/10b.md); tự tạo bridge br0 và 2 netns, cắm 2 veth pair qua master br0, kiểm chứng bridge không IP vẫn ping/HTTP 200 OK cùng subnet, đọc bảng FDB/ARP, sửa lỗi tuột cổng bridge qua bridge link, phân tích giới hạn L2 vs router L3; LLM đã dọn sạch lab |
 | 11a | [Router namespace hai subnet](lesson/11a-router-namespace-hai-subnet.md) | dat | 2026-11-03 | [notes/11a.md](notes/11a.md); học viên tự cấu hình 3 namespaces, 2 veth pairs, gán IP 2 subnet, cấu hình default route 2 chiều; đối chứng ping Network unreachable vs 100% loss vs thành công (ttl=63); thực chứng tách bạch Local Delivery vs Transit Forwarding khi ip_forward=0; nghiệm thu HTTP 200 OK |
 | 11b | [Return path và forwarding](lesson/11b-return-path-va-forwarding.md) | dat | 2026-11-03 | [notes/11b.md](notes/11b.md); học viên áp dụng mental model bóc tách 2 sự cố ẩn: Case 1 router forward=1 nhưng B thiếu return route (Network unreachable), Case 2 B có route nhưng router ip_forward=0; sửa tối thiểu và đối chứng phục hồi HTTP 200 OK; LLM đã dọn sạch lab container |
-| 12a | [Firewall và conntrack](lesson/12a-firewall-va-conntrack.md) | chua-hoc | — | — |
+| 12a | [Firewall và conntrack](lesson/12a-firewall-va-conntrack.md) | dat | 2026-11-04 | [notes/12a.md](notes/12a.md); học viên phân biệt 3 ngã rẽ Netfilter, kiểm chứng chặn INPUT không ảnh hưởng FORWARD (ping Router 100% loss vs ping Server 0% loss ttl=63); đối chứng ss -t rỗng vs conntrack -L có flow ASSURED; đo kiểm Stateful Firewall chặn ctstate NEW |
 | 12b | [DROP/REJECT và CP3](lesson/12b-drop-reject-va-cp3.md) | chua-hoc | — | — |
 | 13a | [Pod shared network namespace](lesson/13a-pod-shared-network-namespace.md) | chua-hoc | — | — |
 | 13b | [Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md) | chua-hoc | — | — |
@@ -164,3 +164,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-03 14:00 | 10b / 40 phút | Đạt bài 10b: học viên tự tạo bridge br0 và 2 network namespaces, cắm veth pair qua master br0, kiểm chứng bridge không IP vẫn chuyển tiếp ping và HTTP 200 OK cùng subnet, đọc bảng ARP và FDB, sửa lỗi tuột cổng bridge qua bridge link và đối chứng phục hồi [notes/10b.md](notes/10b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 11a |
 | 2026-11-03 16:55 | 11a / 40 phút | Đạt bài 11a: học viên tự cấu hình router namespace nối 2 subnet, kiểm chứng Network unreachable vs 100% loss thiếu return path; thực chứng qua Router TTL giảm còn 63, bóc tách Local Delivery vs Transit Forwarding khi ip_forward=0; nghiệm thu HTTP 200 OK [notes/11a.md](notes/11a.md) | Tự làm / không gợi ý (LLM hỗ trợ remount proc) | Bắt đầu bài 11b |
 | 2026-11-03 23:25 | 11b / 40 phút | Đạt bài 11b: học viên áp dụng mental model bóc tách 2 sự cố ẩn, dùng ip route get và sysctl net.ipv4.ip_forward phân biệt chính xác thiếu return route tại Server B vs đóng van forward tại Router; tự sửa và đối chứng phục hồi HTTP 200 OK; LLM đã dọn dẹp sạch sẽ lab [notes/11b.md](notes/11b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 12a |
+| 2026-11-04 10:10 | 12a / 40 phút | Đạt bài 12a: học viên phân loại 3 ngã rẽ Netfilter hooks, thực chứng chặn INPUT không chặn FORWARD, đối chứng ss -t rỗng vs conntrack -L có flow ASSURED 2 chiều, kiểm chứng stateful firewall chặn ctstate NEW [notes/12a.md](notes/12a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 12b + CP3 |
