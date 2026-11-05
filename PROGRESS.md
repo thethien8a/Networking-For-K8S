@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 25/56, không tính bài 00.
+- **Bài chính đã đạt:** 26/56, không tính bài 00.
 - **Checkpoint đã đạt:** 3/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [13b — Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 13a (`dat`): học viên phân tích chính xác 3/3 dự đoán; đo kiểm interface `eth0@if9` (veth pair nối vào Node); chứng minh 2 container cùng Pod dùng chung loopback `127.0.0.1` và không gian port (thấy socket 8080 LISTEN dù khác PID namespace); thực chứng `containerPort` chỉ là metadata vì không khai báo vẫn gọi 200 OK; đối chứng Pod độc lập curl localhost bị `Connection refused` (exit 7) vs gọi Pod IP thành công 200 OK; thực chứng xung đột port gây `OSError: [Errno 98] Address in use` và `CrashLoopBackOff`; đã dọn sạch lab namespace `nfk-13a`.
-- **Bước tiếp theo:** Bắt đầu bài [13b — Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md).
-- **Bằng chứng/notes gần nhất:** [notes/13a.md](notes/13a.md); bài trước: [notes/12b.md](notes/12b.md).
+- **Bài đang học:** [14a — CNI và same-node placement](lesson/14a-cni-va-same-node-placement.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 13b (`dat`): học viên phân tích chính xác dự đoán; đo đạc ma trận 4 phép thử chứng minh bind 127.0.0.1 chỉ phục vụ loopback nội bộ, gọi Pod IP bị Connection refused (TCP RST); đối chứng thành công 200 OK cả 3 hướng khi đổi sang bind 0.0.0.0; thực chứng hostNetwork: true chia sẻ 100% Root NetNS của Node (IP trùng Node 192.168.155.5, nhìn thấy cni0, flannel.1, veth của Pods khác); phân biệt rạch ròi localhost của Node k3d vs localhost máy Mac; đã dọn sạch lab namespace nfk-13b.
+- **Bước tiếp theo:** Bắt đầu bài [14a — CNI và same-node placement](lesson/14a-cni-va-same-node-placement.md).
+- **Bằng chứng/notes gần nhất:** [notes/13b.md](notes/13b.md); bài trước: [notes/13a.md](notes/13a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, lab namespace `nfk-13a` đã dọn dẹp sạch sẽ.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, lab namespace `nfk-13b` đã dọn dẹp sạch sẽ.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-05
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -63,7 +63,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 12a | [Firewall và conntrack](lesson/12a-firewall-va-conntrack.md) | dat | 2026-11-04 | [notes/12a.md](notes/12a.md); học viên phân biệt 3 ngã rẽ Netfilter, kiểm chứng chặn INPUT không ảnh hưởng FORWARD (ping Router 100% loss vs ping Server 0% loss ttl=63); đối chứng ss -t rỗng vs conntrack -L có flow ASSURED; đo kiểm Stateful Firewall chặn ctstate NEW |
 | 12b | [DROP/REJECT và CP3](lesson/12b-drop-reject-va-cp3.md) | dat | 2026-11-04 | [notes/12b.md](notes/12b.md); đối chứng DROP (2.002s, timeout, 2 pkts) vs REJECT (0.000145s, refused, TCP RST); bắt quả tang rule lỗi ẩn qua packet counters (pkts=4), rollback tối thiểu iptables -D FORWARD 1; capture tcpdump luồng chuyển tiếp đối xứng qua Router; hoàn thành 5/5 tiêu chí CP3; lab đã dọn sạch |
 | 13a | [Pod shared network namespace](lesson/13a-pod-shared-network-namespace.md) | dat | 2026-11-05 | [notes/13a.md](notes/13a.md); học viên phân tích chính xác 3/3 dự đoán; đo kiểm ip addr (eth0@if9 veth pair), netstat thấy socket 8080 LISTEN cột PID -; đối chứng curl 127.0.0.1 và Pod IP 200 OK không cần containerPort; đối chứng Pod độc lập curl 127.0.0.1 Connection refused vs Pod IP 200 OK; thực chứng xung đột port OSError Errno 98 Address in use dẫn tới CrashLoopBackOff; đã dọn sạch lab |
-| 13b | [Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md) | chua-hoc | — | — |
+| 13b | [Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md) | dat | 2026-11-05 | [notes/13b.md](notes/13b.md); đo kiểm ma trận 4 phép thử loopback vs Pod IP, đối chứng Connection refused vs 200 OK khi bind 0.0.0.0, thực chứng hostNetwork: true mang IP Node và thấy toàn bộ card mạng hạ tầng (cni0, flannel.1, host veth), bóc tách ranh giới container/Pod/Node/Mac; lab đã dọn sạch |
 | 14a | [CNI và same-node placement](lesson/14a-cni-va-same-node-placement.md) | chua-hoc | — | — |
 | 14b | [Same-node data path](lesson/14b-same-node-data-path.md) | chua-hoc | — | — |
 | 15a | [Underlay, overlay, cross-node](lesson/15a-underlay-overlay-cross-node.md) | chua-hoc | — | — |
@@ -167,3 +167,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-04 10:10 | 12a / 40 phút | Đạt bài 12a: học viên phân loại 3 ngã rẽ Netfilter hooks, thực chứng chặn INPUT không chặn FORWARD, đối chứng ss -t rỗng vs conntrack -L có flow ASSURED 2 chiều, kiểm chứng stateful firewall chặn ctstate NEW [notes/12a.md](notes/12a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 12b + CP3 |
 | 2026-11-04 22:45 | 12b + CP3 / 45 phút | Đạt bài 12b và hoàn thành Cổng đánh giá CP3: học viên đối chứng rực rỡ DROP (2.002s) vs REJECT (0.000145s, TCP RST), điều tra rule lỗi ẩn bằng packet counters (pkts=4) trên FORWARD, rollback tối thiểu; capture tcpdump luồng chuyển tiếp đối xứng; hoàn thành 5/5 tiêu chí CP3 [notes/12b.md](notes/12b.md) | Tự làm / không cần gợi ý | Bắt đầu Giai đoạn 4 với bài 13a |
 | 2026-11-05 00:10 | 13a / 35 phút | Đạt bài 13a: học viên dự đoán chính xác 3/3 kịch bản, chứng minh Pod chia sẻ chung Network Namespace, chung loopback và port space; đối chứng curl 127.0.0.1 và Pod IP 200 OK không cần containerPort; chứng minh cô lập loopback giữa các Pod độc lập (Connection refused); thực chứng lỗi Errno 98 Address in use và CrashLoopBackOff khi xung đột port [notes/13a.md](notes/13a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 13b |
+| 2026-11-05 15:45 | 13b / 40 phút | Đạt bài 13b: đo kiểm ma trận 4 phép thử loopback vs Pod IP, đối chứng Connection refused vs 200 OK khi bind 0.0.0.0, thực chứng hostNetwork: true mang IP Node và thấy toàn bộ card mạng hạ tầng (cni0, flannel.1, host veth), bóc tách ranh giới container/Pod/Node/Mac; lab đã dọn sạch [notes/13b.md](notes/13b.md) | Hint 1 (Định hướng bóc tách Connection refused) | Bắt đầu bài 14a |
