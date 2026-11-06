@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 28/56, không tính bài 00.
+- **Bài chính đã đạt:** 29/56, không tính bài 00.
 - **Checkpoint đã đạt:** 3/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [15a — Underlay, overlay, cross-node](lesson/15a-underlay-overlay-cross-node.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 14b (`dat`): vẽ sơ đồ same-node data path qua Linux Bridge `cni0` và veth pair; chứng minh gói tin cùng node không đi qua `flannel.1`; phân tích sự cố vòng đời CNI bridge on-demand khi node reboot; thực hiện bài toán Break & Fix phân biệt rõ rệt lỗi L4 port mismatch (Connection refused trong 0ms, ping 0% loss 0.054ms, ARP REACHABLE) với lỗi L2/L3 CNI; kiểm chứng sửa đúng cổng đạt HTTP 200 OK; lab namespace `nfk-14a` đã dọn dẹp sạch sẽ.
-- **Bước tiếp theo:** Bắt đầu bài [15a — Underlay và overlay](lesson/15a-underlay-overlay-cross-node.md).
-- **Bằng chứng/notes gần nhất:** [notes/14b.md](notes/14b.md); bài trước: [notes/14a.md](notes/14a.md).
+- **Bài đang học:** [15b — Cross-node evidence và fault](lesson/15b-cross-node-evidence-va-fault.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 15a (`dat`): học viên phân tích chính xác cơ chế định tuyến cross-node và đóng gói VXLAN qua `flannel.1`; phân biệt rõ Underlay (192.168.155.0/24) vs Overlay (10.42.0.0/16); đo kiểm thực tế HTTP 200 OK, so sánh độ trễ ping 0.151ms vs same-node 0.054ms; đối chứng bảng ARP chỉ lưu MAC của Default Gateway `cni0` (10.42.3.1, MAC 96:44:ea:17:28:57) thay vì Server đích; đối chứng routing table trên host điều hướng dải 10.42.1.0/24 sang `flannel.1`; giữ namespace `nfk-15a` cho bài 15b.
+- **Bước tiếp theo:** Bắt đầu bài [15b — Đo và khoanh vùng cross-node](lesson/15b-cross-node-evidence-va-fault.md).
+- **Bằng chứng/notes gần nhất:** [notes/15a.md](notes/15a.md); bài trước: [notes/14b.md](notes/14b.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-14a` đã dọn dẹp sạch sẽ.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Giữ namespace `nfk-15a` và 2 Pod `client-cross-node`, `server-cross-node` để làm baseline cho bài 15b.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-06
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -66,7 +66,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 13b | [Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md) | dat | 2026-11-05 | [notes/13b.md](notes/13b.md); đo kiểm ma trận 4 phép thử loopback vs Pod IP, đối chứng Connection refused vs 200 OK khi bind 0.0.0.0, thực chứng hostNetwork: true mang IP Node và thấy toàn bộ card mạng hạ tầng (cni0, flannel.1, host veth), bóc tách ranh giới container/Pod/Node/Mac; lab đã dọn sạch |
 | 14a | [CNI và same-node placement](lesson/14a-cni-va-same-node-placement.md) | dat | 2026-11-05 | [notes/14a.md](notes/14a.md); học viên phân tích chính xác dự đoán; kiểm chứng PodCIDR per-node, nodeSelector gán 2 Pod vào worker k3d-de-k3d-agent-0; kiểm chứng cấp IP đúng dải 10.42.3.0/24; gọi trực tiếp Pod IP 200 OK; giữ namespace nfk-14a cho 14b |
 | 14b | [Same-node data path](lesson/14b-same-node-data-path.md) | dat | 2026-11-06 | [notes/14b.md](notes/14b.md); học viên phân tích chính xác data path; thực chứng L2 switching qua cni0 không chạm flannel.1; phân tích lỗi cni0 biến mất khi node reboot; đối chứng Break & Fix phân biệt L4 port mismatch (Refused 0ms, ping 0% loss 0.054ms, ARP REACHABLE) vs lỗi CNI; fix thành công 200 OK; namespace nfk-14a đã dọn sạch |
-| 15a | [Underlay, overlay, cross-node](lesson/15a-underlay-overlay-cross-node.md) | chua-hoc | — | — |
+| 15a | [Underlay, overlay, cross-node](lesson/15a-underlay-overlay-cross-node.md) | dat | 2026-11-06 | [notes/15a.md](notes/15a.md); học viên phân tích chính xác routing cross-node và đóng gói VXLAN; đo kiểm HTTP 200 OK, latency ping 0.151ms vs same-node 0.054ms; đối chứng bảng ARP chỉ lưu MAC Gateway cni0 (10.42.3.1); đối chứng routing table trên host chỉ định sang flannel.1; giữ namespace nfk-15a cho 15b |
 | 15b | [Cross-node evidence và fault](lesson/15b-cross-node-evidence-va-fault.md) | chua-hoc | — | — |
 | 16a | [CNI events/logs triage](lesson/16a-cni-events-logs-triage.md) | chua-hoc | — | — |
 | 16b | [Cross-node incident và CP4](lesson/16b-cross-node-incident-va-cp4.md) | chua-hoc | — | — |
@@ -170,3 +170,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-05 15:45 | 13b / 40 phút | Đạt bài 13b: đo kiểm ma trận 4 phép thử loopback vs Pod IP, đối chứng Connection refused vs 200 OK khi bind 0.0.0.0, thực chứng hostNetwork: true mang IP Node và thấy toàn bộ card mạng hạ tầng (cni0, flannel.1, host veth), bóc tách ranh giới container/Pod/Node/Mac; lab đã dọn sạch [notes/13b.md](notes/13b.md) | Hint 1 (Định hướng bóc tách Connection refused) | Bắt đầu bài 14a |
 | 2026-11-05 16:30 | 14a / 25 phút | Đạt bài 14a: học viên dự đoán chính xác mô hình IPAM và cách ly namespace; kiểm chứng PodCIDR per-node (/24); dùng nodeSelector gán 2 Pod vào cùng worker k3d-de-k3d-agent-0; kiểm chứng CNI IPAM cấp IP đúng dải 10.42.3.0/24 (10.42.3.17 và 10.42.3.18); đo kiểm trực tiếp Pod-to-Pod HTTP 200 OK không cần Service; giữ 2 Pod cho bài 14b [notes/14a.md](notes/14a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 14b |
 | 2026-11-06 10:25 | 14b / 35 phút | Đạt bài 14b: vẽ sơ đồ data path same-node qua bridge cni0; chứng minh L2 direct on-link không qua flannel.1; bóc tách sự cố cni0 on-demand sau khi node reboot; giải quyết bài toán Break & Fix phân biệt L4 port mismatch (Refused 0ms, ping thông 0.054ms, ARP REACHABLE) vs CNI; fix thành công 200 OK; lab nfk-14a đã dọn sạch sẽ [notes/14b.md](notes/14b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 15a |
+| 2026-11-06 11:30 | 15a / 35 phút | Đạt bài 15a: phân biệt Underlay (192.168.155.0/24) vs Overlay (10.42.0.0/16); đo kiểm HTTP 200 OK cross-node, so sánh latency 0.151ms vs 0.054ms; đối chứng bảng ARP chỉ lưu MAC Gateway cni0 (10.42.3.1); đối chứng routing table trên host điều hướng sang flannel.1; giữ 2 Pod cho bài 15b [notes/15a.md](notes/15a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 15b |
