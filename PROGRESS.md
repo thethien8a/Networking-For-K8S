@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 31/56, không tính bài 00.
-- **Checkpoint đã đạt:** 3/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [16b — Cross-node incident và CP4](lesson/16b-cross-node-incident-va-cp4.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 16a (`dat`): học viên phân loại chính xác Setup Failure (Pending, ContainerCreating) vs Traffic Failure (Running, có IP); hiểu rõ nguyên tắc Time Correlation khi đọc log; khám phá cấu hình CNI thực tế (`10-flannel.conflist`) và danh sách plugin binaries; đọc và phân tích Kubernetes Events; xây dựng Cây quyết định chẩn đoán mạng Kubernetes (Troubleshooting Decision Tree); lab namespace `nfk-16a` đã dọn sạch sẽ.
-- **Bước tiếp theo:** Bắt đầu bài [16b — Cross-node incident và CP4](lesson/16b-cross-node-incident-va-cp4.md).
-- **Bằng chứng/notes gần nhất:** [notes/16a.md](notes/16a.md); bài trước: [notes/15b.md](notes/15b.md).
+- **Bài chính đã đạt:** 32/56, không tính bài 00.
+- **Checkpoint đã đạt:** 4/7, gồm CP1–CP6 và Final.
+- **Bài đang học:** [17a — Service, selector, EndpointSlice](lesson/17a-service-selector-endpointslice.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 16b và đạt Cổng đánh giá Checkpoint 4 (CP4) (`dat`): học viên tự tay điều tra sự cố cross-node ẩn danh, bóc tách triệu chứng Timeout, phát hiện rule DROP UDP 8472 trên chain INPUT của worker đích k3d-de-k3d-agent-1; tự xóa rule lỗi và đối chứng phục hồi HTTP 200 OK; hiểu rõ 2 điểm khác biệt sống còn giữa lab container (k3d) và 4 VM VMware vSphere (Visibility boundary & MTU Jumbo Frames overhead khi bọc VXLAN 50B); lab namespace nfk-16b đã dọn sạch sẽ.
+- **Bước tiếp theo:** Bắt đầu Giai đoạn 5 (Service, Kube-proxy, Ingress) với bài [17a — Service, selector và EndpointSlice](lesson/17a-service-selector-endpointslice.md).
+- **Bằng chứng/notes gần nhất:** [notes/16b.md](notes/16b.md); bài trước: [notes/16a.md](notes/16a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-16a` đã dọn dẹp sạch sẽ.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-06
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-16b` đã dọn dẹp sạch sẽ, rule iptables đã gỡ bỏ hoàn toàn.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-07
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -69,7 +69,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 15a | [Underlay, overlay, cross-node](lesson/15a-underlay-overlay-cross-node.md) | dat | 2026-11-06 | [notes/15a.md](notes/15a.md); học viên phân tích chính xác routing cross-node và đóng gói VXLAN; đo kiểm HTTP 200 OK, latency ping 0.151ms vs same-node 0.054ms; đối chứng bảng ARP chỉ lưu MAC Gateway cni0 (10.42.3.1); đối chứng routing table trên host chỉ định sang flannel.1; giữ namespace nfk-15a cho 15b |
 | 15b | [Cross-node evidence và fault](lesson/15b-cross-node-evidence-va-fault.md) | dat | 2026-11-06 | [notes/15b.md](notes/15b.md); học viên phân tích chính xác timeout và phân đoạn mạng; đo kiểm ping Gateway cni0 0% loss đối chứng Pod Egress khỏe; bắt quả tang rule DROP UDP 8472 tăng packet counters; control test Node Ready; rollback thành công 200 OK và ping 0% loss; lab nfk-15a đã dọn sạch |
 | 16a | [CNI events/logs triage](lesson/16a-cni-events-logs-triage.md) | dat | 2026-11-06 | [notes/16a.md](notes/16a.md); học viên phân loại chính xác Setup Failure vs Traffic Failure; hiểu nguyên tắc Time Correlation khi đọc log; khám phá CNI conflist và plugin binaries trên node; phân tích Kubernetes Events; đúc kết Cây quyết định chẩn đoán mạng; lab nfk-16a đã dọn sạch |
-| 16b | [Cross-node incident và CP4](lesson/16b-cross-node-incident-va-cp4.md) | chua-hoc | — | — |
+| 16b | [Cross-node incident và CP4](lesson/16b-cross-node-incident-va-cp4.md) | dat | 2026-11-07 | [notes/16b.md](notes/16b.md); học viên tự điều tra case lỗi ẩn danh, phân tích Timeout vs Refused, phát hiện và xóa rule DROP UDP 8472 trên INPUT worker agent-1; nghiệm thu 200 OK; hoàn thành xuất sắc 5/5 tiêu chí CP4; lab nfk-16b đã dọn sạch |
 | 17a | [Service, selector, EndpointSlice](lesson/17a-service-selector-endpointslice.md) | chua-hoc | — | — |
 | 17b | [Selector mismatch](lesson/17b-selector-mismatch.md) | chua-hoc | — | — |
 | 18a | [Service proxy/data plane](lesson/18a-service-proxy-data-plane.md) | chua-hoc | — | — |
@@ -104,7 +104,7 @@ Không tự đánh dấu cổng đạt chỉ vì bài cuối giai đoạn đã `
 | CP1 | 04b | [IP, ARP, routing](CHECKPOINTS.md#cp1--sau-04b) | dat | 2026-10-25 | Đạt toàn bộ tiêu chí CP1: tính đúng subnet /26, phân loại 4 host; giải thích đúng L3 IP end-to-end vs L2 MAC hop-by-hop; bắt bệnh thực tế trong lab với ip route get và ip neigh FAILED; nêu đúng 3 lý do mất kết nối giữa IP hợp lệ [notes/04b.md](notes/04b.md) |
 | CP2 | 08b | [DNS/TCP/HTTP/TLS, NAT](CHECKPOINTS.md#cp2--sau-08b) | dat | 2026-11-02 | Đạt toàn bộ 4 tiêu chí CP2: phân loại đúng 4 tầng lỗi (DNS, TCP, TLS, HTTP); phân biệt Connect timeout vs Application timeout, Refused (RST chứng minh tới host) vs Timed out (DROP dọc đường); bóc tách 3 mốc dùng hostname (DNS, TLS SNI, HTTP Host); theo dõi 4-tuple trước/sau DNAT và SNAT, phân biệt NAT với Firewall [notes/08b.md](notes/08b.md) |
 | CP3 | 12b | [Linux router/firewall, capture, rollback](CHECKPOINTS.md#cp3--sau-12b) | dat | 2026-11-04 | Đạt toàn bộ 5 tiêu chí CP3: topology 2 subnet qua router namespace, routes 2 chiều & forwarding; capture tcpdump luồng chuyển tiếp đối xứng veth-ra In -> veth-rb Out; khoanh vùng đúng routing return path vs sysctl forward, Netfilter hooks INPUT vs FORWARD; đối chứng thực nghiệm DROP (2.002s) vs REJECT (0.000145s); rollback tối thiểu và dọn dẹp sạch lab [notes/12b.md](notes/12b.md) |
-| CP4 | 16b | [Cross-node theo CNI thật](CHECKPOINTS.md#cp4--sau-16b) | chua-hoc | — | — |
+| CP4 | 16b | [Cross-node theo CNI thật](CHECKPOINTS.md#cp4--sau-16b) | dat | 2026-11-07 | Đạt toàn bộ 5 tiêu chí CP4: chứng minh placement same-node vs cross-node; vẽ data path theo CNI Flannel thật (cni0 L2 switching vs flannel.1 VXLAN UDP 8472); bóc tách triệu chứng Timeout khoanh vùng đúng Node đích; bắt quả tang và rollback rule DROP iptables INPUT trên agent-1; phân tích sâu sắc 2 giới hạn kind/k3d vs 4 VM VMware (Visibility boundary & MTU Jumbo Frames overhead 50 bytes) [notes/16b.md](notes/16b.md) |
 | CP5 | 20b | [Ba Service/DNS incidents](CHECKPOINTS.md#cp5--sau-20b) | chua-hoc | — | — |
 | CP6 | 24b | [Ingress/LB/policy](CHECKPOINTS.md#cp6--sau-24b) | chua-hoc | — | — |
 | Final | 28b | [Report 4 VM + case Spark](CHECKPOINTS.md#final--sau-28b) | chua-hoc | — | — |
@@ -173,3 +173,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-06 11:30 | 15a / 35 phút | Đạt bài 15a: phân biệt Underlay (192.168.155.0/24) vs Overlay (10.42.0.0/16); đo kiểm HTTP 200 OK cross-node, so sánh latency 0.151ms vs 0.054ms; đối chứng bảng ARP chỉ lưu MAC Gateway cni0 (10.42.3.1); đối chứng routing table trên host điều hướng sang flannel.1; giữ 2 Pod cho bài 15b [notes/15a.md](notes/15a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 15b |
 | 2026-11-06 15:15 | 15b / 40 phút | Đạt bài 15b: áp dụng phân đoạn mạng khoanh vùng điểm đứt cross-node; đối chứng ping Gateway cni0 0% loss 0.078ms chứng minh Pod Egress & bridge khỏe; bắt quả tang rule DROP UDP 8472 tăng 2 pkts (220 bytes) khi curl Timeout sau 2003ms; control test Node Ready; rollback thành công 200 OK và ping 0% loss (0.113ms); lab nfk-15a đã dọn sạch sẽ [notes/15b.md](notes/15b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 16a |
 | 2026-11-06 23:55 | 16a / 30 phút | Đạt bài 16a: phân biệt rạch ròi Setup Failure (Pending, ContainerCreating) vs Traffic Failure (Running, có IP); hiểu nguyên lý Time Correlation; mổ xẻ file cấu hình 10-flannel.conflist và danh sách CNI plugins trên node; đọc và phân tích Kubernetes Events; đúc kết Cây quyết định chẩn đoán mạng; lab nfk-16a đã dọn sạch sẽ [notes/16a.md](notes/16a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 16b + Cổng CP4 |
+| 2026-11-07 00:20 | 16b + CP4 / 45 phút | Đạt bài 16b và hoàn thành Cổng đánh giá Checkpoint 4 (CP4): học viên tự điều tra case ẩn danh, bóc tách Timeout, phát hiện và xóa rule DROP UDP 8472 trên agent-1; nghiệm thu kết nối phục hồi 200 OK; nắm vững 2 giới hạn k3d vs VMware vSphere (Visibility boundary & MTU 1550B); lab nfk-16b đã dọn sạch [notes/16b.md](notes/16b.md) | Tự làm / không cần gợi ý | Bắt đầu Giai đoạn 5 với bài 17a |
