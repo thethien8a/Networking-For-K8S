@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 30/56, không tính bài 00.
+- **Bài chính đã đạt:** 31/56, không tính bài 00.
 - **Checkpoint đã đạt:** 3/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [16a — Events, logs và CNI triage](lesson/16a-cni-events-logs-triage.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 15b (`dat`): học viên phân tích chính xác cơ chế timeout và phân đoạn mạng; thực chứng ping Gateway `cni0` (10.42.3.1) 0% loss (0.078ms) chứng minh Pod Egress và `cni0` khỏe mạnh; ping sang Node khác 100% loss; curl Timeout 2003ms; bắt quả tang rule DROP UDP 8472 trên iptables OUTPUT tăng 2 pkts (220 bytes); control test chứng minh Node vẫn Ready; rollback thành công đạt 200 OK và ping 0% loss (0.113ms); lab namespace `nfk-15a` đã dọn dẹp sạch sẽ.
-- **Bước tiếp theo:** Bắt đầu bài [16a — Events, logs và CNI triage](lesson/16a-cni-events-logs-triage.md).
-- **Bằng chứng/notes gần nhất:** [notes/15b.md](notes/15b.md); bài trước: [notes/15a.md](notes/15a.md).
+- **Bài đang học:** [16b — Cross-node incident và CP4](lesson/16b-cross-node-incident-va-cp4.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 16a (`dat`): học viên phân loại chính xác Setup Failure (Pending, ContainerCreating) vs Traffic Failure (Running, có IP); hiểu rõ nguyên tắc Time Correlation khi đọc log; khám phá cấu hình CNI thực tế (`10-flannel.conflist`) và danh sách plugin binaries; đọc và phân tích Kubernetes Events; xây dựng Cây quyết định chẩn đoán mạng Kubernetes (Troubleshooting Decision Tree); lab namespace `nfk-16a` đã dọn sạch sẽ.
+- **Bước tiếp theo:** Bắt đầu bài [16b — Cross-node incident và CP4](lesson/16b-cross-node-incident-va-cp4.md).
+- **Bằng chứng/notes gần nhất:** [notes/16a.md](notes/16a.md); bài trước: [notes/15b.md](notes/15b.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-15a` đã dọn dẹp sạch sẽ, rule iptables đã gỡ bỏ hoàn toàn.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-16a` đã dọn dẹp sạch sẽ.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-06
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -68,7 +68,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 14b | [Same-node data path](lesson/14b-same-node-data-path.md) | dat | 2026-11-06 | [notes/14b.md](notes/14b.md); học viên phân tích chính xác data path; thực chứng L2 switching qua cni0 không chạm flannel.1; phân tích lỗi cni0 biến mất khi node reboot; đối chứng Break & Fix phân biệt L4 port mismatch (Refused 0ms, ping 0% loss 0.054ms, ARP REACHABLE) vs lỗi CNI; fix thành công 200 OK; namespace nfk-14a đã dọn sạch |
 | 15a | [Underlay, overlay, cross-node](lesson/15a-underlay-overlay-cross-node.md) | dat | 2026-11-06 | [notes/15a.md](notes/15a.md); học viên phân tích chính xác routing cross-node và đóng gói VXLAN; đo kiểm HTTP 200 OK, latency ping 0.151ms vs same-node 0.054ms; đối chứng bảng ARP chỉ lưu MAC Gateway cni0 (10.42.3.1); đối chứng routing table trên host chỉ định sang flannel.1; giữ namespace nfk-15a cho 15b |
 | 15b | [Cross-node evidence và fault](lesson/15b-cross-node-evidence-va-fault.md) | dat | 2026-11-06 | [notes/15b.md](notes/15b.md); học viên phân tích chính xác timeout và phân đoạn mạng; đo kiểm ping Gateway cni0 0% loss đối chứng Pod Egress khỏe; bắt quả tang rule DROP UDP 8472 tăng packet counters; control test Node Ready; rollback thành công 200 OK và ping 0% loss; lab nfk-15a đã dọn sạch |
-| 16a | [CNI events/logs triage](lesson/16a-cni-events-logs-triage.md) | chua-hoc | — | — |
+| 16a | [CNI events/logs triage](lesson/16a-cni-events-logs-triage.md) | dat | 2026-11-06 | [notes/16a.md](notes/16a.md); học viên phân loại chính xác Setup Failure vs Traffic Failure; hiểu nguyên tắc Time Correlation khi đọc log; khám phá CNI conflist và plugin binaries trên node; phân tích Kubernetes Events; đúc kết Cây quyết định chẩn đoán mạng; lab nfk-16a đã dọn sạch |
 | 16b | [Cross-node incident và CP4](lesson/16b-cross-node-incident-va-cp4.md) | chua-hoc | — | — |
 | 17a | [Service, selector, EndpointSlice](lesson/17a-service-selector-endpointslice.md) | chua-hoc | — | — |
 | 17b | [Selector mismatch](lesson/17b-selector-mismatch.md) | chua-hoc | — | — |
@@ -172,3 +172,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-06 10:25 | 14b / 35 phút | Đạt bài 14b: vẽ sơ đồ data path same-node qua bridge cni0; chứng minh L2 direct on-link không qua flannel.1; bóc tách sự cố cni0 on-demand sau khi node reboot; giải quyết bài toán Break & Fix phân biệt L4 port mismatch (Refused 0ms, ping thông 0.054ms, ARP REACHABLE) vs CNI; fix thành công 200 OK; lab nfk-14a đã dọn sạch sẽ [notes/14b.md](notes/14b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 15a |
 | 2026-11-06 11:30 | 15a / 35 phút | Đạt bài 15a: phân biệt Underlay (192.168.155.0/24) vs Overlay (10.42.0.0/16); đo kiểm HTTP 200 OK cross-node, so sánh latency 0.151ms vs 0.054ms; đối chứng bảng ARP chỉ lưu MAC Gateway cni0 (10.42.3.1); đối chứng routing table trên host điều hướng sang flannel.1; giữ 2 Pod cho bài 15b [notes/15a.md](notes/15a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 15b |
 | 2026-11-06 15:15 | 15b / 40 phút | Đạt bài 15b: áp dụng phân đoạn mạng khoanh vùng điểm đứt cross-node; đối chứng ping Gateway cni0 0% loss 0.078ms chứng minh Pod Egress & bridge khỏe; bắt quả tang rule DROP UDP 8472 tăng 2 pkts (220 bytes) khi curl Timeout sau 2003ms; control test Node Ready; rollback thành công 200 OK và ping 0% loss (0.113ms); lab nfk-15a đã dọn sạch sẽ [notes/15b.md](notes/15b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 16a |
+| 2026-11-06 23:55 | 16a / 30 phút | Đạt bài 16a: phân biệt rạch ròi Setup Failure (Pending, ContainerCreating) vs Traffic Failure (Running, có IP); hiểu nguyên lý Time Correlation; mổ xẻ file cấu hình 10-flannel.conflist và danh sách CNI plugins trên node; đọc và phân tích Kubernetes Events; đúc kết Cây quyết định chẩn đoán mạng; lab nfk-16a đã dọn sạch sẽ [notes/16a.md](notes/16a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 16b + Cổng CP4 |
