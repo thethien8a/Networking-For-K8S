@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 27/56, không tính bài 00.
+- **Bài chính đã đạt:** 28/56, không tính bài 00.
 - **Checkpoint đã đạt:** 3/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [14b — Same-node data path](lesson/14b-same-node-data-path.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 14a (`dat`): học viên phân tích chính xác dự đoán IPAM; kiểm chứng PodCIDR phân bổ cho từng Node (k3d-de-k3d-agent-0: 10.42.3.0/24); dùng nodeSelector gán thành công 2 Pod client và server lên cùng worker; CNI IPAM cấp IP 10.42.3.17 và 10.42.3.18; gọi trực tiếp Pod IP HTTP 200 OK không qua Service; giữ 2 Pod trong namespace nfk-14a cho bài 14b.
-- **Bước tiếp theo:** Bắt đầu bài [14b — Quan sát same-node data path](lesson/14b-same-node-data-path.md).
-- **Bằng chứng/notes gần nhất:** [notes/14a.md](notes/14a.md); bài trước: [notes/13b.md](notes/13b.md).
+- **Bài đang học:** [15a — Underlay, overlay, cross-node](lesson/15a-underlay-overlay-cross-node.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 14b (`dat`): vẽ sơ đồ same-node data path qua Linux Bridge `cni0` và veth pair; chứng minh gói tin cùng node không đi qua `flannel.1`; phân tích sự cố vòng đời CNI bridge on-demand khi node reboot; thực hiện bài toán Break & Fix phân biệt rõ rệt lỗi L4 port mismatch (Connection refused trong 0ms, ping 0% loss 0.054ms, ARP REACHABLE) với lỗi L2/L3 CNI; kiểm chứng sửa đúng cổng đạt HTTP 200 OK; lab namespace `nfk-14a` đã dọn dẹp sạch sẽ.
+- **Bước tiếp theo:** Bắt đầu bài [15a — Underlay và overlay](lesson/15a-underlay-overlay-cross-node.md).
+- **Bằng chứng/notes gần nhất:** [notes/14b.md](notes/14b.md); bài trước: [notes/14a.md](notes/14a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Giữ namespace `nfk-14a` và 2 Pod `client-same-node`, `server-same-node` để làm baseline cho bài 14b.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-05
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-14a` đã dọn dẹp sạch sẽ.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-06
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -65,7 +65,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 13a | [Pod shared network namespace](lesson/13a-pod-shared-network-namespace.md) | dat | 2026-11-05 | [notes/13a.md](notes/13a.md); học viên phân tích chính xác 3/3 dự đoán; đo kiểm ip addr (eth0@if9 veth pair), netstat thấy socket 8080 LISTEN cột PID -; đối chứng curl 127.0.0.1 và Pod IP 200 OK không cần containerPort; đối chứng Pod độc lập curl 127.0.0.1 Connection refused vs Pod IP 200 OK; thực chứng xung đột port OSError Errno 98 Address in use dẫn tới CrashLoopBackOff; đã dọn sạch lab |
 | 13b | [Bind address và hostNetwork](lesson/13b-bind-address-va-hostnetwork.md) | dat | 2026-11-05 | [notes/13b.md](notes/13b.md); đo kiểm ma trận 4 phép thử loopback vs Pod IP, đối chứng Connection refused vs 200 OK khi bind 0.0.0.0, thực chứng hostNetwork: true mang IP Node và thấy toàn bộ card mạng hạ tầng (cni0, flannel.1, host veth), bóc tách ranh giới container/Pod/Node/Mac; lab đã dọn sạch |
 | 14a | [CNI và same-node placement](lesson/14a-cni-va-same-node-placement.md) | dat | 2026-11-05 | [notes/14a.md](notes/14a.md); học viên phân tích chính xác dự đoán; kiểm chứng PodCIDR per-node, nodeSelector gán 2 Pod vào worker k3d-de-k3d-agent-0; kiểm chứng cấp IP đúng dải 10.42.3.0/24; gọi trực tiếp Pod IP 200 OK; giữ namespace nfk-14a cho 14b |
-| 14b | [Same-node data path](lesson/14b-same-node-data-path.md) | chua-hoc | — | — |
+| 14b | [Same-node data path](lesson/14b-same-node-data-path.md) | dat | 2026-11-06 | [notes/14b.md](notes/14b.md); học viên phân tích chính xác data path; thực chứng L2 switching qua cni0 không chạm flannel.1; phân tích lỗi cni0 biến mất khi node reboot; đối chứng Break & Fix phân biệt L4 port mismatch (Refused 0ms, ping 0% loss 0.054ms, ARP REACHABLE) vs lỗi CNI; fix thành công 200 OK; namespace nfk-14a đã dọn sạch |
 | 15a | [Underlay, overlay, cross-node](lesson/15a-underlay-overlay-cross-node.md) | chua-hoc | — | — |
 | 15b | [Cross-node evidence và fault](lesson/15b-cross-node-evidence-va-fault.md) | chua-hoc | — | — |
 | 16a | [CNI events/logs triage](lesson/16a-cni-events-logs-triage.md) | chua-hoc | — | — |
@@ -169,3 +169,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-05 00:10 | 13a / 35 phút | Đạt bài 13a: học viên dự đoán chính xác 3/3 kịch bản, chứng minh Pod chia sẻ chung Network Namespace, chung loopback và port space; đối chứng curl 127.0.0.1 và Pod IP 200 OK không cần containerPort; chứng minh cô lập loopback giữa các Pod độc lập (Connection refused); thực chứng lỗi Errno 98 Address in use và CrashLoopBackOff khi xung đột port [notes/13a.md](notes/13a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 13b |
 | 2026-11-05 15:45 | 13b / 40 phút | Đạt bài 13b: đo kiểm ma trận 4 phép thử loopback vs Pod IP, đối chứng Connection refused vs 200 OK khi bind 0.0.0.0, thực chứng hostNetwork: true mang IP Node và thấy toàn bộ card mạng hạ tầng (cni0, flannel.1, host veth), bóc tách ranh giới container/Pod/Node/Mac; lab đã dọn sạch [notes/13b.md](notes/13b.md) | Hint 1 (Định hướng bóc tách Connection refused) | Bắt đầu bài 14a |
 | 2026-11-05 16:30 | 14a / 25 phút | Đạt bài 14a: học viên dự đoán chính xác mô hình IPAM và cách ly namespace; kiểm chứng PodCIDR per-node (/24); dùng nodeSelector gán 2 Pod vào cùng worker k3d-de-k3d-agent-0; kiểm chứng CNI IPAM cấp IP đúng dải 10.42.3.0/24 (10.42.3.17 và 10.42.3.18); đo kiểm trực tiếp Pod-to-Pod HTTP 200 OK không cần Service; giữ 2 Pod cho bài 14b [notes/14a.md](notes/14a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 14b |
+| 2026-11-06 10:25 | 14b / 35 phút | Đạt bài 14b: vẽ sơ đồ data path same-node qua bridge cni0; chứng minh L2 direct on-link không qua flannel.1; bóc tách sự cố cni0 on-demand sau khi node reboot; giải quyết bài toán Break & Fix phân biệt L4 port mismatch (Refused 0ms, ping thông 0.054ms, ARP REACHABLE) vs CNI; fix thành công 200 OK; lab nfk-14a đã dọn sạch sẽ [notes/14b.md](notes/14b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 15a |
