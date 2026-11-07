@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 35/56, không tính bài 00.
+- **Bài chính đã đạt:** 36/56, không tính bài 00.
 - **Checkpoint đã đạt:** 4/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [18b — Port, targetPort và listener](lesson/18b-port-targetport-listener.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 18a (`dat`): học viên nhận diện chính xác kube-proxy mode iptables từ log k3d; mổ xẻ 3 tầng chuỗi KUBE-SERVICES -> KUBE-SVC-* -> KUBE-SEP-* (DNAT và random probability 0.5); quan sát counters pkts/bytes phân phối 2:2; nắm vững cơ chế conntrack un-DNAT chiều về và gotcha của HTTP Keep-Alive / Layer 4 proxy; LLM đã dọn dẹp sạch namespace nfk-18a.
-- **Bước tiếp theo:** Bắt đầu bài [18b — Port, targetPort và listener](lesson/18b-port-targetport-listener.md).
-- **Bằng chứng/notes gần nhất:** [notes/18a.md](notes/18a.md); bài trước: [notes/17b.md](notes/17b.md).
+- **Bài đang học:** [19a — CoreDNS, namespace, FQDN](lesson/19a-coredns-service-names.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 18b (`dat`): học viên đối chứng chuẩn xác baseline 4 mốc port; điều tra sự cố Break & Fix targetPort lệch (8008 vs listener 8080) gây Connection refused sau 0ms; giải mã nghịch lý EndpointSlice Ready: true nhưng Service lỗi; patch Service và nghiệm thu 200 OK; LLM đã dọn dẹp sạch namespace nfk-18b.
+- **Bước tiếp theo:** Bắt đầu bài [19a — CoreDNS, namespace, FQDN](lesson/19a-coredns-service-names.md).
+- **Bằng chứng/notes gần nhất:** [notes/18b.md](notes/18b.md); bài trước: [notes/18a.md](notes/18a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-18a` đã được LLM dọn dẹp sạch sẽ.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-18b` đã được LLM dọn dẹp sạch sẽ.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-07
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -73,7 +73,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 17a | [Service, selector, EndpointSlice](lesson/17a-service-selector-endpointslice.md) | dat | 2026-11-07 | [notes/17a.md](notes/17a.md); phân biệt Pod IP vs ClusterIP VIP; mổ xẻ EndpointSlice khớp selector và Ready; đo kiểm curl ClusterIP phân phối 4:2; giữ namespace nfk-17a cho 17b |
 | 17b | [Selector mismatch](lesson/17b-selector-mismatch.md) | dat | 2026-11-07 | [notes/17b.md](notes/17b.md); kiểm chứng đổi nhãn Pod loại khỏi EndpointSlice; điều tra Break & Fix selector mismatch env=prod; patch Service phục hồi 200 OK; LLM đã dọn sạch lab |
 | 18a | [Service proxy/data plane](lesson/18a-service-proxy-data-plane.md) | dat | 2026-11-07 | [notes/18a.md](notes/18a.md); học viên nhận diện đúng proxy-mode=iptables, mổ xẻ 3 tầng chuỗi KUBE-*, đối chứng bộ đếm 2:2, giải thích đúng conntrack un-DNAT và keep-alive; LLM đã dọn dẹp sạch lab |
-| 18b | [port, targetPort, listener](lesson/18b-port-targetport-listener.md) | chua-hoc | — | — |
+| 18b | [port, targetPort, listener](lesson/18b-port-targetport-listener.md) | dat | 2026-11-07 | [notes/18b.md](notes/18b.md); đối chứng baseline 4 mốc port, bắt bệnh Break & Fix targetPort 8008 vs listener 8080 gây Connection refused, patch Service phục hồi 200 OK; LLM đã dọn sạch lab |
 | 19a | [CoreDNS, namespace, FQDN](lesson/19a-coredns-service-names.md) | chua-hoc | — | — |
 | 19b | [DNS resolution path](lesson/19b-dns-resolution-path.md) | chua-hoc | — | — |
 | 20a | [Hai Service mini-incidents](lesson/20a-service-mini-incidents.md) | chua-hoc | — | — |
@@ -177,3 +177,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-07 14:05 | 17a / 35 phút | Đạt bài 17a: đối chứng Pod IP vs ClusterIP ảo; mổ xẻ EndpointSlice gom Pod Ready; kiểm chứng 6 request phân phối 4:2 qua ClusterIP; giải thích đúng câu hỏi review và phương pháp triage EndpointSlice; giữ lab cho 17b [notes/17a.md](notes/17a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 17b |
 | 2026-11-07 15:12 | 17b / 35 phút | Đạt bài 17b: kiểm chứng đổi nhãn Pod loại bỏ khỏi EndpointSlice (100% traffic về be-1); tự điều tra bóc tách sự cố Break & Fix selector mismatch env=prod; patch Service phục hồi 200 OK chia đều 2 backend; LLM đã dọn sạch lab [notes/17b.md](notes/17b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 18a |
 | 2026-11-07 16:35 | 18a / 35 phút | Đạt bài 18a: nhận diện chuẩn xác kube-proxy mode iptables từ log k3d; mổ xẻ 3 tầng chuỗi KUBE-SERVICES -> KUBE-SVC-* -> KUBE-SEP-* (DNAT và random probability 0.5); quan sát counters pkts/bytes phân phối 2:2; phân tích xuất sắc cơ chế conntrack un-DNAT chiều về và gotcha HTTP Keep-Alive / L4 proxy; LLM đã dọn sạch lab [notes/18a.md](notes/18a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 18b |
+| 2026-11-07 17:02 | 18b / 30 phút | Đạt bài 18b: lập ma trận 4 mốc port, đối chứng baseline 200 OK; điều tra sự cố Break & Fix targetPort lệch (8008 vs listener 8080); giải mã nghịch lý EndpointSlice Ready: true nhưng Service trả Connection refused sau 0ms; patch Service và nghiệm thu 200 OK; LLM đã dọn sạch lab [notes/18b.md](notes/18b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 19a |
