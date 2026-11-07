@@ -31,6 +31,7 @@
 
 ## Điều chỉnh cách dạy
 
+- **Đánh giá thẳng thắn, không khen đãi bôi hoặc công nhận sai sự thật** — xác nhận ngày 2026-11-07 qua phản hồi học viên: Không khen ngợi sáo rỗng ("chính xác rồi", "chuẩn rồi") khi câu trả lời chưa đúng hoặc chưa đầy đủ. Nếu trả lời sai hoặc hiểu lệch bản chất, LLM phải khẳng định thẳng thắn là **sai / chưa chính xác**, chỉ ra cụ thể mâu thuẫn/điểm sai ở đâu và đính chính lại câu trả lời chuẩn xác, chặt chẽ về mặt kỹ thuật.
 - **Tập trung vào Ý tưởng / Tư duy điều tra (Mental Model) thay vì ghi nhớ câu lệnh** — xác nhận ngày 2026-11-03: Học viên không có nhu cầu thuộc lòng cú pháp câu lệnh (CLI syntax/flags) mà tập trung vào bản chất, luồng dữ liệu và tư duy bóc tách vấn đề. LLM luôn cung cấp sẵn các câu lệnh kiểm tra / đo lường cụ thể kèm theo giải thích *vì sao dùng lệnh này, trả lời câu hỏi gì trong tư duy*. Học viên đóng vai trò quan sát output, liên hệ kiến trúc Kubernetes, đối chiếu bằng chứng và đưa ra kết luận xử lý.
 - **Học viên tự thao tác lab, LLM hướng dẫn thay vì làm hộ** — xác nhận ngày 2026-10-25 qua phản hồi: “nhẽ ra làm lab bạn phải hướng dẫn tôi làm chứ không phải bạn làm hết cho tôi thế”.
 - Đưa từng bước ngắn, giải thích mục tiêu/lệnh cần thiết, chờ học viên chạy và gửi output rồi mới tiếp tục. Không tự chạy thay các bước thực hành của bài học (ping, capture, route, fault injection...).

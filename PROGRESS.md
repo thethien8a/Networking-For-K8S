@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 32/56, không tính bài 00.
+- **Bài chính đã đạt:** 34/56, không tính bài 00.
 - **Checkpoint đã đạt:** 4/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [17a — Service, selector, EndpointSlice](lesson/17a-service-selector-endpointslice.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 16b và đạt Cổng đánh giá Checkpoint 4 (CP4) (`dat`): học viên tự tay điều tra sự cố cross-node ẩn danh, bóc tách triệu chứng Timeout, phát hiện rule DROP UDP 8472 trên chain INPUT của worker đích k3d-de-k3d-agent-1; tự xóa rule lỗi và đối chứng phục hồi HTTP 200 OK; hiểu rõ 2 điểm khác biệt sống còn giữa lab container (k3d) và 4 VM VMware vSphere (Visibility boundary & MTU Jumbo Frames overhead khi bọc VXLAN 50B); lab namespace nfk-16b đã dọn sạch sẽ.
-- **Bước tiếp theo:** Bắt đầu Giai đoạn 5 (Service, Kube-proxy, Ingress) với bài [17a — Service, selector và EndpointSlice](lesson/17a-service-selector-endpointslice.md).
-- **Bằng chứng/notes gần nhất:** [notes/16b.md](notes/16b.md); bài trước: [notes/16a.md](notes/16a.md).
+- **Bài đang học:** [18a — Service proxy/data plane](lesson/18a-service-proxy-data-plane.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 17b (`dat`): học viên phân tích chính xác cơ chế cập nhật EndpointSlice khi đổi nhãn Pod; bóc tách thành công sự cố Break & Fix "selector mismatch env=prod vs env=lab" dẫn tới Connection refused sau 0ms; patch Service phục hồi 200 OK chia đều 2 backend; LLM đã dọn dẹp sạch namespace nfk-17a.
+- **Bước tiếp theo:** Bắt đầu bài [18a — Service proxy và packet steering](lesson/18a-service-proxy-data-plane.md).
+- **Bằng chứng/notes gần nhất:** [notes/17b.md](notes/17b.md); bài trước: [notes/17a.md](notes/17a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-16b` đã dọn dẹp sạch sẽ, rule iptables đã gỡ bỏ hoàn toàn.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, toàn bộ namespace `nfk-17a` đã được LLM dọn dẹp sạch sẽ.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-07
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -70,8 +70,8 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 15b | [Cross-node evidence và fault](lesson/15b-cross-node-evidence-va-fault.md) | dat | 2026-11-06 | [notes/15b.md](notes/15b.md); học viên phân tích chính xác timeout và phân đoạn mạng; đo kiểm ping Gateway cni0 0% loss đối chứng Pod Egress khỏe; bắt quả tang rule DROP UDP 8472 tăng packet counters; control test Node Ready; rollback thành công 200 OK và ping 0% loss; lab nfk-15a đã dọn sạch |
 | 16a | [CNI events/logs triage](lesson/16a-cni-events-logs-triage.md) | dat | 2026-11-06 | [notes/16a.md](notes/16a.md); học viên phân loại chính xác Setup Failure vs Traffic Failure; hiểu nguyên tắc Time Correlation khi đọc log; khám phá CNI conflist và plugin binaries trên node; phân tích Kubernetes Events; đúc kết Cây quyết định chẩn đoán mạng; lab nfk-16a đã dọn sạch |
 | 16b | [Cross-node incident và CP4](lesson/16b-cross-node-incident-va-cp4.md) | dat | 2026-11-07 | [notes/16b.md](notes/16b.md); học viên tự điều tra case lỗi ẩn danh, phân tích Timeout vs Refused, phát hiện và xóa rule DROP UDP 8472 trên INPUT worker agent-1; nghiệm thu 200 OK; hoàn thành xuất sắc 5/5 tiêu chí CP4; lab nfk-16b đã dọn sạch |
-| 17a | [Service, selector, EndpointSlice](lesson/17a-service-selector-endpointslice.md) | chua-hoc | — | — |
-| 17b | [Selector mismatch](lesson/17b-selector-mismatch.md) | chua-hoc | — | — |
+| 17a | [Service, selector, EndpointSlice](lesson/17a-service-selector-endpointslice.md) | dat | 2026-11-07 | [notes/17a.md](notes/17a.md); phân biệt Pod IP vs ClusterIP VIP; mổ xẻ EndpointSlice khớp selector và Ready; đo kiểm curl ClusterIP phân phối 4:2; giữ namespace nfk-17a cho 17b |
+| 17b | [Selector mismatch](lesson/17b-selector-mismatch.md) | dat | 2026-11-07 | [notes/17b.md](notes/17b.md); kiểm chứng đổi nhãn Pod loại khỏi EndpointSlice; điều tra Break & Fix selector mismatch env=prod; patch Service phục hồi 200 OK; LLM đã dọn sạch lab |
 | 18a | [Service proxy/data plane](lesson/18a-service-proxy-data-plane.md) | chua-hoc | — | — |
 | 18b | [port, targetPort, listener](lesson/18b-port-targetport-listener.md) | chua-hoc | — | — |
 | 19a | [CoreDNS, namespace, FQDN](lesson/19a-coredns-service-names.md) | chua-hoc | — | — |
@@ -174,3 +174,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-06 15:15 | 15b / 40 phút | Đạt bài 15b: áp dụng phân đoạn mạng khoanh vùng điểm đứt cross-node; đối chứng ping Gateway cni0 0% loss 0.078ms chứng minh Pod Egress & bridge khỏe; bắt quả tang rule DROP UDP 8472 tăng 2 pkts (220 bytes) khi curl Timeout sau 2003ms; control test Node Ready; rollback thành công 200 OK và ping 0% loss (0.113ms); lab nfk-15a đã dọn sạch sẽ [notes/15b.md](notes/15b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 16a |
 | 2026-11-06 23:55 | 16a / 30 phút | Đạt bài 16a: phân biệt rạch ròi Setup Failure (Pending, ContainerCreating) vs Traffic Failure (Running, có IP); hiểu nguyên lý Time Correlation; mổ xẻ file cấu hình 10-flannel.conflist và danh sách CNI plugins trên node; đọc và phân tích Kubernetes Events; đúc kết Cây quyết định chẩn đoán mạng; lab nfk-16a đã dọn sạch sẽ [notes/16a.md](notes/16a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 16b + Cổng CP4 |
 | 2026-11-07 00:20 | 16b + CP4 / 45 phút | Đạt bài 16b và hoàn thành Cổng đánh giá Checkpoint 4 (CP4): học viên tự điều tra case ẩn danh, bóc tách Timeout, phát hiện và xóa rule DROP UDP 8472 trên agent-1; nghiệm thu kết nối phục hồi 200 OK; nắm vững 2 giới hạn k3d vs VMware vSphere (Visibility boundary & MTU 1550B); lab nfk-16b đã dọn sạch [notes/16b.md](notes/16b.md) | Tự làm / không cần gợi ý | Bắt đầu Giai đoạn 5 với bài 17a |
+| 2026-11-07 14:05 | 17a / 35 phút | Đạt bài 17a: đối chứng Pod IP vs ClusterIP ảo; mổ xẻ EndpointSlice gom Pod Ready; kiểm chứng 6 request phân phối 4:2 qua ClusterIP; giải thích đúng câu hỏi review và phương pháp triage EndpointSlice; giữ lab cho 17b [notes/17a.md](notes/17a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 17b |
