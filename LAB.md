@@ -21,7 +21,7 @@
 | Tên cluster, current-context, namespace học | Chưa xác minh (chưa tạo cluster) | — |
 | Nodes, vai trò, IP, Pod CIDR | Chưa xác minh | — |
 | CNI, phiên bản, khả năng NetworkPolicy | Chưa xác minh | — |
-| Service proxy/data plane thực dùng | Chưa xác minh | — |
+| Service proxy/data plane thực dùng | kube-proxy `--proxy-mode=iptables`, `Using iptables Proxier` trên K3s agent | `docker logs k3d-de-k3d-agent-0` xác minh ngày 2026-11-07 (Bài 18a) |
 | Service CIDR, cluster DNS suffix, DNS Service IP | Chưa xác minh | — |
 | Ingress/LoadBalancer controller nếu có | Chưa xác minh | — |
 | Công cụ Linux và quyền quan sát/capture | Windows có `python.exe`, `curl`, `kubectl.exe` theo kiểm tra trước. Image mới `nfk-03a-tools:local`: Ubuntu 24.04.4 LTS, iproute2 6.1.0, iputils 20240117, tcpdump 4.99.4, libpcap 1.10.4. A/B dùng quyền Docker mặc định, có `cap_net_raw`, không có `cap_net_admin`; `Privileged=false`, không mount/publish port. Đã capture ARP/ICMP thực tế trên `eth0` của A với `-p`, giới hạn 4 giây; 7 gói, 0 dropped by kernel, process đã dừng. Image nền giữ nguyên ID sau build | Kiểm tra OS/package/capability lúc 12:01; kiểm tra ownership/cấu hình và capture trong [notes 03a](notes/03a.md) / 2026-10-25 13:13–13:16 |
