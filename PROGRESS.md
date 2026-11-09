@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 39/56, không tính bài 00.
-- **Checkpoint đã đạt:** 4/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [20b — DNS incident và CP5](lesson/20b-dns-incident-va-cp5.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 20a (`dat`): học viên phân tích bóc tách 2 sự cố ẩn danh độc lập của tầng Service; Case A selector mismatch (0 endpoints -> kube-proxy REJECT chủ động) patch selector thành công; Case B targetPort mismatch (targetPort 9000 vs Python listen 8080 -> TCP RST từ kernel Pod) phát hiện bằng netstat -tlpn và patch targetPort thành công; cả 2 case đều nghiệm thu HTTP 200 OK và có incident reports riêng; LLM đã dọn dẹp sạch sẽ 2 namespace nfk-20a-a và nfk-20a-b.
-- **Bước tiếp theo:** Bắt đầu bài [20b — DNS incident và CP5](lesson/20b-dns-incident-va-cp5.md).
-- **Bằng chứng/notes gần nhất:** [notes/20a.md](notes/20a.md), [notes/incident-20a-case-a.md](notes/incident-20a-case-a.md), [notes/incident-20a-case-b.md](notes/incident-20a-case-b.md); bài trước: [notes/19b.md](notes/19b.md).
+- **Bài chính đã đạt:** 40/56, không tính bài 00.
+- **Checkpoint đã đạt:** 5/7, gồm CP1–CP6 và Final.
+- **Bài đang học:** [21a — Port-forward và client location](lesson/21a-port-forward-va-client-location.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 20b (`dat`) và Cổng đánh giá CP5 (`dat`): học viên điều tra sự cố ẩn danh tầng DNS; dùng control test direct ClusterIP 200 OK loại trừ Data plane; soi /etc/resolv.conf phát hiện bẫy dnsPolicy: Default (kế thừa nameserver 192.168.155.1 của host node, thiếu search domains của cụm); recreate Pod với dnsPolicy: ClusterFirst (10.43.0.10) và nghiệm thu 200 OK; lập Incident Report Case C; hoàn thành xuất sắc 5/5 tiêu chí Cổng CP5; LLM đã dọn dẹp sạch namespace nfk-20b.
+- **Bước tiếp theo:** Bắt đầu Giai đoạn 6 với bài [21a — Port-forward và client location](lesson/21a-port-forward-va-client-location.md).
+- **Bằng chứng/notes gần nhất:** [notes/20b.md](notes/20b.md), [notes/incident-20b-dns.md](notes/incident-20b-dns.md); bài trước: [notes/20a.md](notes/20a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, cả 2 namespace `nfk-20a-a` và `nfk-20a-b` đã được LLM dọn dẹp sạch sẽ.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, namespace `nfk-20b` đã được LLM dọn dẹp sạch sẽ.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-09
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -77,7 +77,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 19a | [CoreDNS, namespace, FQDN](lesson/19a-coredns-service-names.md) | dat | 2026-11-09 | [notes/19a.md](notes/19a.md); học viên phân tích /etc/resolv.conf, lập matrix cùng/khác namespace, bóc tách ndots:5 và FQDN dấu chấm đuôi, giải thích đúng case Spark/Kafka; LLM đã dọn sạch lab |
 | 19b | [DNS resolution path](lesson/19b-dns-resolution-path.md) | dat | 2026-11-09 | [notes/19b.md](notes/19b.md); học viên khảo sát hạ tầng DNS thật, bóc tách NXDOMAIN vs Timeout, control test direct ClusterIP loại trừ data plane, bắt quả tang nameserver sai và hoàn nguyên 200 OK; LLM đã dọn sạch lab |
 | 20a | [Hai Service mini-incidents](lesson/20a-service-mini-incidents.md) | dat | 2026-11-09 | [notes/20a.md](notes/20a.md); 2 reports riêng [Case A](notes/incident-20a-case-a.md) & [Case B](notes/incident-20a-case-b.md); bóc tách selector mismatch vs targetPort mismatch; đối chứng 200 OK; lab đã dọn sạch |
-| 20b | [DNS incident và CP5](lesson/20b-dns-incident-va-cp5.md) | chua-hoc | — | — |
+| 20b | [DNS incident và CP5](lesson/20b-dns-incident-va-cp5.md) | dat | 2026-11-09 | [notes/20b.md](notes/20b.md); [Report Case C](notes/incident-20b-dns.md); control test ClusterIP 200 OK; bóc tách bẫy dnsPolicy: Default; hoàn thành 5/5 tiêu chí CP5; lab đã dọn sạch |
 | 21a | [Port-forward và client location](lesson/21a-port-forward-va-client-location.md) | chua-hoc | — | — |
 | 21b | [NodePort, hostPort, kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md) | chua-hoc | — | — |
 | 22a | [Ingress Controller, Host/path](lesson/22a-ingress-controller-host-path.md) | chua-hoc | — | — |
@@ -105,7 +105,7 @@ Không tự đánh dấu cổng đạt chỉ vì bài cuối giai đoạn đã `
 | CP2 | 08b | [DNS/TCP/HTTP/TLS, NAT](CHECKPOINTS.md#cp2--sau-08b) | dat | 2026-11-02 | Đạt toàn bộ 4 tiêu chí CP2: phân loại đúng 4 tầng lỗi (DNS, TCP, TLS, HTTP); phân biệt Connect timeout vs Application timeout, Refused (RST chứng minh tới host) vs Timed out (DROP dọc đường); bóc tách 3 mốc dùng hostname (DNS, TLS SNI, HTTP Host); theo dõi 4-tuple trước/sau DNAT và SNAT, phân biệt NAT với Firewall [notes/08b.md](notes/08b.md) |
 | CP3 | 12b | [Linux router/firewall, capture, rollback](CHECKPOINTS.md#cp3--sau-12b) | dat | 2026-11-04 | Đạt toàn bộ 5 tiêu chí CP3: topology 2 subnet qua router namespace, routes 2 chiều & forwarding; capture tcpdump luồng chuyển tiếp đối xứng veth-ra In -> veth-rb Out; khoanh vùng đúng routing return path vs sysctl forward, Netfilter hooks INPUT vs FORWARD; đối chứng thực nghiệm DROP (2.002s) vs REJECT (0.000145s); rollback tối thiểu và dọn dẹp sạch lab [notes/12b.md](notes/12b.md) |
 | CP4 | 16b | [Cross-node theo CNI thật](CHECKPOINTS.md#cp4--sau-16b) | dat | 2026-11-07 | Đạt toàn bộ 5 tiêu chí CP4: chứng minh placement same-node vs cross-node; vẽ data path theo CNI Flannel thật (cni0 L2 switching vs flannel.1 VXLAN UDP 8472); bóc tách triệu chứng Timeout khoanh vùng đúng Node đích; bắt quả tang và rollback rule DROP iptables INPUT trên agent-1; phân tích sâu sắc 2 giới hạn kind/k3d vs 4 VM VMware (Visibility boundary & MTU Jumbo Frames overhead 50 bytes) [notes/16b.md](notes/16b.md) |
-| CP5 | 20b | [Ba Service/DNS incidents](CHECKPOINTS.md#cp5--sau-20b) | chua-hoc | — | — |
+| CP5 | 20b | [Ba Service/DNS incidents](CHECKPOINTS.md#cp5--sau-20b) | dat | 2026-11-09 | Đạt toàn bộ 5 tiêu chí CP5: đủ 3 incident reports riêng biệt ([Case A](notes/incident-20a-case-a.md), [Case B](notes/incident-20a-case-b.md), [Case C](notes/incident-20b-dns.md)); phân biệt rạch ròi metadata EndpointSlice (0 endpoints gây REJECT vs Ready: true nhưng targetPort lệch gây TCP RST); điều tra DNS với control test ClusterIP và bóc tách dnsPolicy: Default; fix tối thiểu và lab đã dọn sạch [notes/20b.md](notes/20b.md) |
 | CP6 | 24b | [Ingress/LB/policy](CHECKPOINTS.md#cp6--sau-24b) | chua-hoc | — | — |
 | Final | 28b | [Report 4 VM + case Spark](CHECKPOINTS.md#final--sau-28b) | chua-hoc | — | — |
 
@@ -181,3 +181,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-09 12:55 | 19a / 40 phút | Đạt bài 19a: resolver config /etc/resolv.conf, ma trận resolution cùng/khác namespace, bóc tách ndots:5 và libc vs Busybox nslookup, FQDN tuyệt đối và case Spark/Kafka [notes/19a.md](notes/19a.md) | Giải thích cơ chế libc getaddrinfo vs nslookup; không xem lời giải | Bắt đầu bài 19b |
 | 2026-11-09 14:24 | 19b / 30 phút | Đạt bài 19b: lần theo resolution path, đối chứng NXDOMAIN vs Timeout, control test direct IP, điều tra Break & Fix nameserver sai và nghiệm thu 200 OK [notes/19b.md](notes/19b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 20a |
 | 2026-11-09 15:17 | 20a / 40 phút | Đạt bài 20a: điều tra 2 mini-incidents ẩn danh, lập 2 incident reports; Case A bóc tách selector mismatch (0 endpoints gây kube-proxy REJECT); Case B bóc tách targetPort mismatch qua netstat -tlpn (targetPort 9000 vs listener 8080); patch tối thiểu và đối chứng 200 OK; LLM đã dọn sạch lab [notes/20a.md](notes/20a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 20b + CP5 |
+| 2026-11-09 15:43 | 20b + CP5 / 40 phút | Đạt bài 20b và hoàn thành Cổng đánh giá Checkpoint 5 (CP5): điều tra sự cố DNS, lập Incident Report Case C bóc tách bẫy dnsPolicy: Default; dùng control test ClusterIP 200 OK loại trừ Data plane; recreate Pod với dnsPolicy: ClusterFirst phục hồi 200 OK; nghiệm thu toàn bộ 5/5 tiêu chí CP5; LLM đã dọn sạch lab [notes/20b.md](notes/20b.md) | Tự làm / không cần gợi ý | Bắt đầu Giai đoạn 6 với bài 21a |
