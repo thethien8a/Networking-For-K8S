@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 40/56, không tính bài 00.
+- **Bài chính đã đạt:** 41/56, không tính bài 00.
 - **Checkpoint đã đạt:** 5/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [21a — Port-forward và client location](lesson/21a-port-forward-va-client-location.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 20b (`dat`) và Cổng đánh giá CP5 (`dat`): học viên điều tra sự cố ẩn danh tầng DNS; dùng control test direct ClusterIP 200 OK loại trừ Data plane; soi /etc/resolv.conf phát hiện bẫy dnsPolicy: Default (kế thừa nameserver 192.168.155.1 của host node, thiếu search domains của cụm); recreate Pod với dnsPolicy: ClusterFirst (10.43.0.10) và nghiệm thu 200 OK; lập Incident Report Case C; hoàn thành xuất sắc 5/5 tiêu chí Cổng CP5; LLM đã dọn dẹp sạch namespace nfk-20b.
-- **Bước tiếp theo:** Bắt đầu Giai đoạn 6 với bài [21a — Port-forward và client location](lesson/21a-port-forward-va-client-location.md).
-- **Bằng chứng/notes gần nhất:** [notes/20b.md](notes/20b.md), [notes/incident-20b-dns.md](notes/incident-20b-dns.md); bài trước: [notes/20a.md](notes/20a.md).
+- **Bài đang học:** [21b — NodePort, hostPort và kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 21a (`dat`): học viên xác minh listener socket trên macOS qua lsof; đối chứng kubectl port-forward gắn chết 1 Pod (không load balance) vs Service Data plane chia tải đều giữa 2 replicas; đối chứng thất bại Connection refused khi Pod trong cụm gọi localhost của Mac; điều tra Break & Fix bẫy remote port mismatch, bóc tách log Kubelet chui vào netns dial 127.0.0.1; phản biện chính xác case Airflow/Postgres; LLM đã dọn dẹp sạch namespace nfk-21a.
+- **Bước tiếp theo:** Bắt đầu bài [21b — NodePort, hostPort và kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md).
+- **Bằng chứng/notes gần nhất:** [notes/21a.md](notes/21a.md); bài trước: [notes/20b.md](notes/20b.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, namespace `nfk-20b` đã được LLM dọn dẹp sạch sẽ.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-09
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, namespace `nfk-21a` và tiến trình port-forward đã được dọn sạch.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-10
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -78,7 +78,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 19b | [DNS resolution path](lesson/19b-dns-resolution-path.md) | dat | 2026-11-09 | [notes/19b.md](notes/19b.md); học viên khảo sát hạ tầng DNS thật, bóc tách NXDOMAIN vs Timeout, control test direct ClusterIP loại trừ data plane, bắt quả tang nameserver sai và hoàn nguyên 200 OK; LLM đã dọn sạch lab |
 | 20a | [Hai Service mini-incidents](lesson/20a-service-mini-incidents.md) | dat | 2026-11-09 | [notes/20a.md](notes/20a.md); 2 reports riêng [Case A](notes/incident-20a-case-a.md) & [Case B](notes/incident-20a-case-b.md); bóc tách selector mismatch vs targetPort mismatch; đối chứng 200 OK; lab đã dọn sạch |
 | 20b | [DNS incident và CP5](lesson/20b-dns-incident-va-cp5.md) | dat | 2026-11-09 | [notes/20b.md](notes/20b.md); [Report Case C](notes/incident-20b-dns.md); control test ClusterIP 200 OK; bóc tách bẫy dnsPolicy: Default; hoàn thành 5/5 tiêu chí CP5; lab đã dọn sạch |
-| 21a | [Port-forward và client location](lesson/21a-port-forward-va-client-location.md) | chua-hoc | — | — |
+| 21a | [Port-forward và client location](lesson/21a-port-forward-va-client-location.md) | dat | 2026-11-10 | [notes/21a.md](notes/21a.md); học viên xác minh listener lsof trên macOS, đối chứng port-forward gắn chết 1 Pod vs Service data plane chia đều 2 replicas, đối chứng vị trí client gọi localhost bị Connection refused, bóc tách cơ chế Kubelet chui vào netns dial 127.0.0.1 ở Break & Fix remote port mismatch, phản biện chuẩn case Airflow/Postgres; LLM đã cleanup lab |
 | 21b | [NodePort, hostPort, kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md) | chua-hoc | — | — |
 | 22a | [Ingress Controller, Host/path](lesson/22a-ingress-controller-host-path.md) | chua-hoc | — | — |
 | 22b | [TLS termination](lesson/22b-ingress-tls-termination.md) | chua-hoc | — | — |
@@ -182,3 +182,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-09 14:24 | 19b / 30 phút | Đạt bài 19b: lần theo resolution path, đối chứng NXDOMAIN vs Timeout, control test direct IP, điều tra Break & Fix nameserver sai và nghiệm thu 200 OK [notes/19b.md](notes/19b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 20a |
 | 2026-11-09 15:17 | 20a / 40 phút | Đạt bài 20a: điều tra 2 mini-incidents ẩn danh, lập 2 incident reports; Case A bóc tách selector mismatch (0 endpoints gây kube-proxy REJECT); Case B bóc tách targetPort mismatch qua netstat -tlpn (targetPort 9000 vs listener 8080); patch tối thiểu và đối chứng 200 OK; LLM đã dọn sạch lab [notes/20a.md](notes/20a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 20b + CP5 |
 | 2026-11-09 15:43 | 20b + CP5 / 40 phút | Đạt bài 20b và hoàn thành Cổng đánh giá Checkpoint 5 (CP5): điều tra sự cố DNS, lập Incident Report Case C bóc tách bẫy dnsPolicy: Default; dùng control test ClusterIP 200 OK loại trừ Data plane; recreate Pod với dnsPolicy: ClusterFirst phục hồi 200 OK; nghiệm thu toàn bộ 5/5 tiêu chí CP5; LLM đã dọn sạch lab [notes/20b.md](notes/20b.md) | Tự làm / không cần gợi ý | Bắt đầu Giai đoạn 6 với bài 21a |
+| 2026-11-10 10:05 | 21a / 40 phút | Đạt bài 21a: xác minh listener lsof trên macOS, đối chứng port-forward gắn chết 1 Pod vs Service data plane chia đều 2 replicas; đối chứng vị trí client gọi localhost bị Connection refused (0ms); điều tra Break & Fix bẫy remote port mismatch, bóc trần log Kubelet chui vào netns dial 127.0.0.1; phản biện sắc bén case Airflow/Postgres; LLM đã dọn sạch lab [notes/21a.md](notes/21a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 21b |
