@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 43/56, không tính bài 00.
+- **Bài chính đã đạt:** 44/56, không tính bài 00.
 - **Checkpoint đã đạt:** 5/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [22b — Ingress TLS termination](lesson/22b-ingress-tls-termination.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 22a (`dat`): học viên phân biệt Ingress Resource (metadata) vs Ingress Controller (Traefik reverse proxy); thực nghiệm ma trận Host-based & Path-based routing qua Traefik (localhost:8085); bóc tách chữ ký 404 Not Found từ Controller; giải quyết Break & Fix bóc tách 404 (rule mismatch) vs 502 Bad Gateway (targetPort mismatch) và patch phục hồi 200 OK; namespace nfk-22a được giữ nguyên phục vụ bài 22b.
-- **Bước tiếp theo:** Bắt đầu bài [22b — Ingress TLS termination](lesson/22b-ingress-tls-termination.md).
-- **Bằng chứng/notes gần nhất:** [notes/22a.md](notes/22a.md); bài trước: [notes/21b.md](notes/21b.md).
+- **Bài đang học:** [23a — LoadBalancer bare-metal](lesson/23a-loadbalancer-bare-metal.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 22b (`dat`): học viên nắm vững cơ chế TLS termination tại Ingress Controller, hiểu vai trò của SNI trong Client Hello, đo kiểm bóc tách 3 tầng độc lập (TLS verification vs HTTP routing); tự điều tra và chỉ ra chính xác lỗi sai `secretName` trong Ingress spec khiến Ingress Controller fallback về default cert; patch phục hồi thành công 200 OK với chứng chỉ tin cậy; toàn bộ namespace `nfk-22a` và chứng chỉ tạm đã được dọn sạch sẽ.
+- **Bước tiếp theo:** Bắt đầu bài [23a — LoadBalancer bare-metal](lesson/23a-loadbalancer-bare-metal.md).
+- **Bằng chứng/notes gần nhất:** [notes/22b.md](notes/22b.md); bài trước: [notes/22a.md](notes/22a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Giữ namespace `nfk-22a` (Deployments, Services, Ingress) cho bài thực hành 22b.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có; lab `nfk-22a` và temp certs đã được dọn sạch hoàn toàn.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-10
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -81,7 +81,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 21a | [Port-forward và client location](lesson/21a-port-forward-va-client-location.md) | dat | 2026-11-10 | [notes/21a.md](notes/21a.md); học viên xác minh listener lsof trên macOS, đối chứng port-forward gắn chết 1 Pod vs Service data plane chia đều 2 replicas, đối chứng vị trí client gọi localhost bị Connection refused, bóc tách cơ chế Kubelet chui vào netns dial 127.0.0.1 ở Break & Fix remote port mismatch, phản biện chuẩn case Airflow/Postgres; LLM đã cleanup lab |
 | 21b | [NodePort, hostPort, kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md) | dat | 2026-11-10 | [notes/21b.md](notes/21b.md); học viên phân biệt NodePort vs hostPort vs hostNetwork; đối chứng localhost:30080 Connection refused vs NodeIP:30080 200 OK; chứng minh Multi-hop routing qua server-0; thực chứng hostPort lỗi trên agent-1; phân tích bẫy scheduler Spark/Kafka; giải Break & Fix ảo hóa Mac; LLM đã dọn sạch lab |
 | 22a | [Ingress Controller, Host/path](lesson/22a-ingress-controller-host-path.md) | dat | 2026-11-10 | [notes/22a.md](notes/22a.md); phân biệt Ingress resource vs Traefik controller; đo kiểm ma trận Host-based & Path-based; bóc tách chữ ký 404; xử lý Break & Fix 502 Bad Gateway do targetPort 9999; giữ nfk-22a cho 22b |
-| 22b | [TLS termination](lesson/22b-ingress-tls-termination.md) | chua-hoc | — | — |
+| 22b | [TLS termination](lesson/22b-ingress-tls-termination.md) | dat | 2026-11-10 | [notes/22b.md](notes/22b.md); học viên phân tích chính xác bản chất TLS termination tại controller, vai trò SNI, đo kiểm ma trận 3 tầng (TLS handshake vs HTTP routing 404); phát hiện chính xác Break & Fix sai secretName; patch Ingress phục hồi 200 OK; lab nfk-22a đã dọn sạch |
 | 23a | [LoadBalancer bare-metal](lesson/23a-loadbalancer-bare-metal.md) | chua-hoc | — | — |
 | 23b | [MetalLB feasibility lab](lesson/23b-metallb-feasibility-lab.md) | chua-hoc | — | — |
 | 24a | [NetworkPolicy ingress](lesson/24a-networkpolicy-ingress.md) | chua-hoc | — | — |
@@ -185,3 +185,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-10 10:05 | 21a / 40 phút | Đạt bài 21a: xác minh listener lsof trên macOS, đối chứng port-forward gắn chết 1 Pod vs Service data plane chia đều 2 replicas; đối chứng vị trí client gọi localhost bị Connection refused (0ms); điều tra Break & Fix bẫy remote port mismatch, bóc trần log Kubelet chui vào netns dial 127.0.0.1; phản biện sắc bén case Airflow/Postgres; LLM đã dọn sạch lab [notes/21a.md](notes/21a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 21b |
 | 2026-11-10 11:30 | 21b / 45 phút | Đạt bài 21b: đối chứng NodePort mở trên mọi node vs hostPort chỉ mở trên node chứa Pod; thực chứng Multi-hop routing qua server-0; giải mã bẫy Connection refused localhost:30080 trên macOS; phân tích bẫy scheduler Spark/Kafka; xử lý Break & Fix ranh giới ảo hóa Docker/Mac [notes/21b.md](notes/21b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 22a |
 | 2026-11-10 15:20 | 22a / 40 phút | Đạt bài 22a: chứng minh Host/path routing qua Traefik; đối chứng chữ ký 404 Controller vs backend log; bắt bệnh chuẩn xác Break & Fix 502 Bad Gateway do targetPort sai và patch phục hồi 200 OK [notes/22a.md](notes/22a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 22b |
+| 2026-11-10 16:50 | 22b / 45 phút | Đạt bài 22b: học viên nắm vững cơ chế TLS termination tại Ingress Controller, hiểu vai trò của SNI, đo kiểm ma trận 3 tầng bóc tách TLS verification vs HTTP routing 404; phát hiện chính xác Break & Fix sai secretName trong Ingress spec; patch phục hồi 200 OK chuẩn xác; LLM đã dọn sạch lab [notes/22b.md](notes/22b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 23a |
