@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 41/56, không tính bài 00.
+- **Bài chính đã đạt:** 42/56, không tính bài 00.
 - **Checkpoint đã đạt:** 5/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [21b — NodePort, hostPort và kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 21a (`dat`): học viên xác minh listener socket trên macOS qua lsof; đối chứng kubectl port-forward gắn chết 1 Pod (không load balance) vs Service Data plane chia tải đều giữa 2 replicas; đối chứng thất bại Connection refused khi Pod trong cụm gọi localhost của Mac; điều tra Break & Fix bẫy remote port mismatch, bóc tách log Kubelet chui vào netns dial 127.0.0.1; phản biện chính xác case Airflow/Postgres; LLM đã dọn dẹp sạch namespace nfk-21a.
-- **Bước tiếp theo:** Bắt đầu bài [21b — NodePort, hostPort và kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md).
-- **Bằng chứng/notes gần nhất:** [notes/21a.md](notes/21a.md); bài trước: [notes/20b.md](notes/20b.md).
+- **Bài đang học:** [22a — Ingress Controller, Host/path](lesson/22a-ingress-controller-host-path.md) (`chua-hoc`).
+- **Bước đang dừng:** Hoàn thành bài 21b (`dat`): học viên phân biệt chính xác NodePort vs hostPort vs hostNetwork; đo kiểm ma trận truy cập (localhost:30080 Connection refused vs NodeIP:30080 200 OK); chứng minh Multi-hop routing của NodePort qua Node server-0 không có Pod; thực nghiệm đối chứng hostPort chỉ mở trên agent-0 và lỗi trên agent-1; phân tích bẫy scheduler Spark/Kafka kẹt Pod Pending khi xung đột hostPort; giải quyết Break & Fix bóc tách ranh giới Kubernetes Core vs hạ tầng ảo hóa Docker/Mac; LLM đã dọn dẹp sạch namespace nfk-21b.
+- **Bước tiếp theo:** Bắt đầu bài [22a — Ingress Controller, Host/path](lesson/22a-ingress-controller-host-path.md).
+- **Bằng chứng/notes gần nhất:** [notes/21b.md](notes/21b.md); bài trước: [notes/21a.md](notes/21a.md).
 - **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, namespace `nfk-21a` và tiến trình port-forward đã được dọn sạch.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có, namespace `nfk-21b` đã được dọn sạch.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-10
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -79,7 +79,7 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 20a | [Hai Service mini-incidents](lesson/20a-service-mini-incidents.md) | dat | 2026-11-09 | [notes/20a.md](notes/20a.md); 2 reports riêng [Case A](notes/incident-20a-case-a.md) & [Case B](notes/incident-20a-case-b.md); bóc tách selector mismatch vs targetPort mismatch; đối chứng 200 OK; lab đã dọn sạch |
 | 20b | [DNS incident và CP5](lesson/20b-dns-incident-va-cp5.md) | dat | 2026-11-09 | [notes/20b.md](notes/20b.md); [Report Case C](notes/incident-20b-dns.md); control test ClusterIP 200 OK; bóc tách bẫy dnsPolicy: Default; hoàn thành 5/5 tiêu chí CP5; lab đã dọn sạch |
 | 21a | [Port-forward và client location](lesson/21a-port-forward-va-client-location.md) | dat | 2026-11-10 | [notes/21a.md](notes/21a.md); học viên xác minh listener lsof trên macOS, đối chứng port-forward gắn chết 1 Pod vs Service data plane chia đều 2 replicas, đối chứng vị trí client gọi localhost bị Connection refused, bóc tách cơ chế Kubelet chui vào netns dial 127.0.0.1 ở Break & Fix remote port mismatch, phản biện chuẩn case Airflow/Postgres; LLM đã cleanup lab |
-| 21b | [NodePort, hostPort, kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md) | chua-hoc | — | — |
+| 21b | [NodePort, hostPort, kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md) | dat | 2026-11-10 | [notes/21b.md](notes/21b.md); học viên phân biệt NodePort vs hostPort vs hostNetwork; đối chứng localhost:30080 Connection refused vs NodeIP:30080 200 OK; chứng minh Multi-hop routing qua server-0; thực chứng hostPort lỗi trên agent-1; phân tích bẫy scheduler Spark/Kafka; giải Break & Fix ảo hóa Mac; LLM đã dọn sạch lab |
 | 22a | [Ingress Controller, Host/path](lesson/22a-ingress-controller-host-path.md) | chua-hoc | — | — |
 | 22b | [TLS termination](lesson/22b-ingress-tls-termination.md) | chua-hoc | — | — |
 | 23a | [LoadBalancer bare-metal](lesson/23a-loadbalancer-bare-metal.md) | chua-hoc | — | — |
@@ -183,3 +183,4 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-09 15:17 | 20a / 40 phút | Đạt bài 20a: điều tra 2 mini-incidents ẩn danh, lập 2 incident reports; Case A bóc tách selector mismatch (0 endpoints gây kube-proxy REJECT); Case B bóc tách targetPort mismatch qua netstat -tlpn (targetPort 9000 vs listener 8080); patch tối thiểu và đối chứng 200 OK; LLM đã dọn sạch lab [notes/20a.md](notes/20a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 20b + CP5 |
 | 2026-11-09 15:43 | 20b + CP5 / 40 phút | Đạt bài 20b và hoàn thành Cổng đánh giá Checkpoint 5 (CP5): điều tra sự cố DNS, lập Incident Report Case C bóc tách bẫy dnsPolicy: Default; dùng control test ClusterIP 200 OK loại trừ Data plane; recreate Pod với dnsPolicy: ClusterFirst phục hồi 200 OK; nghiệm thu toàn bộ 5/5 tiêu chí CP5; LLM đã dọn sạch lab [notes/20b.md](notes/20b.md) | Tự làm / không cần gợi ý | Bắt đầu Giai đoạn 6 với bài 21a |
 | 2026-11-10 10:05 | 21a / 40 phút | Đạt bài 21a: xác minh listener lsof trên macOS, đối chứng port-forward gắn chết 1 Pod vs Service data plane chia đều 2 replicas; đối chứng vị trí client gọi localhost bị Connection refused (0ms); điều tra Break & Fix bẫy remote port mismatch, bóc trần log Kubelet chui vào netns dial 127.0.0.1; phản biện sắc bén case Airflow/Postgres; LLM đã dọn sạch lab [notes/21a.md](notes/21a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 21b |
+| 2026-11-10 11:30 | 21b / 45 phút | Đạt bài 21b: đối chứng NodePort mở trên mọi node vs hostPort chỉ mở trên node chứa Pod; thực chứng Multi-hop routing qua server-0; giải mã bẫy Connection refused localhost:30080 trên macOS; phân tích bẫy scheduler Spark/Kafka; xử lý Break & Fix ranh giới ảo hóa Docker/Mac [notes/21b.md](notes/21b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 22a |
