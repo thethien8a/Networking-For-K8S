@@ -27,7 +27,7 @@
 | Ingress/LoadBalancer controller nếu có | Traefik Service `LoadBalancer`, ClusterIP `10.43.38.58`, external IP ba Node `.3/.4/.5`, ports `80:32057/TCP,443:31273/TCP`; ServiceLB DS `svclb-traefik-0e8ce95e` Ready `3/3`. Chưa đọc version Traefik/controller ở preflight này; chưa cài MetalLB | Học viên chạy `kubectl --context k3d-de-k3d -n kube-system get svc,ds` / 2026-11-13, [notes 23b](notes/23b.md) |
 | Công cụ Linux và quyền quan sát/capture | Windows có `python.exe`, `curl`, `kubectl.exe` theo kiểm tra trước. Image mới `nfk-03a-tools:local`: Ubuntu 24.04.4 LTS, iproute2 6.1.0, iputils 20240117, tcpdump 4.99.4, libpcap 1.10.4. A/B dùng quyền Docker mặc định, có `cap_net_raw`, không có `cap_net_admin`; `Privileged=false`, không mount/publish port. Đã capture ARP/ICMP thực tế trên `eth0` của A với `-p`, giới hạn 4 giây; 7 gói, 0 dropped by kernel, process đã dừng. Image nền giữ nguyên ID sau build | Kiểm tra OS/package/capability lúc 12:01; kiểm tra ownership/cấu hình và capture trong [notes 03a](notes/03a.md) / 2026-10-25 13:13–13:16 |
 | Client nào truy cập được node/cluster, port mapping | Chưa xác minh | — |
-| Spark version/deploy mode/image khi đến bài 27 | Chưa xác minh | — |
+| Spark version/deploy mode/image khi đến bài 27 | Apache Spark 3.5.3 (image `spark:3.5.3`), Cluster Mode native K8s scheduler, Scala 2.12.18, OpenJDK 11 | Xác minh thực tế trong bài 27a ngày 2026-11-18, [notes 27a](notes/27a.md) |
 
 ## 3. Preflight trước từng bài
 

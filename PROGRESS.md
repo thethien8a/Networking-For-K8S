@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 52/56, không tính bài 00.
+- **Bài chính đã đạt:** 54/56, không tính bài 00.
 - **Checkpoint đã đạt:** 6/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [27a — Spark networking baseline](lesson/27a-spark-driver-executor-baseline.md) (`chua-hoc`).
-- **Bước đang dừng:** Đạt bài 26b — Fix tối thiểu, rollback và regression checks. Đã giải quyết triệt để 3/3 incidents thực tế (Case 1: Application socket bind loopback trap; Case 2: Flannel VXLAN UDP 8472 drop trên underlay node; Case 3: NetworkPolicy label mismatch với positive & negative control). Hoàn tất cả 3 incident reports và playbook tại [notes/26b.md](notes/26b.md). Toàn bộ lab đã được dọn sạch sẽ.
-- **Bước tiếp theo:** Bắt đầu bài 27a — Spark networking baseline (Driver, Executor, BlockManager, Shuffle ports trên Kubernetes).
-- **Bằng chứng/notes gần nhất:** [notes/26b.md](notes/26b.md), reports: [notes/incident-26a-case1.md](notes/incident-26a-case1.md), [notes/incident-26b-case2.md](notes/incident-26b-case2.md), [notes/incident-26b-case3.md](notes/incident-26b-case3.md); bài trước: [notes/26a.md](notes/26a.md).
+- **Bài đang học:** [28a — Network Readiness Report](lesson/28a-network-readiness-report.md) (`chua-hoc`).
+- **Bước đang dừng:** Đạt bài 27b — Spark network incident. Bóc tách thành công sự cố cross-node giữa Driver (agent-0) và Executor (agent-1), phát hiện NetworkPolicy chặn RPC 7078 / BlockManager 7079, fix tối thiểu mở 7078/7079 và nghiệm thu kết quả Pi roughly 3.14169. Báo cáo sự cố chuyên sâu tại [notes/incident-27b-spark.md](notes/incident-27b-spark.md) và ghi chú tại [notes/27b.md](notes/27b.md). Toàn bộ lab `nfk-27a` đã được dọn sạch sẽ.
+- **Bước tiếp theo:** Bắt đầu bài [28a — Network Readiness Report](lesson/28a-network-readiness-report.md).
+- **Bằng chứng/notes gần nhất:** [notes/27b.md](notes/27b.md); bài trước: [notes/27a.md](notes/27a.md).
 - **Blocker đã xác nhận:** Không có.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có. Toàn bộ namespace tạm (`nfk-26a-case1`, `nfk-26b-case2`, `nfk-26b-case3`) và rules iptables đã được hoàn nguyên/xóa sạch.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-17
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có; namespace `nfk-27a` đã xóa sạch.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-18
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -90,8 +90,8 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 25b | [MTU và PMTU](lesson/25b-mtu-pmtu.md) | dat | 2026-11-17 | [notes/25b.md](notes/25b.md); học viên đo kiểm ngưỡng MTU 1422 vs 1423, dò PMTU qua tracepath, bóc tách lỗi MTU Blackhole qua ma trận 4 phép đo (ping 1250 vs 1350, curl /small vs /large), xóa rule mangle phục hồi 50000B; LLM đã dọn dẹp toàn bộ |
 | 26a | [Incident triage](lesson/26a-incident-triage.md) | dat | 2026-11-17 | [notes/26a.md](notes/26a.md); catalogue 3 case, hoàn thành triage timeline và xác minh root cause Case 1 [notes/incident-26a-case1.md](notes/incident-26a-case1.md) (bind 127.0.0.1 vs eth0); giữ lab nfk-26a-case1 cho 26b |
 | 26b | [Fix, rollback, regression checks](lesson/26b-post-fix-regression.md) | dat | 2026-11-17 | [notes/26b.md](notes/26b.md); hoàn thành 3/3 incidents thực tế với báo cáo riêng ([Case 1](notes/incident-26a-case1.md), [Case 2](notes/incident-26b-case2.md), [Case 3](notes/incident-26b-case3.md)), đúc kết playbook, đo kiểm regression và negative control; LLM đã dọn sạch lab |
-| 27a | [Spark driver/executor baseline](lesson/27a-spark-driver-executor-baseline.md) | chua-hoc | — | — |
-| 27b | [Spark network incident](lesson/27b-spark-network-incident.md) | chua-hoc | — | — |
+| 27a | [Spark driver/executor baseline](lesson/27a-spark-driver-executor-baseline.md) | dat | 2026-11-18 | [notes/27a.md](notes/27a.md); học viên phân tích chính xác Headless Service FQDN trả về Pod IP, ports 7078/7079/4040, tự lấy PodCIDR chứng minh placement cross-node (agent-0 vs agent-1), log đối chứng kết nối hai chiều RPC và BlockManager broadcast, Pi roughly 3.1414; giữ nfk-27a cho 27b |
+| 27b | [Spark network incident](lesson/27b-spark-network-incident.md) | dat | 2026-11-18 | [notes/27b.md](notes/27b.md); incident cross-node thực tế (Driver agent-0 vs Exec agent-1); bóc tách Connection refused 7078 do NetworkPolicy; fix tối thiểu mở 7078 và 7079; nghiệm thu Pi 3.1416; báo cáo sự cố [notes/incident-27b-spark.md](notes/incident-27b-spark.md); namespace nfk-27a đã xóa sạch |
 | 28a | [Network Readiness Report](lesson/28a-network-readiness-report.md) | chua-hoc | — | — |
 | 28b | [Bảo vệ capstone và Final](lesson/28b-capstone-defense-final.md) | chua-hoc | — | — |
 
@@ -200,3 +200,5 @@ Lỗi engine cũ đã được gỡ; giữ bằng chứng trong [notes 03a](note
 | 2026-11-17 17:25 | 25b / 45 phút | Đạt bài 25b: học viên đo kiểm ngưỡng MTU 1422 vs 1423, dò PMTU qua tracepath, bóc tách lỗi MTU Blackhole qua ma trận 4 phép đo (ping 1250 vs 1350, curl /small vs /large), xóa rule mangle phục hồi 50000B; LLM đã dọn dẹp toàn bộ lab [notes/25b.md](notes/25b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 26a |
 | 2026-11-17 21:45 | 26a / 45 phút | Đạt bài 26a: thiết lập catalogue 3 case độc lập; phân biệt Control Plane metadata vs Data Plane; đo kiểm chữ ký 1ms Connection refused, control test Pod IP loại trừ Kube-proxy/Service, bắt quả tang backend chỉ bind 127.0.0.1:8080 và giải mã bẫy ReadinessProbe exec [notes/26a.md](notes/26a.md), report [Case 1](notes/incident-26a-case1.md); giữ lab nfk-26a-case1 cho bài 26b | Tự làm / không cần gợi ý | Bắt đầu bài 26b |
 | 2026-11-17 23:40 | 26b / 60 phút | Đạt bài 26b: giải quyết triệt để 3/3 incidents thực tế; Case 1 fix bind 0.0.0.0 và kiểm chứng 200 OK; Case 2 bóc tách Silent DROP liên node, xóa rule iptables DROP UDP 8472 Flannel VXLAN trên agent-1; Case 3 bóc tách NetworkPolicy label mismatch, patch tối thiểu và thực chứng Negative control chặn analytics-client; hoàn thành 3 reports riêng biệt và đúc kết Playbook xử lý sự cố mạng [notes/26b.md](notes/26b.md); LLM đã xóa toàn bộ lab tạm | Tự làm / không cần gợi ý | Bắt đầu bài 27a |
+| 2026-11-18 09:55 | 27a / 45 phút | Đạt bài 27a: Spark 3.5.3 on K8s cluster mode; đối chứng Headless Service DNS resolution; đo kiểm placement cross-node (Driver agent-0 IP 10.42.3.88 vs Executor agent-1 IP 10.42.1.76); trích xuất log chứng minh listeners 7078/7079/4040 và BlockManager hai chiều; Pi roughly 3.1414; giữ nfk-27a cho 27b [notes/27a.md](notes/27a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 27b |
+| 2026-11-18 10:40 | 27b / 45 phút | Đạt bài 27b: Spark network incident cross-node; đối chứng Connection refused tại RPC port 7078; phân biệt DNS OK vs TCP RST vs OOM (ExitCode 137); phát hiện NetworkPolicy chặn 7078 và 7079; patch tối thiểu mở 7078/7079; nghiệm thu kết nối 2 chiều và Pi roughly 3.14169; lập báo cáo [notes/incident-27b-spark.md](notes/incident-27b-spark.md) và ghi chú [notes/27b.md](notes/27b.md); xóa sạch namespace nfk-27a | Hint 1 (Định hướng bổ sung port 7079 BlockManager) | Bắt đầu bài 28a |
