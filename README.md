@@ -11,8 +11,9 @@ Lộ trình dành cho Data Engineer muốn hiểu mạng từ nền tảng đế
 </p>
 
 > **Học viên:** Nguyễn Thế Thiện  
+> **Danh hiệu:** Kubernetes Networking Specialist  
 > **Trạng thái:** Đã hoàn thành xuất sắc **56/56 bài học** và đạt toàn bộ **7/7 Cổng đánh giá năng lực độc lập (CP1 đến Final)**.  
-> **Credential ID:** `LF-wkqc6ohaig` (`NFK-2026-FINAL-7B4688B8`) · **Ngày cấp:** 18/11/2026.  
+> **Credential ID:** `NFK-2026-FINAL-7B4688B8` · **Ngày cấp:** 18/11/2026.  
 > **Chi tiết tiến độ & bằng chứng:** Xem tại [PROGRESS.md](PROGRESS.md), [notes/28a.md](notes/28a.md) và [notes/28b.md](notes/28b.md).
 
 ---
