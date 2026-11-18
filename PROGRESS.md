@@ -4,15 +4,15 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 44/56, không tính bài 00.
-- **Checkpoint đã đạt:** 5/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [23a — LoadBalancer bare-metal](lesson/23a-loadbalancer-bare-metal.md) (`chua-hoc`).
-- **Bước đang dừng:** Hoàn thành bài 22b (`dat`): học viên nắm vững cơ chế TLS termination tại Ingress Controller, hiểu vai trò của SNI trong Client Hello, đo kiểm bóc tách 3 tầng độc lập (TLS verification vs HTTP routing); tự điều tra và chỉ ra chính xác lỗi sai `secretName` trong Ingress spec khiến Ingress Controller fallback về default cert; patch phục hồi thành công 200 OK với chứng chỉ tin cậy; toàn bộ namespace `nfk-22a` và chứng chỉ tạm đã được dọn sạch sẽ.
-- **Bước tiếp theo:** Bắt đầu bài [23a — LoadBalancer bare-metal](lesson/23a-loadbalancer-bare-metal.md).
-- **Bằng chứng/notes gần nhất:** [notes/22b.md](notes/22b.md); bài trước: [notes/22a.md](notes/22a.md).
-- **Blocker đã xác nhận:** Không có blocker.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có; lab `nfk-22a` và temp certs đã được dọn sạch hoàn toàn.
-- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-10
+- **Bài chính đã đạt:** 52/56, không tính bài 00.
+- **Checkpoint đã đạt:** 6/7, gồm CP1–CP6 và Final.
+- **Bài đang học:** [27a — Spark networking baseline](lesson/27a-spark-driver-executor-baseline.md) (`chua-hoc`).
+- **Bước đang dừng:** Đạt bài 26b — Fix tối thiểu, rollback và regression checks. Đã giải quyết triệt để 3/3 incidents thực tế (Case 1: Application socket bind loopback trap; Case 2: Flannel VXLAN UDP 8472 drop trên underlay node; Case 3: NetworkPolicy label mismatch với positive & negative control). Hoàn tất cả 3 incident reports và playbook tại [notes/26b.md](notes/26b.md). Toàn bộ lab đã được dọn sạch sẽ.
+- **Bước tiếp theo:** Bắt đầu bài 27a — Spark networking baseline (Driver, Executor, BlockManager, Shuffle ports trên Kubernetes).
+- **Bằng chứng/notes gần nhất:** [notes/26b.md](notes/26b.md), reports: [notes/incident-26a-case1.md](notes/incident-26a-case1.md), [notes/incident-26b-case2.md](notes/incident-26b-case2.md), [notes/incident-26b-case3.md](notes/incident-26b-case3.md); bài trước: [notes/26a.md](notes/26a.md).
+- **Blocker đã xác nhận:** Không có.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có. Toàn bộ namespace tạm (`nfk-26a-case1`, `nfk-26b-case2`, `nfk-26b-case3`) và rules iptables đã được hoàn nguyên/xóa sạch.
+- **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-17
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
 
@@ -82,14 +82,14 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 21b | [NodePort, hostPort, kind mapping](lesson/21b-nodeport-hostport-kind-mapping.md) | dat | 2026-11-10 | [notes/21b.md](notes/21b.md); học viên phân biệt NodePort vs hostPort vs hostNetwork; đối chứng localhost:30080 Connection refused vs NodeIP:30080 200 OK; chứng minh Multi-hop routing qua server-0; thực chứng hostPort lỗi trên agent-1; phân tích bẫy scheduler Spark/Kafka; giải Break & Fix ảo hóa Mac; LLM đã dọn sạch lab |
 | 22a | [Ingress Controller, Host/path](lesson/22a-ingress-controller-host-path.md) | dat | 2026-11-10 | [notes/22a.md](notes/22a.md); phân biệt Ingress resource vs Traefik controller; đo kiểm ma trận Host-based & Path-based; bóc tách chữ ký 404; xử lý Break & Fix 502 Bad Gateway do targetPort 9999; giữ nfk-22a cho 22b |
 | 22b | [TLS termination](lesson/22b-ingress-tls-termination.md) | dat | 2026-11-10 | [notes/22b.md](notes/22b.md); học viên phân tích chính xác bản chất TLS termination tại controller, vai trò SNI, đo kiểm ma trận 3 tầng (TLS handshake vs HTTP routing 404); phát hiện chính xác Break & Fix sai secretName; patch Ingress phục hồi 200 OK; lab nfk-22a đã dọn sạch |
-| 23a | [LoadBalancer bare-metal](lesson/23a-loadbalancer-bare-metal.md) | chua-hoc | — | — |
-| 23b | [MetalLB feasibility lab](lesson/23b-metallb-feasibility-lab.md) | chua-hoc | — | — |
-| 24a | [NetworkPolicy ingress](lesson/24a-networkpolicy-ingress.md) | chua-hoc | — | — |
-| 24b | [DNS egress allowance và CP6](lesson/24b-networkpolicy-dns-egress-va-cp6.md) | chua-hoc | — | — |
-| 25a | [Pod egress và SNAT](lesson/25a-pod-egress-snat.md) | chua-hoc | — | — |
-| 25b | [MTU và PMTU](lesson/25b-mtu-pmtu.md) | chua-hoc | — | — |
-| 26a | [Incident triage](lesson/26a-incident-triage.md) | chua-hoc | — | — |
-| 26b | [Fix, rollback, regression checks](lesson/26b-post-fix-regression.md) | chua-hoc | — | — |
+| 23a | [LoadBalancer bare-metal](lesson/23a-loadbalancer-bare-metal.md) | dat | 2026-11-12 | [notes/23a.md](notes/23a.md); học viên nắm vững bản chất LoadBalancer bare-metal, khảo sát Klipper-LB svclb-traefik, lập checklist MetalLB L2, áp dụng chuẩn mental model bóc tách lỗi Tầng 2 Timeout vs Tầng 3 Connection Refused |
+| 23b | [MetalLB feasibility lab](lesson/23b-metallb-feasibility-lab.md) | dat | 2026-11-16 | [notes/23b.md](notes/23b.md); hoàn thành thực nghiệm MetalLB v0.16.2 native mode; đối chứng allocation và advertisement; đo kiểm L2 ARP match MAC node server-0; bóc tách bridge102 OrbStack; phân tích giới hạn 4 VM VMware; LLM đã cleanup cụm tạm và network 23b |
+| 24a | [NetworkPolicy ingress](lesson/24a-networkpolicy-ingress.md) | dat | 2026-11-16 | [notes/24a.md](notes/24a.md); ma trận baseline/default-deny/allow-list; đối chứng REJECT icmp-port-unreachable Kube-router; phân biệt AND vs OR selectors; giữ lab nfk-24a cho 24b |
+| 24b | [DNS egress allowance và CP6](lesson/24b-networkpolicy-dns-egress-va-cp6.md) | dat | 2026-11-17 | [notes/24b.md](notes/24b.md); đối chứng DNS timeout 3002ms vs Pod IP 200 OK 6ms; cấu hình DNS Egress tối thiểu UDP/TCP 53 CoreDNS; đo ma trận Frontend 200 OK, Intruder bị chặn ExitCode 7, External egress bị chặn; hoàn thành CP6; namespace nfk-24a đã xóa sạch |
+| 25a | [Pod egress và SNAT](lesson/25a-pod-egress-snat.md) | dat | 2026-11-17 | [notes/25a.md](notes/25a.md); học viên đối chứng reachability Node vs Pod tới External Server, mổ xẻ FLANNEL-POSTRTG MASQUERADE vs RETURN, chẩn đoán ma trận 3 chiều bóc tách mất SNAT gây Connect Timeout do mất Return Path, xóa rule lỗi iptables và phục hồi 200 OK; LLM đã dọn sạch lab |
+| 25b | [MTU và PMTU](lesson/25b-mtu-pmtu.md) | dat | 2026-11-17 | [notes/25b.md](notes/25b.md); học viên đo kiểm ngưỡng MTU 1422 vs 1423, dò PMTU qua tracepath, bóc tách lỗi MTU Blackhole qua ma trận 4 phép đo (ping 1250 vs 1350, curl /small vs /large), xóa rule mangle phục hồi 50000B; LLM đã dọn dẹp toàn bộ |
+| 26a | [Incident triage](lesson/26a-incident-triage.md) | dat | 2026-11-17 | [notes/26a.md](notes/26a.md); catalogue 3 case, hoàn thành triage timeline và xác minh root cause Case 1 [notes/incident-26a-case1.md](notes/incident-26a-case1.md) (bind 127.0.0.1 vs eth0); giữ lab nfk-26a-case1 cho 26b |
+| 26b | [Fix, rollback, regression checks](lesson/26b-post-fix-regression.md) | dat | 2026-11-17 | [notes/26b.md](notes/26b.md); hoàn thành 3/3 incidents thực tế với báo cáo riêng ([Case 1](notes/incident-26a-case1.md), [Case 2](notes/incident-26b-case2.md), [Case 3](notes/incident-26b-case3.md)), đúc kết playbook, đo kiểm regression và negative control; LLM đã dọn sạch lab |
 | 27a | [Spark driver/executor baseline](lesson/27a-spark-driver-executor-baseline.md) | chua-hoc | — | — |
 | 27b | [Spark network incident](lesson/27b-spark-network-incident.md) | chua-hoc | — | — |
 | 28a | [Network Readiness Report](lesson/28a-network-readiness-report.md) | chua-hoc | — | — |
@@ -106,7 +106,7 @@ Không tự đánh dấu cổng đạt chỉ vì bài cuối giai đoạn đã `
 | CP3 | 12b | [Linux router/firewall, capture, rollback](CHECKPOINTS.md#cp3--sau-12b) | dat | 2026-11-04 | Đạt toàn bộ 5 tiêu chí CP3: topology 2 subnet qua router namespace, routes 2 chiều & forwarding; capture tcpdump luồng chuyển tiếp đối xứng veth-ra In -> veth-rb Out; khoanh vùng đúng routing return path vs sysctl forward, Netfilter hooks INPUT vs FORWARD; đối chứng thực nghiệm DROP (2.002s) vs REJECT (0.000145s); rollback tối thiểu và dọn dẹp sạch lab [notes/12b.md](notes/12b.md) |
 | CP4 | 16b | [Cross-node theo CNI thật](CHECKPOINTS.md#cp4--sau-16b) | dat | 2026-11-07 | Đạt toàn bộ 5 tiêu chí CP4: chứng minh placement same-node vs cross-node; vẽ data path theo CNI Flannel thật (cni0 L2 switching vs flannel.1 VXLAN UDP 8472); bóc tách triệu chứng Timeout khoanh vùng đúng Node đích; bắt quả tang và rollback rule DROP iptables INPUT trên agent-1; phân tích sâu sắc 2 giới hạn kind/k3d vs 4 VM VMware (Visibility boundary & MTU Jumbo Frames overhead 50 bytes) [notes/16b.md](notes/16b.md) |
 | CP5 | 20b | [Ba Service/DNS incidents](CHECKPOINTS.md#cp5--sau-20b) | dat | 2026-11-09 | Đạt toàn bộ 5 tiêu chí CP5: đủ 3 incident reports riêng biệt ([Case A](notes/incident-20a-case-a.md), [Case B](notes/incident-20a-case-b.md), [Case C](notes/incident-20b-dns.md)); phân biệt rạch ròi metadata EndpointSlice (0 endpoints gây REJECT vs Ready: true nhưng targetPort lệch gây TCP RST); điều tra DNS với control test ClusterIP và bóc tách dnsPolicy: Default; fix tối thiểu và lab đã dọn sạch [notes/20b.md](notes/20b.md) |
-| CP6 | 24b | [Ingress/LB/policy](CHECKPOINTS.md#cp6--sau-24b) | chua-hoc | — | — |
+| CP6 | 24b | [Ingress/LB/policy](CHECKPOINTS.md#cp6--sau-24b) | dat | 2026-11-17 | Đạt toàn bộ 5 tiêu chí CP6: Ingress routing Host/path & TLS termination (22a/b); LoadBalancer allocation vs L2 advertisement & client location (23a/b); CNI Kube-router Ingress allow/deny (24a); DNS Egress UDP/TCP 53 least-privilege (24b); ma trận allowed/denied 2 chiều và rollback sạch sẽ [notes/24b.md](notes/24b.md) |
 | Final | 28b | [Report 4 VM + case Spark](CHECKPOINTS.md#final--sau-28b) | chua-hoc | — | — |
 
 ## Hàng đợi ôn tập
@@ -116,14 +116,15 @@ Không tự đánh dấu cổng đạt chỉ vì bài cuối giai đoạn đã `
 | Bài/năng lực | Điểm cần ôn | Phép thử lại / bằng chứng cần có | Ngày ôn dự kiến | Kết quả / link notes |
 |---|---|---|---|---|
 | 02b — gateway trực tiếp | C `.70/27`: tính đúng `.64–.95` nhưng chấp nhận gateway `.62` ngoài subnet trong mô hình không có route đặc biệt | Đề xuất một IP gateway phù hợp, khác IP C, và giải thích bằng dải subnet | — | Đã tự chọn đúng `.77` sau phản hồi, lý do cùng subnet; 2026-10-25 00:33 [notes/02b.md](notes/02b.md) |
+| 23b — so sánh vị trí client | Case giả định: container gọi cùng VIP/port được `200 OK`, Mac timeout; học viên ưu tiên `targetPort`, đã được giải thích vì sao cần đo phần đường khác nhau | Tự chọn phép đo external path/backend path cho case mới và giải thích bằng chứng; không kết luận mọi backend khỏe từ một request thành công | — | Đã giải thích đúng tách biệt backend path vs external path và L3 gateway trong triage review; 2026-11-16 [notes/23b.md](notes/23b.md) |
 
 ## Blocker và việc cần chuẩn bị
 
-Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ bằng việc học viên mở Docker Desktop và kiểm tra lại; giữ bằng chứng thất bại/thành công trong [notes 03a](notes/03a.md).
+Lỗi engine cũ đã được gỡ; giữ bằng chứng trong [notes 03a](notes/03a.md). Với 23b, đã đồng ý nhánh lab riêng nhưng chưa hoàn thành preflight của lab mới; chưa ghi nhận lỗi thực thi mới.
 
 | Bài | Blocker thực tế | Điều kiện gỡ | Bước tiếp / người xử lý |
 |---|---|---|---|
-| — | — | — | — |
+| 23b | Không còn blocker; lab 23b đã hoàn tất và cleanup sạch sẽ | Đã đạt bài 23b | Chuyển sang bài 24a |
 
 ## Lịch sử phiên học
 
@@ -186,3 +187,16 @@ Không có blocker còn tồn tại. Lỗi engine lúc 11:51 đã được gỡ 
 | 2026-11-10 11:30 | 21b / 45 phút | Đạt bài 21b: đối chứng NodePort mở trên mọi node vs hostPort chỉ mở trên node chứa Pod; thực chứng Multi-hop routing qua server-0; giải mã bẫy Connection refused localhost:30080 trên macOS; phân tích bẫy scheduler Spark/Kafka; xử lý Break & Fix ranh giới ảo hóa Docker/Mac [notes/21b.md](notes/21b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 22a |
 | 2026-11-10 15:20 | 22a / 40 phút | Đạt bài 22a: chứng minh Host/path routing qua Traefik; đối chứng chữ ký 404 Controller vs backend log; bắt bệnh chuẩn xác Break & Fix 502 Bad Gateway do targetPort sai và patch phục hồi 200 OK [notes/22a.md](notes/22a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 22b |
 | 2026-11-10 16:50 | 22b / 45 phút | Đạt bài 22b: học viên nắm vững cơ chế TLS termination tại Ingress Controller, hiểu vai trò của SNI, đo kiểm ma trận 3 tầng bóc tách TLS verification vs HTTP routing 404; phát hiện chính xác Break & Fix sai secretName trong Ingress spec; patch phục hồi 200 OK chuẩn xác; LLM đã dọn sạch lab [notes/22b.md](notes/22b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 23a |
+| 2026-11-12 16:17 | 23a / 40 phút | Đạt bài 23a: phân biệt Allocation vs Advertisement vs Backend, khảo sát Klipper-LB và Docker network k3d, lập MetalLB L2 feasibility checklist, phân biệt bóc tách lỗi Timeout vs Connection Refused tức thì [notes/23a.md](notes/23a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 23b |
+| 2026-11-12 | 23b / nối bài, chưa chốt thời lượng | Case giả định container `200 OK`/Mac timeout: học viên ưu tiên `targetPort`, LLM đính chính; sau đó học viên chọn đúng MAC gateway G khi route qua G; chưa đo traffic [notes/23b.md](notes/23b.md) | Giải thích trực tiếp tư duy so sánh hai vị trí client; chưa review độc lập | Preflight trước chọn nhánh lab |
+| 2026-11-13 10:50 | 23b / tiếp tục preflight, lưu điểm nối tiếp | Học viên tự chạy inventory Mac/OrbStack, xác nhận chuyển context sang `k3d-de-k3d`; ba Node Ready, K3s `v1.33.6+k3s1`; thấy ServiceLB và IPAM không thể hiện dải reserve. Đồng ý lab k3d tạm/network riêng + MetalLB; chưa tạo/cài [notes/23b.md](notes/23b.md) | LLM cung cấp lệnh chỉ đọc, giải thích rủi ro IPAM/controller; chưa giải incident thực tế | Gửi version k3d, image Node cũ và subnet Docker; chốt cấu hình trước setup, giữ context mặc định hiện tại |
+| 2026-11-13 | 23b / bổ sung preflight | Học viên cung cấp k3d `v5.8.3`, image `rancher/k3s:v1.33.6-k3s1` và subnet Docker; đề xuất `172.30.230.0/24` không chồng các subnet đã gửi, chưa kết luận về LAN/VPN; chưa tạo/cài [notes/23b.md](notes/23b.md) | Cung cấp lệnh inventory; chưa phát traffic của challenge | Đọc route Mac tới `.240` trước khi tạo lab tạm |
+| 2026-11-13 | 23b / route baseline và chuyển sang setup | Học viên đọc route tới VIP dự kiến: default qua `en1`, MTU 1500; đây không phải bằng chứng reachability. Hướng dẫn tạo network có subnet `/24` và IPRange `/25`, chưa có output thực hiện [notes/23b.md](notes/23b.md) | LLM cung cấp thiết lập và phép đọc IPAM; chưa làm thay challenge | Nhận output network/IPAM trước khi tạo cụm tạm |
+| 2026-11-13 | 23b / setup network | Học viên tự tạo network `nfk-23b` thành công và đọc IPAM: Subnet `/24`, IPRange `/25`, gateway `.1` đúng thiết kế; phát sinh nợ cleanup network, chưa có cluster/MetalLB/traffic được xác nhận [notes/23b.md](notes/23b.md) | LLM cung cấp lệnh setup; học viên tự chạy và gửi output | Tạo cụm tạm một Node, giữ context mặc định cũ; nhận output Node trước bước tiếp |
+| 2026-11-16 10:48 | 23b / 45 phút | Đạt bài 23b: hoàn thành thực nghiệm MetalLB v0.16.2 native mode; đối chứng allocation và L2 advertisement; đo kiểm L2 ARP match MAC server-0; bóc tách bridge102 OrbStack trên macOS; phân tích sâu sắc feasibility report 4 VM VMware; phân biệt rạch ròi Backend path vs External path; LLM đã dọn dẹp sạch sẽ cụm tạm và network [notes/23b.md](notes/23b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 24a |
+| 2026-11-16 16:05 | 24a / 45 phút | Đạt bài 24a: xác nhận CNI Kube-router trên K3s, đo kiểm ma trận traffic 3 giai đoạn (baseline 200 OK -> default-deny Ingress REJECT ExitCode 7 -> allow-list cộng hợp Frontend 200 OK / Intruder REJECT); mổ xẻ cơ chế REJECT icmp-port-unreachable (0ms) vs DROP (timeout 3s); bóc tách bẫy cú pháp YAML AND vs OR trong namespace/podSelector; giữ tài nguyên nfk-24a cho 24b [notes/24a.md](notes/24a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 24b + CP6 |
+| 2026-11-17 14:15 | 24b + CP6 / 45 phút | Đạt bài 24b và hoàn thành Cổng đánh giá Checkpoint 6 (CP6): đối chứng lỗi DNS timeout 3002ms vs Pod IP 200 OK 6ms khi cô lập Egress; cấu hình DNS Egress tối thiểu UDP/TCP 53 CoreDNS trong kube-system; đo kiểm ma trận 3 chiều (Frontend hostname 200 OK, Intruder bị chặn Ingress ExitCode 7, External egress 1.1.1.1 bị chặn); vượt qua toàn bộ 5/5 tiêu chí CP6; LLM đã xóa sạch namespace nfk-24a [notes/24b.md](notes/24b.md) | Tự làm / không cần gợi ý | Bắt đầu Giai đoạn 7 với bài 25a |
+| 2026-11-17 15:45 | 25a / 45 phút | Đạt bài 25a: học viên đối chứng Node vs Pod reachability và source address, mổ xẻ FLANNEL-POSTRTG MASQUERADE vs RETURN, chẩn đoán ma trận 3 chiều bóc tách mất SNAT gây Connect Timeout do mất Return Path, sửa tối thiểu iptables -D phục hồi 200 OK [notes/25a.md](notes/25a.md) | Hint 1 (Định hướng bóc tách bảng iptables) | Bắt đầu bài 25b |
+| 2026-11-17 17:25 | 25b / 45 phút | Đạt bài 25b: học viên đo kiểm ngưỡng MTU 1422 vs 1423, dò PMTU qua tracepath, bóc tách lỗi MTU Blackhole qua ma trận 4 phép đo (ping 1250 vs 1350, curl /small vs /large), xóa rule mangle phục hồi 50000B; LLM đã dọn dẹp toàn bộ lab [notes/25b.md](notes/25b.md) | Tự làm / không cần gợi ý | Bắt đầu bài 26a |
+| 2026-11-17 21:45 | 26a / 45 phút | Đạt bài 26a: thiết lập catalogue 3 case độc lập; phân biệt Control Plane metadata vs Data Plane; đo kiểm chữ ký 1ms Connection refused, control test Pod IP loại trừ Kube-proxy/Service, bắt quả tang backend chỉ bind 127.0.0.1:8080 và giải mã bẫy ReadinessProbe exec [notes/26a.md](notes/26a.md), report [Case 1](notes/incident-26a-case1.md); giữ lab nfk-26a-case1 cho bài 26b | Tự làm / không cần gợi ý | Bắt đầu bài 26b |
+| 2026-11-17 23:40 | 26b / 60 phút | Đạt bài 26b: giải quyết triệt để 3/3 incidents thực tế; Case 1 fix bind 0.0.0.0 và kiểm chứng 200 OK; Case 2 bóc tách Silent DROP liên node, xóa rule iptables DROP UDP 8472 Flannel VXLAN trên agent-1; Case 3 bóc tách NetworkPolicy label mismatch, patch tối thiểu và thực chứng Negative control chặn analytics-client; hoàn thành 3 reports riêng biệt và đúc kết Playbook xử lý sự cố mạng [notes/26b.md](notes/26b.md); LLM đã xóa toàn bộ lab tạm | Tự làm / không cần gợi ý | Bắt đầu bài 27a |
