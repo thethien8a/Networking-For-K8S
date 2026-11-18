@@ -4,14 +4,14 @@
 
 ## Điểm nối tiếp cho phiên sau
 
-- **Bài chính đã đạt:** 54/56, không tính bài 00.
-- **Checkpoint đã đạt:** 6/7, gồm CP1–CP6 và Final.
-- **Bài đang học:** [28a — Network Readiness Report](lesson/28a-network-readiness-report.md) (`chua-hoc`).
-- **Bước đang dừng:** Đạt bài 27b — Spark network incident. Bóc tách thành công sự cố cross-node giữa Driver (agent-0) và Executor (agent-1), phát hiện NetworkPolicy chặn RPC 7078 / BlockManager 7079, fix tối thiểu mở 7078/7079 và nghiệm thu kết quả Pi roughly 3.14169. Báo cáo sự cố chuyên sâu tại [notes/incident-27b-spark.md](notes/incident-27b-spark.md) và ghi chú tại [notes/27b.md](notes/27b.md). Toàn bộ lab `nfk-27a` đã được dọn sạch sẽ.
-- **Bước tiếp theo:** Bắt đầu bài [28a — Network Readiness Report](lesson/28a-network-readiness-report.md).
-- **Bằng chứng/notes gần nhất:** [notes/27b.md](notes/27b.md); bài trước: [notes/27a.md](notes/27a.md).
+- **Bài chính đã đạt:** 56/56 (100% HOÀN THÀNH TOÀN BỘ KHÓA HỌC).
+- **Checkpoint đã đạt:** 7/7 (CP1, CP2, CP3, CP4, CP5, CP6, Final).
+- **Bài đang học:** Đã hoàn thành toàn bộ chương trình 28 buổi / 56 bài học!
+- **Bước đang dừng:** Hoàn thành bài [28a](lesson/28a-network-readiness-report.md) (Bản báo cáo Network Readiness Report cho 4 VM VMware tại [notes/28a.md](notes/28a.md)) và bài [28b](lesson/28b-capstone-defense-final.md) (Bảo vệ Capstone và nghiệm thu Cổng Final Checkpoint tại [notes/28b.md](notes/28b.md)).
+- **Bước tiếp theo:** Khóa học kết thúc. Áp dụng toàn diện kiến thức nền tảng và phương pháp luận bóc tách sự cố mạng Kubernetes vào thực tế Data Platform.
+- **Bằng chứng/notes gần nhất:** [notes/28a.md](notes/28a.md), [notes/28b.md](notes/28b.md); bài trước: [notes/27b.md](notes/27b.md), [notes/incident-27b-spark.md](notes/incident-27b-spark.md).
 - **Blocker đã xác nhận:** Không có.
-- **Thay đổi lab còn tồn tại / nợ rollback:** Không có; namespace `nfk-27a` đã xóa sạch.
+- **Thay đổi lab còn tồn tại / nợ rollback:** Không có; cluster k3d sạch sẽ, toàn bộ namespaces tạm đã dọn sạch.
 - **Ngày học gần nhất / cập nhật từ phiên học (Asia/Ho_Chi_Minh):** 2026-11-18
 
 Tổng số là bản tóm tắt từ các hàng `dat` bên dưới; cập nhật cùng lúc khi đổi trạng thái, không dùng số file notes hoặc checkbox trong bài làm phép đếm.
@@ -92,8 +92,8 @@ Ngày chỉ ghi ngày **thực học/đánh giá**, định dạng `YYYY-MM-DD`.
 | 26b | [Fix, rollback, regression checks](lesson/26b-post-fix-regression.md) | dat | 2026-11-17 | [notes/26b.md](notes/26b.md); hoàn thành 3/3 incidents thực tế với báo cáo riêng ([Case 1](notes/incident-26a-case1.md), [Case 2](notes/incident-26b-case2.md), [Case 3](notes/incident-26b-case3.md)), đúc kết playbook, đo kiểm regression và negative control; LLM đã dọn sạch lab |
 | 27a | [Spark driver/executor baseline](lesson/27a-spark-driver-executor-baseline.md) | dat | 2026-11-18 | [notes/27a.md](notes/27a.md); học viên phân tích chính xác Headless Service FQDN trả về Pod IP, ports 7078/7079/4040, tự lấy PodCIDR chứng minh placement cross-node (agent-0 vs agent-1), log đối chứng kết nối hai chiều RPC và BlockManager broadcast, Pi roughly 3.1414; giữ nfk-27a cho 27b |
 | 27b | [Spark network incident](lesson/27b-spark-network-incident.md) | dat | 2026-11-18 | [notes/27b.md](notes/27b.md); incident cross-node thực tế (Driver agent-0 vs Exec agent-1); bóc tách Connection refused 7078 do NetworkPolicy; fix tối thiểu mở 7078 và 7079; nghiệm thu Pi 3.1416; báo cáo sự cố [notes/incident-27b-spark.md](notes/incident-27b-spark.md); namespace nfk-27a đã xóa sạch |
-| 28a | [Network Readiness Report](lesson/28a-network-readiness-report.md) | chua-hoc | — | — |
-| 28b | [Bảo vệ capstone và Final](lesson/28b-capstone-defense-final.md) | chua-hoc | — | — |
+| 28a | [Network Readiness Report](lesson/28a-network-readiness-report.md) | dat | 2026-11-18 | [notes/28a.md](notes/28a.md); Bản báo cáo Network Readiness Report hoàn chỉnh 10 mục cho 4 VM Ubuntu trên VMware, quy hoạch IPAM anti-overlap, connectivity matrix, data paths 2 chiều, phân định ranh giới Guest vs VMware và runbook read-only |
+| 28b | [Bảo vệ capstone và Final](lesson/28b-capstone-defense-final.md) | dat | 2026-11-18 | [notes/28b.md](notes/28b.md); Bảo vệ thành công toàn diện đồ án Capstone, bảo vệ case Spark cross-node, hoàn thành 7/7 tiêu chí cổng Final Checkpoint kết thúc khóa học |
 
 ## Checkpoint gates
 
@@ -107,7 +107,7 @@ Không tự đánh dấu cổng đạt chỉ vì bài cuối giai đoạn đã `
 | CP4 | 16b | [Cross-node theo CNI thật](CHECKPOINTS.md#cp4--sau-16b) | dat | 2026-11-07 | Đạt toàn bộ 5 tiêu chí CP4: chứng minh placement same-node vs cross-node; vẽ data path theo CNI Flannel thật (cni0 L2 switching vs flannel.1 VXLAN UDP 8472); bóc tách triệu chứng Timeout khoanh vùng đúng Node đích; bắt quả tang và rollback rule DROP iptables INPUT trên agent-1; phân tích sâu sắc 2 giới hạn kind/k3d vs 4 VM VMware (Visibility boundary & MTU Jumbo Frames overhead 50 bytes) [notes/16b.md](notes/16b.md) |
 | CP5 | 20b | [Ba Service/DNS incidents](CHECKPOINTS.md#cp5--sau-20b) | dat | 2026-11-09 | Đạt toàn bộ 5 tiêu chí CP5: đủ 3 incident reports riêng biệt ([Case A](notes/incident-20a-case-a.md), [Case B](notes/incident-20a-case-b.md), [Case C](notes/incident-20b-dns.md)); phân biệt rạch ròi metadata EndpointSlice (0 endpoints gây REJECT vs Ready: true nhưng targetPort lệch gây TCP RST); điều tra DNS với control test ClusterIP và bóc tách dnsPolicy: Default; fix tối thiểu và lab đã dọn sạch [notes/20b.md](notes/20b.md) |
 | CP6 | 24b | [Ingress/LB/policy](CHECKPOINTS.md#cp6--sau-24b) | dat | 2026-11-17 | Đạt toàn bộ 5 tiêu chí CP6: Ingress routing Host/path & TLS termination (22a/b); LoadBalancer allocation vs L2 advertisement & client location (23a/b); CNI Kube-router Ingress allow/deny (24a); DNS Egress UDP/TCP 53 least-privilege (24b); ma trận allowed/denied 2 chiều và rollback sạch sẽ [notes/24b.md](notes/24b.md) |
-| Final | 28b | [Report 4 VM + case Spark](CHECKPOINTS.md#final--sau-28b) | chua-hoc | — | — |
+| Final | 28b | [Report 4 VM + case Spark](CHECKPOINTS.md#final--sau-28b) | dat | 2026-11-18 | Đạt toàn bộ 7/7 tiêu chí cổng Final: Network Readiness Report 4 VM đầy đủ 10 mục, phân tích luồng dữ liệu hai chiều, version chuẩn xác, phân định ranh giới Guest vs VMware, case Spark 27b, runbook chỉ đọc và phân định facts/assumptions rõ ràng [notes/28b.md](notes/28b.md) |
 
 ## Hàng đợi ôn tập
 
@@ -202,3 +202,5 @@ Lỗi engine cũ đã được gỡ; giữ bằng chứng trong [notes 03a](note
 | 2026-11-17 23:40 | 26b / 60 phút | Đạt bài 26b: giải quyết triệt để 3/3 incidents thực tế; Case 1 fix bind 0.0.0.0 và kiểm chứng 200 OK; Case 2 bóc tách Silent DROP liên node, xóa rule iptables DROP UDP 8472 Flannel VXLAN trên agent-1; Case 3 bóc tách NetworkPolicy label mismatch, patch tối thiểu và thực chứng Negative control chặn analytics-client; hoàn thành 3 reports riêng biệt và đúc kết Playbook xử lý sự cố mạng [notes/26b.md](notes/26b.md); LLM đã xóa toàn bộ lab tạm | Tự làm / không cần gợi ý | Bắt đầu bài 27a |
 | 2026-11-18 09:55 | 27a / 45 phút | Đạt bài 27a: Spark 3.5.3 on K8s cluster mode; đối chứng Headless Service DNS resolution; đo kiểm placement cross-node (Driver agent-0 IP 10.42.3.88 vs Executor agent-1 IP 10.42.1.76); trích xuất log chứng minh listeners 7078/7079/4040 và BlockManager hai chiều; Pi roughly 3.1414; giữ nfk-27a cho 27b [notes/27a.md](notes/27a.md) | Tự làm / không cần gợi ý | Bắt đầu bài 27b |
 | 2026-11-18 10:40 | 27b / 45 phút | Đạt bài 27b: Spark network incident cross-node; đối chứng Connection refused tại RPC port 7078; phân biệt DNS OK vs TCP RST vs OOM (ExitCode 137); phát hiện NetworkPolicy chặn 7078 và 7079; patch tối thiểu mở 7078/7079; nghiệm thu kết nối 2 chiều và Pi roughly 3.14169; lập báo cáo [notes/incident-27b-spark.md](notes/incident-27b-spark.md) và ghi chú [notes/27b.md](notes/27b.md); xóa sạch namespace nfk-27a | Hint 1 (Định hướng bổ sung port 7079 BlockManager) | Bắt đầu bài 28a |
+| 2026-11-18 11:25 | 28a / 45 phút | Đạt bài 28a: Hoàn thành Network Readiness Report 10 mục cho 4 VM Ubuntu trên VMware; quy hoạch IPAM anti-overlap (Node 192.168.10.0/24, Pod 10.244.0.0/16, Svc 10.96.0.0/16, MetalLB 192.168.10.240/28); phân tích chi tiết connectivity matrix và ranh giới quản trị Guest vs VMware [notes/28a.md](notes/28a.md) | Phân tích cơ chế IPAM và routing drop | Bắt đầu bài 28b |
+| 2026-11-18 11:30 | 28b + Final / 45 phút | Đạt bài 28b và HOÀN THÀNH CỔNG FINAL CHECKPOINT: Bảo vệ thành công toàn diện đồ án Capstone và case study Spark 3.5.3 cross-node; nghiệm thu 7/7 tiêu chí cổng Final; chính thức HOÀN THÀNH TOÀN BỘ 28 BUỔI / 56 BÀI HỌC NETWORKING FOR KUBERNETES [notes/28b.md](notes/28b.md) | Tổng hợp và nghiệm thu toàn diện | Khóa học kết thúc |
