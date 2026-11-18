@@ -10,8 +10,9 @@ Lộ trình dành cho Data Engineer muốn hiểu mạng từ nền tảng đế
   <img src="certificate.jpg" alt="Certificate of Completion - Networking for Kubernetes" width="900" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
+> **Học viên:** Nguyễn Thế Thiện  
 > **Trạng thái:** Đã hoàn thành xuất sắc **56/56 bài học** và đạt toàn bộ **7/7 Cổng đánh giá năng lực độc lập (CP1 đến Final)**.  
-> **Credential ID:** `NFK-2026-FINAL-7B4688B8` · **Ngày cấp:** 18/11/2026 · **Định hướng:** Data Platform & Infrastructure Engineering.  
+> **Credential ID:** `LF-wkqc6ohaig` (`NFK-2026-FINAL-7B4688B8`) · **Ngày cấp:** 18/11/2026.  
 > **Chi tiết tiến độ & bằng chứng:** Xem tại [PROGRESS.md](PROGRESS.md), [notes/28a.md](notes/28a.md) và [notes/28b.md](notes/28b.md).
 
 ---
